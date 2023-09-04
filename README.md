@@ -40,6 +40,10 @@ Senior graduating this semester. Very experienced in programming with Java, C, a
 Gonna be graduating at the end of this semester with a bachelors in computer science. I don't particularly enjoy programming outside of class  (personal projects) but I 'm too far in to switch majors. I can however get done whatever you need of me in our project within any given deadlines. Good grasp of Java and fundamental understanding of python.  I feel very comfortable with Github, but I might need a refresher on testing. I work on campus at the IT Helpdesk most days and have been there a little over a year.
 
 
+### Name: Alex - Team Member
+
+Super senior majoring in Data Science & analytics, part time intern. Goal is to learn something new each day, to get a little more informed each day.
+
 
 ## Acknowledgments
 
