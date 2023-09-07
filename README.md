@@ -1,13 +1,12 @@
-# Team Whatever’s Project
+# Plan-It-Out 
 
-Basic Overview goes here!
+Planner/Scheduling app for you and your friends! 
 
 ## Description
 
-We’re making whatever game we decide on, it’ll be super cool though.
+Lets Plan-It-Out with our awesome planner/scheduling app! Get stuff done, and let your friends know when you're free to game! 
 
-
-## The “Whatever” Team
+## Brought to you by ... Team Whatever: 
 
 ### Kyle Moorhead – Team Lead
 
