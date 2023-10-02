@@ -1,10 +1,10 @@
-# Plan-It-Out 
+# Planned-Out
 
 Planner/Scheduling app for you and your friends! 
 
 ## Description
 
-Lets Plan-It-Out with our awesome planner/scheduling app! Get stuff done, and let your friends know when you're free to game! 
+Things are Planned-Out with our awesome planner/scheduling app! Get stuff done, and let your friends know when you're free to game! 
 
 ## Brought to you by ... Team Whatever: 
 
