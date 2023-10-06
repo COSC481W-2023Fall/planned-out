@@ -64,4 +64,4 @@ We will use the naming convention {PageName}.test.js for our test suites.
 
 ### Backend
 
-I need a backend to create example tests for. I'll update this section when I have one.
+The Backend testing is all ran through "frontend" as of now. This is because most frontend actions will require a REST call to the server. This may be changed later as needed if there are background server tasks that need tested seperately. 
