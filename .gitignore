@@ -11,6 +11,8 @@
 # production
 /build
 
+tests/
+
 # back-end
 node_modules
 
