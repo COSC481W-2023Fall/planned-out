@@ -25,9 +25,9 @@ const Home = () => {
                   onChange={setDate}
                   value={date}
                   calendarType="gregory"
-                  tileContent={({ date, view }) => "\n{task}"} // this is where we can add tasks to the calendar maybe just an indicator dot, not sure
+                  tileContent={({ date, view }) => " {task}"} // this is where we can add tasks to the calendar maybe just an indicator dot, not sure
+                  onClickDay={(value, event) => console.log(value)}
                 />
-                {/*there is an onClickDay handler we can use for task creation */}
               </div>
             </Card>
           </Col>
