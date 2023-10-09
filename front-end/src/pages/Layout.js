@@ -10,7 +10,7 @@ const Layout = () => {
         <>
             <Navbar>
                 <Container>
-                    <Navbar.Brand href="home">Planned-Out</Navbar.Brand>
+                    <Navbar.Brand href="/">Planned-Out</Navbar.Brand>
                     <Nav className="me-auto" variant="pills">
                         <Nav.Item>
                             <LinkContainer to="/">
@@ -18,7 +18,7 @@ const Layout = () => {
                             </LinkContainer>
                         </Nav.Item>
                         <Nav.Item>
-                            <LinkContainer to="/names">
+                            <LinkContainer to="/">
                                 <Button>Example</Button>
                             </LinkContainer>
                         </Nav.Item>

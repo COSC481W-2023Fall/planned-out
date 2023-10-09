@@ -7,3 +7,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+div.tasks-card, div.calendar-card {
+  height: 80vh;
+}
