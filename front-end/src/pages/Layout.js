@@ -14,17 +14,17 @@ const Layout = () => {
                     <Nav className="me-auto" variant="pills">
                         <Nav.Item>
                             <LinkContainer to="/">
-                                <Button>Example</Button>
+                                <Button className="main-nav-button">Home</Button>
                             </LinkContainer>
                         </Nav.Item>
                         <Nav.Item>
                             <LinkContainer to="/">
-                                <Button>Example</Button>
+                                <Button className="main-nav-button">Stats</Button>
                             </LinkContainer>
                         </Nav.Item>
                         <Nav.Item>
                             <LinkContainer to="/">
-                                <Button>Example</Button>
+                                <Button className="main-nav-button">Friends</Button>
                             </LinkContainer>
                         </Nav.Item>
                     </Nav>
