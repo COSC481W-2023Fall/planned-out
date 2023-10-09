@@ -22,11 +22,11 @@ code {
   width: 100px;
 }
 
-/* ----- CARDS ----- */
+/* ----- TASK VIEW ----- */
 div.tasks-card,
 div.calendar-card {
-  height: 80vh;
-  padding: 1em;
+  height: 100%;
+  padding: 1.5em;
   border-radius: 24px;
 }
 
@@ -45,4 +45,18 @@ div.task {
 
 div.task label {
   text-decoration: none;
+}
+
+.d-flex {
+  flex-grow: 1;
+}
+
+.col {
+  height: 80vh;
+}
+
+div.tasks-card button {
+  width: 50%;
+  margin: auto;
+  border-radius: 24px;
 }

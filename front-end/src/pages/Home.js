@@ -4,6 +4,7 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 function CheckBox({ taskname, id }) {
     return (
@@ -28,15 +29,25 @@ const Home = () => {
             <Container>
                 <Row>
                     <Col>
+                    {/* Tasks Card */}
                         <Card className="tasks-card">
-                            <Card.Title>Tasks</Card.Title>
+                            <Card.Title>Today's Tasks</Card.Title>
+                            {/* List of Tasks */}
                             <ListGroup className="task-list">
                                 {/* For loop for each task in the tasks list */}
                                 {tasksList
                                     .map((task) => (
-                                        <CheckBox className="task" id={"task" + tasksList.indexOf(task)} taskname={task}></CheckBox>
+                                        <CheckBox 
+                                        className="task" 
+                                        id={"task" + tasksList.indexOf(task)} 
+                                        taskname={task}>
+                                        </CheckBox>
                                     ))}
                             </ListGroup>
+                            {/* Spacer */}
+                            <div className="d-flex flex-column"></div>
+                            {/* Add a task button */}
+                            <Button id="add-task-button">Add a task +</Button>
                         </Card>
                     </Col>
                     <Col sm={8}>
