@@ -23,3 +23,14 @@ app.get("/hello-world", async (req, res) => {
     res.send(data);
     console.log(data.message);
 });
+
+app.post("/add", async (req, res) => {
+    let newDocument = {
+        taskName: req.body.name,
+        taskDate: req.body.date,
+        taskDesc: req.body.desc
+      };
+      let collection = await db.collection("Tasks");
+      let result = await collection.insertOne(newDocument);
+      res.send(result).status(204);
+});
