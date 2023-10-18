@@ -5,6 +5,7 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { useEffect, useState } from "react";
 
 function CheckBox({ taskname, id }) {
     return (
@@ -14,15 +15,23 @@ function CheckBox({ taskname, id }) {
     );
 }
 
-const tasksList = [
+/* const tasksList = [
     'Take the dog for a walk',
     'Clean the kitchen',
     'Get groceries',
     'Make dinner',
     'Complete homework for class'
-]
+] */
 
 const Home = () => {
+
+    const [tasksList, setTaskList] = useState([]);
+
+    useEffect(() => {
+      fetch("http://localhost:5050/")
+        .then((res) => res.json())
+        .then((data) => setTaskList(data));
+    }, []);
 
     return (
         <div className="App">

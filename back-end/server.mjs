@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import data from "./message.json" assert { "type": "json"}
+import db from "./db/conn.mjs";
 
 
 const PORT = process.env.PORT || 5050;
@@ -16,7 +17,18 @@ app.listen(PORT, () => {
 
 app.get("/", async (req, res) => {
     console.log("GET / request")
-    res.send("Welcome to the Server!").status(200)
+
+    console.log("Hello")
+    let collection = await db.collection("Tasks");
+    console.log("Hello1")
+    let results = await collection.find( {} ).toArray();
+    console.log("Hello2")
+    for (var i = 0; i < results.length; i++) {
+      results[i] = results[i].taskName;
+      console.log(results);
+    }
+
+    res.send(results).status(200)
 });
 
 app.get("/hello-world", async (req, res) => {
