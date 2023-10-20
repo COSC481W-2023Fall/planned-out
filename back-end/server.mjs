@@ -16,22 +16,39 @@ app.listen(PORT, () => {
 });
 
 app.get("/", async (req, res) => {
-    console.log("GET / request")
+  console.log("GET / request")
 
-    console.log("Hello")
-    let collection = await db.collection("Tasks");
-    console.log("Hello1")
-    let results = await collection.find( {} ).toArray();
-    console.log("Hello2")
-    // for (var i = 0; i < results.length; i++) {
-    //   results[i] = results[i].taskName;
-    //   console.log(results);
-    // }
+  let collection = await db.collection("Tasks");
+  let results = await collection.find({}).toArray();
+  // for (var i = 0; i < results.length; i++) {
+  //   results[i] = results[i].taskName;
+  //   console.log(results);
+  // }
 
-    res.send(results).status(200)
+  res.send(results).status(200)
 });
 
 app.get("/hello-world", async (req, res) => {
-    res.send(data);
-    console.log(data.message);
+  res.send(data);
+  console.log(data.message);
+});
+
+app.put("/updatetask/:id", async (req, res) => {
+  let collection = await db.collection("Tasks");
+  const taskID = req.body.id;
+  let newStatus = req.body.status;
+
+  if (newStatus != null) {
+    const result = await db.collection("Tasks").updateOne(
+      { "taskName": req.body.name},
+      { $set: { "taskStatus": newStatus } }
+    );
+
+    res.send(result).status(204);
+    console.log(result);
+  }
+  else {
+    console.log("ERROR: The new status is null");
+  }
+  console.log("ID: " + taskID + " New Status: " + newStatus);
 });

@@ -8,28 +8,30 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react";
 
+
 const Home = () => {
-  function CheckBox({ taskname, id, taskStatus }) {
+
+  function CheckBox({ id, taskID, taskName, taskDate, taskDesc, taskStatus }) {
     let labelID = id + 'label';
     let checkedID = id + 'checked';
 
     if (taskStatus.toLowerCase() === 'complete') {
       return (
         <InputGroup>
-          <Form.Check checked='true' onChange={handleChecked(checkedID, labelID)} type='checkbox' id={checkedID} />
-          <label className={'checked'} id={labelID} htmlFor={id}>{taskname}</label>
+          <Form.Check checked='checked' onChange={handleChecked(id, labelID, taskID, taskName, taskDate, taskDesc, taskStatus)} type='checkbox' id={checkedID} />
+          <label className={'checked'} id={labelID} htmlFor={id}>{taskName}</label>
         </InputGroup>
       )
     }
     return (
       <InputGroup>
-        <Form.Check onChange={handleChecked(id, labelID)} type='checkbox' id={id} />
-        <label className={'unchecked'} id={labelID} htmlFor={id}>{taskname}</label>
+        <Form.Check onChange={handleChecked(id, labelID, taskID, taskName, taskDate, taskDesc, taskStatus)} type='checkbox' id={id} />
+        <label className={'unchecked'} id={labelID} htmlFor={id}>{taskName}</label>
       </InputGroup>
     );
   }
 
-  const handleChecked = (checkID, labelID) => (event) => {
+  const handleChecked = (checkID, labelID, taskID, taskName, taskDate, taskDesc, taskStatus) => (event) => {
     let label = document.getElementById(labelID);
 
     if (checkID.includes('checked')) {
@@ -37,15 +39,30 @@ const Home = () => {
     }
 
     if (label.className === "checked") {
-      // TODO: Mark the task as incomplete in the database
+      taskStatus = "Incomplete";
       label.className = "unchecked";
-      //checkBox.checked = false;
     }
     else if (label.className === "unchecked") {
-      // TODO: Mark the task as completed in the database
+      taskStatus = "Complete";
       label.className = "checked";
-      //checkBox.checked = true;
     }
+    let fetchRequest = "http://localhost:5050/updatetask/:" + taskID;
+
+    // TODO: Mark the task as incomplete in the database
+    fetch(fetchRequest, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: taskID, name: taskName, date: taskDate, desc: taskDesc, status: taskStatus }),
+    })
+      .then((res) => {
+        res.json();
+      })
+      .then((data) => {
+      });
+
+    console.log("Successfully updated task!")
   }
 
   const [tasksList, setTaskList] = useState([]);
@@ -79,7 +96,10 @@ const Home = () => {
                       <CheckBox
                         className="task"
                         id={"task" + tasksList.indexOf(task)}
-                        taskname={task.taskName}
+                        taskID={task._id}
+                        taskName={task.taskName}
+                        taskDate={task.taskDate}
+                        taskDesc={task.taskDesc}
                         taskStatus={task.taskStatus}>
                       </CheckBox>
                     </ListGroup.Item>
