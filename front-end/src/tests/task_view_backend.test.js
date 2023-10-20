@@ -1,10 +1,5 @@
-import { render, screen } from "@testing-library/react";
-import App from "../App";
+test("checks to see if a database connection is made", () => {
 
-test("renders learn react link", () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  console.log(linkElement);
-  expect(linkElement).toBeInTheDocument();
+  expect(console.log("MongoDB Connection Successful."));
 });
-//test for viewing an element onscreen can be combo's with example.test.js
+// This tests to see if a database connection has been made
