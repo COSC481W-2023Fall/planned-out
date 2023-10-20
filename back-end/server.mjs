@@ -23,10 +23,10 @@ app.get("/", async (req, res) => {
     console.log("Hello1")
     let results = await collection.find( {} ).toArray();
     console.log("Hello2")
-    for (var i = 0; i < results.length; i++) {
-      results[i] = results[i].taskName;
-      console.log(results);
-    }
+    // for (var i = 0; i < results.length; i++) {
+    //   results[i] = results[i].taskName;
+    //   console.log(results);
+    // }
 
     res.send(results).status(200)
 });

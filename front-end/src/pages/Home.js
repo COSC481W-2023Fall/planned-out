@@ -9,24 +9,42 @@ import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react";
 
 const Home = () => {
-  function CheckBox({ taskname, id }) {
+  function CheckBox({ taskname, id, taskStatus }) {
     let labelID = id + 'label';
+    let checkedID = id + 'checked';
+
+    if (taskStatus.toLowerCase() === 'complete') {
+      return (
+        <InputGroup>
+          <Form.Check checked='true' onChange={handleChecked(checkedID, labelID)} type='checkbox' id={checkedID} />
+          <label className={'checked'} id={labelID} htmlFor={id}>{taskname}</label>
+        </InputGroup>
+      )
+    }
     return (
       <InputGroup>
-        <Form.Check onClick={handleChecked(labelID)} type='checkbox' id={id} />
-        <label className={"unchecked"} id={labelID} htmlFor={id}>{taskname}</label>
+        <Form.Check onChange={handleChecked(id, labelID)} type='checkbox' id={id} />
+        <label className={'unchecked'} id={labelID} htmlFor={id}>{taskname}</label>
       </InputGroup>
     );
   }
 
-  const handleChecked = (labelID) => (event) => {
+  const handleChecked = (checkID, labelID) => (event) => {
     let label = document.getElementById(labelID);
 
+    if (checkID.includes('checked')) {
+      return;
+    }
+
     if (label.className === "checked") {
+      // TODO: Mark the task as incomplete in the database
       label.className = "unchecked";
+      //checkBox.checked = false;
     }
     else if (label.className === "unchecked") {
+      // TODO: Mark the task as completed in the database
       label.className = "checked";
+      //checkBox.checked = true;
     }
   }
 
@@ -50,7 +68,7 @@ const Home = () => {
               <ListGroup className="task-list">
                 <ListGroup.Item className="task">
                   <InputGroup>
-                    <Form.Check onClick={handleChecked('testtasklabel')} type='checkbox' id='testtask' />
+                    <Form.Check onClick={handleChecked('testtask', 'testtasklabel')} type='checkbox' id='testtask' />
                     <label className={"unchecked"} id='testtasklabel' htmlFor='testtask'>This is a test task</label>
                   </InputGroup>
                 </ListGroup.Item>
@@ -61,7 +79,8 @@ const Home = () => {
                       <CheckBox
                         className="task"
                         id={"task" + tasksList.indexOf(task)}
-                        taskname={task}>
+                        taskname={task.taskName}
+                        taskStatus={task.taskStatus}>
                       </CheckBox>
                     </ListGroup.Item>
                   ))}
