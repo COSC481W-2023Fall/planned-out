@@ -7,11 +7,13 @@ import { useEffect, useState } from "react";
 
 const Home = () => {
   const [date, setDate] = useState(new Date());
-  
+  const [tasks, setTasks] = useState([]); // this is where we can store the tasks from the database
+
   useEffect(() => {
     fetch("http://localhost:5050/")
       .then((res) => res.json())
-      .then((data) => setDate(data));
+      // .then((data) => console.log(data))
+      .then((data) => setTasks(data));
   }, []);
 
   return (
@@ -31,8 +33,24 @@ const Home = () => {
                   onChange={setDate}
                   value={date}
                   calendarType="gregory"
-                  tileContent={({ date, view }) => " {task}"} // this is where we can add tasks to the calendar maybe just an indicator dot, not sure
                   onClickDay={(value, event) => console.log(value)}
+                  tileContent={({ date }) => {
+                    if (tasks) {
+                      // Convert the date to a string in "MM-DD-YYYY" format
+                      const formattedDate = `${
+                        date.getMonth() + 1
+                      }-${date.getDate()}-${date.getFullYear()}`;
+
+                      // Check if there is a task for the selected date
+                      const hasTask = tasks.some(
+                        (task) => task.taskDate === formattedDate
+                      );
+
+                      // Render a custom content if there is a task, otherwise return null
+                      return hasTask ? " 📃" : null;
+                    }
+                    return null;
+                  }}
                 />
               </div>
             </Card>
