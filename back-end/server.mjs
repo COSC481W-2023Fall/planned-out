@@ -28,7 +28,8 @@ app.post("/add", async (req, res) => {
     let newDocument = {
         taskName: req.body.name,
         taskDate: req.body.date,
-        taskDesc: req.body.desc
+        taskDesc: req.body.desc,
+        taskStatus: "Incomplete"
       };
       let collection = await db.collection("Tasks");
       let result = await collection.insertOne(newDocument);
