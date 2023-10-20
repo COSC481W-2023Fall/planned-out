@@ -16,7 +16,7 @@ const Home = () => {
     const inputBox = useRef(null);
 
     const handleSubmit = (e) => {
-
+        console.log("Test Task Add")
         if (taskName !== "" && taskDate !== "") {
             // Send the name input to the server
             fetch("http://localhost:5050/add", {
