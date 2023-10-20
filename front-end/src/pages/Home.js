@@ -78,7 +78,7 @@ const Home = () => {
                             <DatePicker
                                 showIcon
                                 className="taskDateBox"
-                                value={taskDate}
+                                selected={taskDate}
                                 onChange={(date) => handleDateInput(date, date.getMonth() + 1, date.getDate(), date.getFullYear())}
                                 placeholderText="Select a date"
                                 dateformat="mm-dd-yyyy"
