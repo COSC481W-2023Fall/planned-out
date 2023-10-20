@@ -13,29 +13,44 @@ const Home = () => {
     const inputBox = useRef(null);
 
     const handleSubmit = (e) => {
-        // Send the name input to the server
-        fetch("http://localhost:5050/add", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name: taskName, date: taskDate, desc: taskDesc }),
-        })
+
+        if (taskDate !== "Incorrect Date Input") {
+            // Send the name input to the server
+            fetch("http://localhost:5050/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ name: taskName, date: taskDate, desc: taskDesc }),
+            })
             .then((res) => {
                 res.json();
                 // Empty the name input value for re-use
-
             })
             .then((data) => {
             });
+            console.log("Successfully added task!")
+        }
+        else {
+            console.log("Error in Date")
+        }
     };
 
     const handleNameInput = (e) => {
         setNameInput(e.target.value);
     };
 
+    // Verifying date format is correct to push to database.
     const handleDateInput = (e) => {
-        setDateInput(e.target.value);
+        if (e.target.value.search(/^\d{2}-\d{2}-\d{4}/) === 0) {
+            setDateInput(e.target.value);
+            console.log("Correct Date Format")
+        }
+        else {
+            setDateInput("Incorrect Date Input")
+            console.log("Incorrect Date Format")
+            // Incorrect date value error - show up on page somewhere.
+        }
     };
 
     const handleDescInput = (e) => {
@@ -49,6 +64,7 @@ const Home = () => {
                     <Col>
                         <Card className="tasks-card">
                             <Card.Title>Tasks</Card.Title>
+
                             <Form.Control
                                 ref={inputBox}
                                 defaultValue={taskName}
@@ -58,14 +74,14 @@ const Home = () => {
                             <Form.Control
                                 ref={inputBox}
                                 defaultValue={taskDate}
-                                placeholder="Enter your taskDate"
-                                onChange={(e) => handleDateInput(e)}
+                                placeholder="Enter your task date: mm-dd-yyyy"
+                                onBlur={(e) => handleDateInput(e)}
                             />
 
                             <Form.Control
                                 ref={inputBox}
                                 defaultValue={taskDesc}
-                                placeholder="Enter your taskDate"
+                                placeholder="Enter your task description"
                                 onChange={(e) => handleDescInput(e)}
                             />
                             <Button onClick={(e) => handleSubmit(e)}>Submit!</Button>
