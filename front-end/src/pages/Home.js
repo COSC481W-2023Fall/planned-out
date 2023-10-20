@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
+/*import './TaskCard.css';*/
 
 const Home = () => {
     const [taskName, setNameInput] = useState(""); // New state for the name input
@@ -48,25 +49,33 @@ const Home = () => {
                 <Row>
                     <Col>
                         <Card className="tasks-card">
-                            <Card.Title>Tasks</Card.Title>
+                            <Card.Title>New Task</Card.Title>
                             <Form.Control
                                 ref={inputBox}
                                 defaultValue={taskName}
-                                placeholder="Enter your name"
+                                placeholder="Enter task name"
                                 onChange={(e) => handleNameInput(e)}
                             />
                             <Form.Control
                                 ref={inputBox}
                                 defaultValue={taskDate}
-                                placeholder="Enter your taskDate"
+                                placeholder="Enter date for task"
+                                onChange={(e) => handleDateInput(e)}
+                            />
+
+                            <Form.Control
+                                ref={inputBox}
+                                defaultValue={taskDate}
+                                placeholder="Enter time for task"
                                 onChange={(e) => handleDateInput(e)}
                             />
 
                             <Form.Control
                                 ref={inputBox}
                                 defaultValue={taskDesc}
-                                placeholder="Enter your taskDate"
+                                placeholder="Enter task description"
                                 onChange={(e) => handleDescInput(e)}
+                                className="taskDescBox"
                             />
                             <Button onClick={(e) => handleSubmit(e)}>Submit!</Button>
 

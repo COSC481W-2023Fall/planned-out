@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+
+  /*-----TASK MAKE CARD-----*/
+
+  .tasks-card {
+   /* 
+   TEST - DELETE LATER
+   transition: 0.3s;
+    width: 40%;
+    border-radius: 5px; /*Gives card rounded corners*/
+    background-color: rgb(2, 0, 0)
+  }
+
+  .container {
+    padding: 2px 16px; /* creates margins */
+  }
+
+  .input {
+    /* class for affecting input boxes*/
+    }
