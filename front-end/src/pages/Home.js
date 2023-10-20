@@ -15,22 +15,14 @@ function CheckBox({ taskname, id }) {
     );
 }
 
-/* const tasksList = [
-    'Take the dog for a walk',
-    'Clean the kitchen',
-    'Get groceries',
-    'Make dinner',
-    'Complete homework for class'
-] */
-
 const Home = () => {
 
     const [tasksList, setTaskList] = useState([]);
 
     useEffect(() => {
-      fetch("http://localhost:5050/")
-        .then((res) => res.json())
-        .then((data) => setTaskList(data));
+        fetch("http://localhost:5050/")
+            .then((res) => res.json())
+            .then((data) => setTaskList(data));
     }, []);
 
     return (
@@ -38,18 +30,21 @@ const Home = () => {
             <Container>
                 <Row>
                     <Col>
-                    {/* Tasks Card */}
+                        {/* Tasks Card */}
                         <Card className="tasks-card">
                             <Card.Title>Today's Tasks</Card.Title>
                             {/* List of Tasks */}
                             <ListGroup className="task-list">
+                                <ListGroup.Item className="task">
+                                    <Form.Check type='checkbox' label="This is a test task"/>
+                                </ListGroup.Item>
                                 {/* For loop for each task in the tasks list */}
                                 {tasksList
                                     .map((task) => (
-                                        <CheckBox 
-                                        className="task" 
-                                        id={"task" + tasksList.indexOf(task)} 
-                                        taskname={task}>
+                                        <CheckBox
+                                            className="task"
+                                            id={"task" + tasksList.indexOf(task)}
+                                            taskname={task}>
                                         </CheckBox>
                                     ))}
                             </ListGroup>

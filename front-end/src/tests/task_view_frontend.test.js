@@ -1,8 +1,11 @@
 import { render, screen } from "@testing-library/react";
-import App from "../App";
+import Home from "../pages/Home";
 
-test("Button puts 'Hello World!' in console", () => {
-  render(<App />);
 
-  expect(console.log("Hello World!"));
+test("Tasks render on page", () => {
+  render(<Home/>);
+
+  const firstTask = screen.getByText(/This is a test task/i);
+
+  expect(firstTask).toBeInTheDocument();
 });
