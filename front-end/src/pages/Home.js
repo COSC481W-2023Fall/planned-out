@@ -3,10 +3,16 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Calendar from "react-calendar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const [date, setDate] = useState(new Date());
+  
+  useEffect(() => {
+    fetch("http://localhost:5050/")
+      .then((res) => res.json())
+      .then((data) => setDate(data));
+  }, []);
 
   return (
     <div className="App">
