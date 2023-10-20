@@ -85,6 +85,7 @@ const Home = () => {
                             />
 
                             <Form.Control
+                                as="textarea"
                                 ref={inputBox}
                                 value={taskDesc}
                                 placeholder="Enter task description"
