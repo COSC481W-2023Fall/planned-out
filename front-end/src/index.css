@@ -48,6 +48,7 @@ div.task {
 }
 
 div.task label {
+  display: inline-block;
   text-decoration: none;
 }
 
@@ -63,4 +64,18 @@ div.tasks-card button {
   width: 50%;
   margin: auto;
   border-radius: 24px;
+}
+
+.unchecked {
+  text-decoration: none !important;
+  color: black;
+}
+
+.checked {
+  text-decoration: line-through !important;
+  color: grey;
+}
+
+.form-check-input[type="checkbox"] {
+  margin-right: 1em;
 }
