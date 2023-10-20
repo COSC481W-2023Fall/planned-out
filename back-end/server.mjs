@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import data from "./message.json" assert { "type": "json"}
+import db from "../back-end/database/conn.mjs"
 
 
 const PORT = process.env.PORT || 5050;

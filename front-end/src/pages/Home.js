@@ -5,36 +5,42 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-/*import './TaskCard.css';*/
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Home = () => {
     const [taskName, setNameInput] = useState(""); // New state for the name input
-    const [taskDate, setDateInput] = useState(""); // New state for the name input
+    const [taskDate, setDateInput] = useState("");
+    const [taskDateOut, setDateOutput] = useState("")
     const [taskDesc, setDescInput] = useState(""); // New state for the name input
     const inputBox = useRef(null);
 
     const handleSubmit = (e) => {
 
-        if (taskDate !== "Incorrect Date Input") {
+        if (taskName !== "" && taskDate !== "") {
             // Send the name input to the server
             fetch("http://localhost:5050/add", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ name: taskName, date: taskDate, desc: taskDesc }),
+                body: JSON.stringify({ name: taskName, date: taskDateOut, desc: taskDesc }),
             })
-            .then((res) => {
-                res.json();
-                // Empty the name input value for re-use
-            })
-            .then((data) => {
-            });
+                .then((res) => {
+                    res.json();
+                })
+                .then((data) => {
+                });
+
             console.log("Successfully added task!")
         }
         else {
-            console.log("Error in Date")
+            alert("Task must be named and have a date.")
         }
+        setNameInput("")
+        setDateInput("")
+        setDateOutput("")
+        setDescInput("")
     };
 
     const handleNameInput = (e) => {
@@ -42,16 +48,11 @@ const Home = () => {
     };
 
     // Verifying date format is correct to push to database.
-    const handleDateInput = (e) => {
-        if (e.target.value.search(/^\d{2}-\d{2}-\d{4}/) === 0) {
-            setDateInput(e.target.value);
-            console.log("Correct Date Format")
-        }
-        else {
-            setDateInput("Incorrect Date Input")
-            console.log("Incorrect Date Format")
-            // Incorrect date value error - show up on page somewhere.
-        }
+    const handleDateInput = (date, month, day, year) => {
+        let formattedDate = month + "-" + day + "-" + year
+        console.log(formattedDate)
+        setDateOutput(formattedDate)
+        setDateInput(date)
     };
 
     const handleDescInput = (e) => {
@@ -63,37 +64,34 @@ const Home = () => {
             <Container>
                 <Row>
                     <Col>
-                        <Card className="tasks-card">
+                        <Card className="tasks-add">
                             <Card.Title>New Task</Card.Title>
 
                             <Form.Control
                                 ref={inputBox}
-                                defaultValue={taskName}
+                                className="taskNameBox"
+                                value={taskName}
                                 placeholder="Enter task name"
                                 onChange={(e) => handleNameInput(e)}
                             />
-                            <Form.Control
-                                ref={inputBox}
-                                defaultValue={taskDate}
-                                placeholder="Enter date for task"
-                                onChange={(e) => handleDateInput(e)}
+
+                            <DatePicker
+                                showIcon
+                                className="taskDateBox"
+                                value={taskDate}
+                                onChange={(date) => handleDateInput(date, date.getMonth() + 1, date.getDate(), date.getFullYear())}
+                                placeholderText="Select a date"
+                                dateformat="mm-dd-yyyy"
                             />
 
                             <Form.Control
                                 ref={inputBox}
-                                defaultValue={taskDate}
-                                onChange={(e) => handleDateInput(e)}
-                                placeholder="Enter your task date: mm-dd-yyyy"
-                                onBlur={(e) => handleDateInput(e)}
-                            />
-
-                            <Form.Control
-                                ref={inputBox}
-                                defaultValue={taskDesc}
+                                value={taskDesc}
                                 placeholder="Enter task description"
                                 onChange={(e) => handleDescInput(e)}
                                 className="taskDescBox"
                             />
+
                             <Button onClick={(e) => handleSubmit(e)}>Submit!</Button>
 
                         </Card>
