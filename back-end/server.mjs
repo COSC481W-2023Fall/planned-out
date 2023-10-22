@@ -25,3 +25,35 @@ app.get("/hello-world", async (req, res) => {
   res.send(data);
   console.log(data.message);
 });
+
+app.post("/add", async (req, res) => {
+  let newDocument = {
+      taskName: req.body.name,
+      taskDate: req.body.date,
+      taskDesc: req.body.desc,
+      taskStatus: "Incomplete"
+    };
+    let collection = await db.collection("Tasks");
+    let result = await collection.insertOne(newDocument);
+    res.send(result).status(204);
+});
+
+app.put("/updatetask/:id", async (req, res) => {
+  let collection = await db.collection("Tasks");
+  const taskID = req.body.id;
+  let newStatus = req.body.status;
+
+  if (newStatus != null) {
+    const result = await db.collection("Tasks").updateOne(
+      { "taskName": req.body.name},
+      { $set: { "taskStatus": newStatus } }
+    );
+
+    res.send(result).status(204);
+    console.log(result);
+  }
+  else {
+    console.log("ERROR: The new status is null");
+  }
+  console.log("ID: " + taskID + " New Status: " + newStatus);
+});
