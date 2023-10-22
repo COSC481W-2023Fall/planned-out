@@ -10,7 +10,7 @@ const Home = () => {
   const [tasks, setTasks] = useState([]); // this is where we can store the tasks from the database
 
   useEffect(() => {
-    fetch("http://localhost:5050/")
+    fetch("https://planned-out.tech/")
       .then((res) => res.json())
       // .then((data) => console.log(data))
       .then((data) => setTasks(data));
