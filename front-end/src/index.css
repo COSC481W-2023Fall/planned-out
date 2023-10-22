@@ -30,6 +30,7 @@ code {
 }
 
 /* ----- CARDS ----- */
+div.tasks-card, div.tasks-add, div.calendar-card 
 div.tasks-card,
 div.react-calendar {
   height: 80vh;
@@ -37,6 +38,32 @@ div.react-calendar {
   border-radius: 24px;
 }
 
+ .taskDescBox{
+  height: 25%
+ }
+
+ .taskNameBox {
+    margin-top: 5%;
+ }
+
+ div.tasks-add button {
+    width: 50%;
+    margin: 5% auto 0px auto;
+    border-radius: 24px;
+    background-color: var(--bs-btn-active-bg);
+  }
+
+  .react-datepicker__view-calendar-icon input {
+    border: 1px solid lightgray;
+    border-radius: var(--bs-border-radius);
+    width: 100%;
+  }
+
+  div.tasks-add .taskDescBox, .taskNameBox {
+    margin-top:5%;
+    margin-bottom:5%;
+  }
+ 
 .react-calendar {
   text-align: center;
 }
