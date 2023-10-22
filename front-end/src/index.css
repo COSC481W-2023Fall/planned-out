@@ -30,7 +30,7 @@ code {
 }
 
 /* ----- CARDS ----- */
-div.tasks-card, div.tasks-add, div.calendar-card {
+div.tasks-card, div.tasks-add, div.calendar-card 
 div.tasks-card,
 div.react-calendar {
   height: 80vh;

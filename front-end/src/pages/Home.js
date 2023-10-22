@@ -8,7 +8,6 @@ import Card from "react-bootstrap/Card";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Calendar from "react-calendar";
-import { useEffect, useState } from "react";
 
 const Home = () => {
     const [taskName, setNameInput] = useState(""); // New state for the name input
