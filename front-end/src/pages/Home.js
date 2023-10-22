@@ -10,12 +10,12 @@ const Home = () => {
   const [tasks, setTasks] = useState([]); // this is where we can store the tasks from the database
 
   useEffect(() => {
-    fetch("https://planned-out.onrender.com")
+    fetch("https://planned-out-backend.onrender.com/")
       .then((res) => res.json())
-      .then((data) => console.log(data))
       .then((data) => setTasks(data));
   }, []);
 
+  console.log(tasks);
   return (
     <div className="App">
       <Container>
