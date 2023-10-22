@@ -1,10 +1,17 @@
+:root {
+  --default-color: #98d498;
+  --default-hover: #627262;
+  --default-click: #a5c1a5;
+  --default-nextMonth: #dfdfdf;
+}
+
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -24,6 +31,8 @@ code {
 
 /* ----- CARDS ----- */
 div.tasks-card, div.tasks-add, div.calendar-card {
+div.tasks-card,
+div.react-calendar {
   height: 80vh;
   padding: 1em;
   border-radius: 24px;
@@ -55,3 +64,73 @@ div.tasks-card, div.tasks-add, div.calendar-card {
     margin-bottom:5%;
   }
  
+.react-calendar {
+  text-align: center;
+}
+.react-calendar__navigation {
+  margin-bottom: 1em;
+  display: flex;
+}
+.react-calendar__navigation__label {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.react-calendar__navigation__arrow {
+  font-size: 1.5em;
+  flex-grow: 0.333;
+}
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  abbreviation {
+    text-decoration: none;
+  }
+}
+button {
+  margin: 2px;
+  background-color: var(--default-color);
+  border: 0;
+  color: white;
+  height: 9vh;
+  &:hover {
+    background-color: var(--default-hover);
+  }
+
+  &:active {
+    background-color: var(--default-click);
+  }
+}
+/* ~~~ day grid styles ~~~ */
+.react-calendar__month-view__days {
+  display: grid !important;
+  grid-template-columns: 14.2% 14.2% 14.2% 14.2% 14.2% 14.2% 14.2%;
+
+  .react-calendar__tile {
+    max-width: initial !important;
+  }
+}
+/* ~~~ neighboring month & weekend styles ~~~ */
+.react-calendar__month-view__days__day--neighboringMonth {
+  opacity: 0.6;
+}
+.react-calendar__month-view__days__day--weekend {
+  color: --;
+}
+
+/* ~~~ active day styles ~~~ */
+.react-calendar__tile--range {
+  box-shadow: 0 0 6px 2px black;
+}
+/* ~~~ other view styles ~~~ */
+.react-calendar__year-view__months,
+.react-calendar__decade-view__years,
+.react-calendar__century-view__decades {
+  display: grid !important;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+
+  &.react-calendar__year-view__months {
+    grid-template-columns: 33.3% 33.3% 33.3%;
+  }
+  .react-calendar__tile {
+    max-width: initial !important;
+  }
+}

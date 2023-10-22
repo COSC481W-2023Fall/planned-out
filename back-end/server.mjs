@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import db from "../back-end/database/conn.mjs"
-
+import data from "./message.json" assert { "type": "json" };
+import db from "./db/conn.mjs";
 
 const PORT = process.env.PORT || 5050;
 const app = express();
@@ -15,23 +15,13 @@ app.listen(PORT, () => {
 });
 
 app.get("/", async (req, res) => {
-    console.log("GET / request")
-    res.send("Welcome to the Server!").status(200)
+  let collection = await db.collection("Tasks");
+  let results = await collection.find({}).toArray();
+  console.log("results: ", results);
+  res.send(results).status(200);
 });
 
 app.get("/hello-world", async (req, res) => {
-    res.send(data);
-    console.log(data.message);
-});
-
-app.post("/add", async (req, res) => {
-    let newDocument = {
-        taskName: req.body.name,
-        taskDate: req.body.date,
-        taskDesc: req.body.desc,
-        taskStatus: "Incomplete"
-      };
-      let collection = await db.collection("Tasks");
-      let result = await collection.insertOne(newDocument);
-      res.send(result).status(204);
+  res.send(data);
+  console.log(data.message);
 });

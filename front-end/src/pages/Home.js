@@ -7,6 +7,8 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Calendar from "react-calendar";
+import { useEffect, useState } from "react";
 
 const Home = () => {
     const [taskName, setNameInput] = useState(""); // New state for the name input
@@ -58,14 +60,23 @@ const Home = () => {
     const handleDescInput = (e) => {
         setDescInput(e.target.value);
     };
+  const [date, setDate] = useState(new Date());
+  const [tasks, setTasks] = useState([]); // this is where we can store the tasks from the database
 
-    return (
-        <div className="App">
-            <Container>
-                <Row>
-                    <Col>
-                        <Card className="tasks-add">
-                            <Card.Title>New Task</Card.Title>
+  useEffect(() => {
+    fetch("http://localhost:5050/")
+      .then((res) => res.json())
+      // .then((data) => console.log(data))
+      .then((data) => setTasks(data));
+  }, []);
+
+  return (
+    <div className="App">
+      <Container>
+        <Row>
+          <Col>
+            <Card className="tasks-add">
+              <Card.Title>New Task</Card.Title>
 
                             <Form.Control
                                 ref={inputBox}
@@ -95,17 +106,42 @@ const Home = () => {
 
                             <Button onClick={(e) => handleSubmit(e)}>Submit!</Button>
 
-                        </Card>
-                    </Col>
-                    <Col sm={8}>
-                        <Card className="calendar-card">
-                            <Card.Title>Calendar</Card.Title>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
-    );
+            </Card>
+          </Col>
+          <Col sm={8}>
+            <Card className="react-calendar">
+              <Card.Title>Calendar</Card.Title>
+              <div className="calendar-container">
+                <Calendar
+                  onChange={setDate}
+                  value={date}
+                  calendarType="gregory"
+                  onClickDay={(value, event) => console.log(value)}
+                  tileContent={({ date }) => {
+                    if (tasks) {
+                      // Convert the date to a string in "MM-DD-YYYY" format
+                      const formattedDate = `${
+                        date.getMonth() + 1
+                      }-${date.getDate()}-${date.getFullYear()}`;
+
+                      // Check if there is a task for the selected date
+                      const hasTask = tasks.some(
+                        (task) => task.taskDate === formattedDate
+                      );
+
+                      // Render a custom content if there is a task, otherwise return null
+                      return hasTask ? " 📃" : null;
+                    }
+                    return null;
+                  }}
+                />
+              </div>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
 };
 
 export default Home;
