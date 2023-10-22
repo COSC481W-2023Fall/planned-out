@@ -10,9 +10,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import Calendar from "react-calendar";
 import ListGroup from "react-bootstrap/ListGroup";
 import InputGroup from "react-bootstrap/InputGroup";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import { useEffect, useState } from "react";
 
 
 const Home = () => {
@@ -208,8 +205,32 @@ const Home = () => {
             </Card>
           </Col>
           <Col sm={8}>
-            <Card className="calendar-card">
+            <Card className="react-calendar">
               <Card.Title>Calendar</Card.Title>
+              <div className="calendar-container">
+                <Calendar
+                  onChange={setDate}
+                  value={date}
+                  calendarType="gregory"
+                  onClickDay={(value, event) => console.log(value)}
+                  tileContent={({ date }) => {
+                    if (tasks) {
+                      // Convert the date to a string in "MM-DD-YYYY" format
+                      const formattedDate = `${date.getMonth() + 1
+                        }-${date.getDate()}-${date.getFullYear()}`;
+
+                      // Check if there is a task for the selected date
+                      const hasTask = tasks.some(
+                        (task) => task.taskDate === formattedDate
+                      );
+
+                      // Render a custom content if there is a task, otherwise return null
+                      return hasTask ? " 📃" : null;
+                    }
+                    return null;
+                  }}
+                />
+              </div>
             </Card>
           </Col>
         </Row>

@@ -26,6 +26,18 @@ app.get("/hello-world", async (req, res) => {
   console.log(data.message);
 });
 
+app.post("/add", async (req, res) => {
+  let newDocument = {
+      taskName: req.body.name,
+      taskDate: req.body.date,
+      taskDesc: req.body.desc,
+      taskStatus: "Incomplete"
+    };
+    let collection = await db.collection("Tasks");
+    let result = await collection.insertOne(newDocument);
+    res.send(result).status(204);
+});
+
 app.put("/updatetask/:id", async (req, res) => {
   let collection = await db.collection("Tasks");
   const taskID = req.body.id;
