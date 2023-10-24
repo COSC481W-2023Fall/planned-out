@@ -22,7 +22,7 @@ const Home = () => {
     console.log("Test Task Add");
     if (taskName !== "" && taskDate !== "") {
       // Send the name input to the server
-      fetch("https://planned-out-backend.onrender.com/add", {
+      fetch("https://planned-out-backend-jdx6.onrender.com/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,7 +67,7 @@ const Home = () => {
   const [tasks, setTasks] = useState([]); // this is where we can store the tasks from the database
 
   useEffect(() => {
-    fetch("https://planned-out-backend.onrender.com/")
+    fetch("https://planned-out-backend-jdx6.onrender.com/")
       .then((res) => res.json())
       .then((data) => setTasks(data));
   }, []);
@@ -138,7 +138,7 @@ const Home = () => {
         label.className = "checked";
       }
       let fetchRequest =
-        "https://planned-out-backend.onrender.com/updatetask/:" + taskID;
+        "https://planned-out-backend-jdx6.onrender.com/updatetask/:" + taskID;
 
       // TODO: Mark the task as incomplete in the database
       fetch(fetchRequest, {
@@ -165,7 +165,7 @@ const Home = () => {
   const [tasksList, setTaskList] = useState([]);
 
   useEffect(() => {
-    fetch("https://planned-out-backend.onrender.com/")
+    fetch("https://planned-out-backend-jdx6.onrender.com/")
       .then((res) => res.json())
       .then((data) => setTaskList(data));
   }, []);
