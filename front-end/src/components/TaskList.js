@@ -7,11 +7,11 @@ function TaskList() {
 
     useEffect(() => {
         fetch("https://planned-out-backend-jdx6.onrender.com/")
-          .then((res) => res.json())
-          .then((data) => setTaskList(data));
-      }, []);
+            .then((res) => res.json())
+            .then((data) => setTaskList(data));
+    }, []);
 
-   const [tasksList, setTaskList] = useState([]);
+    const [tasksList, setTaskList] = useState([]);
 
 
     function CheckBox({ id, taskID, taskName, taskDate, taskDesc, taskStatus }) {
