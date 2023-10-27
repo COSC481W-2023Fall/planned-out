@@ -89,6 +89,10 @@ div.tasks-add button {
   background-color: var(--bs-btn-active-bg);
 }
 
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
 .react-datepicker__view-calendar-icon input {
   border: 1px solid lightgray;
   border-radius: var(--bs-border-radius);
