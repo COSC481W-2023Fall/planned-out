@@ -4,6 +4,8 @@ import Button from "react-bootstrap/Button";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState, useRef } from "react";
 
+let link = "http://localhost:5050/"
+//let link = "https://planned-out-backend-jdx6.onrender.com/"
 
 function TaskAdd() {
 
@@ -17,7 +19,7 @@ function TaskAdd() {
         console.log("Test Task Add");
         if (taskName !== "" && taskDate !== "") {
             // Send the name input to the server
-            fetch("https://planned-out-backend-jdx6.onrender.com/add", {
+            fetch(link + "add", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
