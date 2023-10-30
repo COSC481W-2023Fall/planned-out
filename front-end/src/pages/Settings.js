@@ -11,46 +11,44 @@ import "../pages/Settings.css"
 
 const Settings = () => {
     return (
-        <div>
-            <Container>
-                <Tab.Container transition={false} defaultActiveKey="security">
-                    <Row>
-                        <Col>
-                            <Nav variant="pills" className="settings-list flex-column">
-                                <Nav.Item>
-                                    <Nav.Link eventKey="security">Security</Nav.Link>
-                                </Nav.Item>
-                                <Nav.Item>
-                                    <Nav.Link eventKey="profile">Profile</Nav.Link>
-                                </Nav.Item>
-                                <Nav.Item>
-                                    <Nav.Link eventKey="appearance">Appearance</Nav.Link>
-                                </Nav.Item>
-                                <Nav.Item>
-                                    <Nav.Link eventKey="privacy">Privacy</Nav.Link>
-                                </Nav.Item>
-                            </Nav>
-                        </Col>
-                        <Col sm={8}>
-                            <Tab.Content>
-                                <Tab.Pane eventKey="security">
-                                    <SettingsSecurity></SettingsSecurity>
-                                </Tab.Pane>
-                                <Tab.Pane eventKey="profile">
-                                    <SettingsProfile></SettingsProfile>
-                                </Tab.Pane>
-                                <Tab.Pane eventKey="appearance">
-                                    <SettingsAppearance></SettingsAppearance>
-                                </Tab.Pane>
-                                <Tab.Pane eventKey="privacy">
-                                    <SettingsPrivacy></SettingsPrivacy>
-                                </Tab.Pane>
-                            </Tab.Content>
-                        </Col>
-                    </Row>
-                </Tab.Container>
-            </Container>
-        </div>
+        <Container className="main-settings-container">
+            <Tab.Container transition={false} defaultActiveKey="security">
+                <Row>
+                    <Col>
+                        <Nav variant="pills" className="settings-list flex-column">
+                            <Nav.Item>
+                                <Nav.Link eventKey="security">Security</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="profile">Profile</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="appearance">Appearance</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="privacy">Privacy</Nav.Link>
+                            </Nav.Item>
+                        </Nav>
+                    </Col>
+                    <Col sm={8}>
+                        <Tab.Content>
+                            <Tab.Pane eventKey="security">
+                                <SettingsSecurity></SettingsSecurity>
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="profile">
+                                <SettingsProfile></SettingsProfile>
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="appearance">
+                                <SettingsAppearance></SettingsAppearance>
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="privacy">
+                                <SettingsPrivacy></SettingsPrivacy>
+                            </Tab.Pane>
+                        </Tab.Content>
+                    </Col>
+                </Row>
+            </Tab.Container>
+        </Container>
     );
 };
 
