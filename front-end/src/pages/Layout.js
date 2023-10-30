@@ -36,6 +36,11 @@ const Layout = () => {
                 <Button className="main-nav-button">Friends</Button>
               </LinkContainer>
             </Nav.Item>
+            <Nav.Item>
+              <LinkContainer to="/settings">
+                <Button className="main-nav-button">Settings</Button>
+              </LinkContainer>
+            </Nav.Item>
           </Nav>
         </Container>
       </Navbar>
