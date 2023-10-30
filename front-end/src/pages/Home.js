@@ -22,9 +22,8 @@ const Home = () => {
   }
 
   function toggleTaskList() {
-    TaskAdd.handleSubmit();
     // Trigger the handle submit for Task Add
-    //setTrigger((trigger) => trigger + 1)
+    setTrigger((trigger) => trigger + 1)
     // Show the Task List card
     setIsTaskListShown(current => !current);
     // Hide the Task Add card
