@@ -3,23 +3,32 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import TaskList from "../components/TaskList.js"
 import CalendarView from "../components/CalendarView.js"
 import TaskAdd from "../components/TaskAdd.js"
+import TaskList from "../components/TaskList.js"
 import { useState } from "react";
 
 const Home = () => {
 
   const [isTaskListShown, setIsTaskListShown] = useState(true);
   const [isTaskAddShown, setIsTaskAddShown] = useState(false);
+  const [trigger, setTrigger] = useState(0);
 
   function toggleTaskAdd() {
+    // Show the Task Add card
     setIsTaskAddShown(current => !current);
+    // Hide the Task List card
     setIsTaskListShown(false);
   }
 
   function toggleTaskList() {
+    TaskAdd.handleSubmit();
+    // Trigger the handle submit for Task Add
+    //setTrigger((trigger) => trigger + 1)
+    // Show the Task List card
     setIsTaskListShown(current => !current);
+    // Hide the Task Add card
+    setIsTaskAddShown(false);
   }
 
   return (
@@ -43,7 +52,8 @@ const Home = () => {
             {isTaskAddShown &&
               <Card className="tasks-add">
                 <Card.Title>New Task</Card.Title>
-                <TaskAdd />
+                <TaskAdd trigger={trigger}/>
+                <Button onClick={toggleTaskList}>Submit!</Button>
               </Card>
             }
           </Col>
