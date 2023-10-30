@@ -1,0 +1,31 @@
+.settings-card {
+    height: 100%;
+    padding: 1.5em;
+    border-radius: 24px;
+}
+
+.settings-list .nav-link,
+.settings-list .nav-link:hover,
+.settings-list .nav-link.active {
+    font-size: 150%;
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: black !important;
+    text-align: left !important;
+}
+
+.settings-list .nav-link:hover {
+    opacity: 50%;
+}
+
+.settings-list .nav-link.active:hover {
+    opacity: 100% !important;
+}
+
+.settings-list .nav-link.active {
+    font-weight: bold;
+}
+
+.main-settings-container {
+    width: 75vw;
+}

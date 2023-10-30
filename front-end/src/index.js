@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import ReactDOM from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
+import Settings from "./pages/Settings.js";
 
 export default function App() {
   return (
@@ -12,6 +13,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+        </Route>
+        <Route path="/settings" element={<Layout />}>
+          <Route index element={<Settings />} />
         </Route>
       </Routes>
     </BrowserRouter>
