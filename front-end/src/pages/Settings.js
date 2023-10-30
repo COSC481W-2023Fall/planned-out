@@ -1,31 +1,57 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
+import Tab from "react-bootstrap/Tab";
+import Nav from "react-bootstrap/Nav";
+import SettingsSecurity from "../components/SettingsSecurity.js";
+import SettingsProfile from "../components/SettingsProfile.js";
+import SettingsAppearance from "../components/SettingsAppearance.js";
+import SettingsPrivacy from "../components/SettingsPrivacy.js";
+import "../pages/Settings.css"
 
 const Settings = () => {
     return (
-      <div className="App">
-        <Container>
-          <Row>
-            {/* Settings List */}
-            <Col>
-              <ListGroup>
-                <ListGroup.Item>Security</ListGroup.Item>
-              </ListGroup>
-            </Col>
-            {/* Current Settings Page */}
-            <Col sm={8}>
-              <Card>
-                <Card.Title>Account</Card.Title>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+        <div>
+            <Container>
+                <Tab.Container transition={false} defaultActiveKey="security">
+                    <Row>
+                        <Col>
+                            <Nav variant="pills" className="settings-list flex-column">
+                                <Nav.Item>
+                                    <Nav.Link eventKey="security">Security</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link eventKey="profile">Profile</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link eventKey="appearance">Appearance</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link eventKey="privacy">Privacy</Nav.Link>
+                                </Nav.Item>
+                            </Nav>
+                        </Col>
+                        <Col sm={8}>
+                            <Tab.Content>
+                                <Tab.Pane eventKey="security">
+                                    <SettingsSecurity></SettingsSecurity>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="profile">
+                                    <SettingsProfile></SettingsProfile>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="appearance">
+                                    <SettingsAppearance></SettingsAppearance>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="privacy">
+                                    <SettingsPrivacy></SettingsPrivacy>
+                                </Tab.Pane>
+                            </Tab.Content>
+                        </Col>
+                    </Row>
+                </Tab.Container>
+            </Container>
+        </div>
     );
-  };
-  
-  export default Settings;
-  
+};
+
+export default Settings;
