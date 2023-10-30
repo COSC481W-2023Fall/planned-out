@@ -16,7 +16,6 @@ function TaskList() {
 
     const [tasksList, setTaskList] = useState([]);
 
-
     function CheckBox({ id, taskID, taskName, taskDate, taskDesc, taskStatus }) {
         let labelID = id + "label";
         let checkedID = id + "checked";

@@ -6,28 +6,33 @@ import Card from "react-bootstrap/Card";
 import CalendarView from "../components/CalendarView.js"
 import TaskAdd from "../components/TaskAdd.js"
 import TaskList from "../components/TaskList.js"
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const Home = () => {
 
   const [isTaskListShown, setIsTaskListShown] = useState(true);
   const [isTaskAddShown, setIsTaskAddShown] = useState(false);
-  const [trigger, setTrigger] = useState(0);
 
-  function toggleTaskAdd() {
+  const taskAddRef = useRef();
+
+  function showTaskAdd() {
     // Show the Task Add card
     setIsTaskAddShown(current => !current);
     // Hide the Task List card
     setIsTaskListShown(false);
   }
 
-  function toggleTaskList() {
-    // Trigger the handle submit for Task Add
-    setTrigger((trigger) => trigger + 1)
-    // Show the Task List card
-    setIsTaskListShown(current => !current);
-    // Hide the Task Add card
-    setIsTaskAddShown(false);
+  function showTaskList() {
+    if (!(taskAddRef.current.getTaskName() === "")) {
+      // Show the Task List card
+      setIsTaskListShown(current => !current);
+      // Hide the Task Add card
+      setIsTaskAddShown(false);
+      taskAddRef.current.handleSubmit();
+    }
+    else {
+      alert("ERROR");
+    }
   }
 
   return (
@@ -44,15 +49,15 @@ const Home = () => {
                 {/* Spacer */}
                 <div className="d-flex flex-column"></div>
                 {/* Add a task button */}
-                <Button onClick={toggleTaskAdd} id="add-task-button">Add a task +</Button>
+                <Button onClick={showTaskAdd} id="add-task-button">Add a task +</Button>
               </Card>
             }
             {/* Task Add Card */}
             {isTaskAddShown &&
               <Card className="tasks-add">
                 <Card.Title>New Task</Card.Title>
-                <TaskAdd trigger={trigger}/>
-                <Button onClick={toggleTaskList}>Submit!</Button>
+                <TaskAdd ref={taskAddRef} />
+                <Button onClick={showTaskList}>Submit!</Button>
               </Card>
             }
           </Col>

@@ -1,26 +1,26 @@
 import Form from "react-bootstrap/Form";
 import DatePicker from "react-datepicker";
-import Button from "react-bootstrap/Button";
 import "react-datepicker/dist/react-datepicker.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, forwardRef, useRef, useImperativeHandle } from "react";
 
 //let link = "http://localhost:5050/"
 let link = "https://planned-out-backend-jdx6.onrender.com/"
 
-const TaskAdd = ({trigger}) => {
-
+const TaskAdd = forwardRef((props, ref) => {
     const [taskName, setNameInput] = useState(""); // New state for the name input
     const [taskDate, setDateInput] = useState("");
     const [taskDateOut, setDateOutput] = useState("");
     const [taskDesc, setDescInput] = useState(""); // New state for the name input
     const inputBox = useRef(null);
 
-    useEffect(() => {
-        if (trigger) {
-            alert("Test");
-          handleSubmit();
-        }
-      });
+    useImperativeHandle(ref, () => ({
+        handleSubmit: handleSubmit,
+        getTaskName: getTaskName
+    }));
+
+    const getTaskName = () => {
+        return taskName;
+    }
 
     const handleSubmit = (e) => {
         console.log("Test Task Add");
@@ -102,9 +102,8 @@ const TaskAdd = ({trigger}) => {
                 onChange={(e) => handleDescInput(e)}
                 className="taskDescBox"
             />
-            <Button onClick={(e) => handleSubmit(e)}>Submit!</Button>
         </>
     )
-}
+});
 
 export default TaskAdd;
