@@ -15,6 +15,7 @@ const Home = () => {
 
   function toggleTaskAdd() {
     setIsTaskAddShown(current => !current);
+    setIsTaskListShown(false);
   }
 
   function toggleTaskList() {
