@@ -11,44 +11,95 @@ function RegistrationForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState({ valid: "true" });
+  const [errors, setErrors] = useState({});
+  const [isFormValid, setIsFormValid] = useState(false);
 
-  const handleValidation = () => {
-    const errors = {};
-    if (!firstName) {
-      errors.firstName = "First name is required";
+  const validation = (e) => {
+    const { name, value } = e.target;
+    if (!value) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: `Required`,
+      }));
+    } else if (name === "password" && (value.length < 8 || value.length > 20)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Password must be at least 8 characters long",
+      }));
+    } else if (name === "password" && value.includes(" ")) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Password may not contain spaces",
+      }));
+    } else if (
+      name === "password" &&
+      value.length <= 20 &&
+      value.length >= 8 &&
+      !value.includes(" ")
+    ) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "",
+      }));
+    } else if (
+      (name === "confimPassword" && value === password) ||
+      (name === "password" && value === confirmPassword)
+    ) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "",
+        confirmPassword: "",
+      }));
+    } else if (
+      (name === "confirmPassword" && value !== password) ||
+      (name === "password" && value !== confirmPassword)
+    ) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        confirmPassword: "Passwords do not match",
+      }));
+    } else if (
+      (name === "email" && !value.includes("@")) ||
+      (name === "email" && !value.includes("."))
+    ) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Please enter a valid email address",
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: "",
+      }));
     }
-    if (!lastName) {
-      errors.lastName = "Last name is required";
-    }
-    if (!email) {
-      errors.email = "Email is required";
-    }
-    if (!username) {
-      errors.username = "Username is required";
-    }
-    if (!password) {
-      errors.password = "Password is required";
-    }
-    if (!confirmPassword) {
-      errors.confirmPassword = "Please confirm password";
-    }
-    if (password !== confirmPassword) {
-      errors.confirmPassword = "Passwords do not match";
-    }
-    if (password.length < 8) {
-      errors.password = "Password must be at least 8 characters long";
-    }
-    if (email.includes("@") === false || email.includes(".") === false) {
-      errors.email = "Please enter a valid email address";
-    }
-    setErrors(errors);
-    return Object.keys(errors).length === 0; // Return true if there are no errors
+    const isAllValid =
+      firstName.trim() !== "" &&
+      lastName.trim() !== "" &&
+      email.trim() !== "" &&
+      username.trim() !== "" &&
+      password.trim() !== "" &&
+      confirmPassword.trim() !== "" &&
+      !errors.firstName &&
+      !errors.lastName &&
+      !errors.email &&
+      !errors.username &&
+      !errors.password &&
+      !errors.confirmPassword;
+
+    setIsFormValid(isAllValid);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (handleValidation()) {
+    if (
+      !errors.firstName &&
+      !errors.lastName &&
+      !errors.email &&
+      !errors.username &&
+      !errors.password &&
+      !errors.confirmPassword
+    ) {
+      console.log(errors.firstName);
       console.log("Registering User");
       fetch(link + "register", {
         method: "POST",
@@ -69,7 +120,8 @@ function RegistrationForm() {
         .then((data) => {});
       console.log("Successfully registered user!");
     } else {
-      // alert("Please fill out all fields.");
+      alert("Please fill out all fields correctly");
+      console.log("Error registering user");
     }
   };
 
@@ -91,6 +143,7 @@ function RegistrationForm() {
   const confirmPasswordInput = (e) => {
     setConfirmPassword(e.target.value);
   };
+
   return (
     <>
       <Form className="registration-form">
@@ -101,11 +154,15 @@ function RegistrationForm() {
             type="text"
             placeholder="Enter first name"
             value={firstName}
-            onChange={(e) => fnameInput(e)}
+            onChange={(e) => {
+              fnameInput(e);
+              validation(e);
+            }}
             isInvalid={!!errors.firstName}
             onBlur={(e) => {
-              handleValidation(e);
+              validation(e);
             }}
+            name="firstName"
           />
           <Form.Control.Feedback type="invalid">
             {errors.firstName}
@@ -116,16 +173,19 @@ function RegistrationForm() {
             type="text"
             placeholder="Enter last name"
             value={lastName}
-            onChange={(e) => lnameInput(e)}
+            onChange={(e) => {
+              lnameInput(e);
+              validation(e);
+            }}
             isInvalid={!!errors.lastName}
             onBlur={(e) => {
-              handleValidation(e);
+              validation(e);
             }}
+            name="lastName"
           />
           <Form.Control.Feedback type="invalid">
             {errors.lastName}
           </Form.Control.Feedback>
-          <br />
         </Form.Group>
         <Form.Group className="form-group">
           <Form.Label>Email</Form.Label>
@@ -133,11 +193,15 @@ function RegistrationForm() {
             type="email"
             placeholder="Enter email"
             value={email}
-            onChange={(e) => emailInput(e)}
+            onChange={(e) => {
+              emailInput(e);
+              validation(e);
+            }}
             isInvalid={!!errors.email}
             onBlur={(e) => {
-              handleValidation(e);
+              validation(e);
             }}
+            name="email"
           />
           <Form.Control.Feedback type="invalid">
             {errors.email}
@@ -148,11 +212,15 @@ function RegistrationForm() {
             type="text"
             placeholder="Enter username"
             value={username}
-            onChange={(e) => usernameInput(e)}
+            onChange={(e) => {
+              usernameInput(e);
+              validation(e);
+            }}
             isInvalid={!!errors.username}
             onBlur={(e) => {
-              handleValidation(e);
+              validation(e);
             }}
+            name="username"
           />
           <Form.Control.Feedback type="invalid">
             {errors.username}
@@ -166,19 +234,17 @@ function RegistrationForm() {
             value={password}
             onChange={(e) => {
               passwordInput(e);
+              validation(e);
             }}
             isInvalid={!!errors.password}
             onBlur={(e) => {
-              handleValidation(e);
+              validation(e);
             }}
+            name="password"
           />
           <Form.Control.Feedback type="invalid">
             {errors.password}
           </Form.Control.Feedback>
-          <Form.Text id="passwordHelpBlock">
-            Your password must be 8-20 characters long and may not contain
-            spaces
-          </Form.Text>
           <br />
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
@@ -187,11 +253,13 @@ function RegistrationForm() {
             value={confirmPassword}
             onChange={(e) => {
               confirmPasswordInput(e);
+              validation(e);
             }}
             isInvalid={!!errors.confirmPassword}
             onBlur={(e) => {
-              handleValidation(e);
+              validation(e);
             }}
+            name="confirmPassword"
           />
           <Form.Control.Feedback type="invalid">
             {errors.confirmPassword}
@@ -200,7 +268,10 @@ function RegistrationForm() {
         <Button
           className="regButton"
           type="button"
-          onClick={(e) => handleSubmit(e)}
+          onClick={(e) => {
+            handleSubmit(e);
+          }}
+          disabled={!isFormValid}
         >
           Submit!
         </Button>
