@@ -48,6 +48,7 @@ div.card-title {
 
 div.task-list {
   border: none !important;
+  overflow: scroll;
 }
 
 div.task {
