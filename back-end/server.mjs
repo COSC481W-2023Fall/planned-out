@@ -35,7 +35,11 @@ app.post("/add", async (req, res) => {
     };
     let collection = await db.collection("Tasks");
     let result = await collection.insertOne(newDocument);
-    res.send(result).status(204);
+    // Wait until the new task has reached the database
+    while (!result) {
+        res.status(500)
+    }
+    res.send(result).status(201);
 });
 
 app.put("/updatetask/:id", async (req, res) => {
