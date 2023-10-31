@@ -20,7 +20,7 @@ Form {
 .errorMsg {
   color: red;
 }
-Label {
+.registration-label {
   padding: 5px;
 }
 .regButton {

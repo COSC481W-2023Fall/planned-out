@@ -148,7 +148,7 @@ function RegistrationForm() {
     <>
       <Form className="registration-form">
         <Form.Group className="form-group">
-          <Form.Label>First Name</Form.Label>
+          <Form.Label className="registration-label">First Name</Form.Label>
           <Form.Control
             required
             type="text"
@@ -168,7 +168,7 @@ function RegistrationForm() {
             {errors.firstName}
           </Form.Control.Feedback>
           <br />
-          <Form.Label>Last Name</Form.Label>
+          <Form.Label className="registration-label">Last Name</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter last name"
@@ -188,7 +188,7 @@ function RegistrationForm() {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="form-group">
-          <Form.Label>Email</Form.Label>
+          <Form.Label className="registration-label">Email</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
@@ -207,7 +207,7 @@ function RegistrationForm() {
             {errors.email}
           </Form.Control.Feedback>
           <br />
-          <Form.Label>Username</Form.Label>
+          <Form.Label className="registration-label">Username</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter username"
@@ -227,7 +227,7 @@ function RegistrationForm() {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="form-group">
-          <Form.Label>Password</Form.Label>
+          <Form.Label className="registration-label">Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="Enter password"
@@ -246,7 +246,7 @@ function RegistrationForm() {
             {errors.password}
           </Form.Control.Feedback>
           <br />
-          <Form.Label>Confirm Password</Form.Label>
+          <Form.Label className="registration-label">Confirm Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="Confirm password"
