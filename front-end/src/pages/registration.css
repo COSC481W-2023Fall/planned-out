@@ -1,0 +1,28 @@
+.registration-container {
+  padding: 2px 16px; /* creates margins */
+  width: 20%;
+}
+.form-group {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid rgb(0, 0, 0);
+  text-align: left;
+  border-radius: 5%;
+}
+Form {
+  text-align: center;
+}
+.regButton {
+  width: 25%;
+}
+.errorMsg {
+  color: red;
+}
+Label {
+  padding: 5px;
+}
+.regButton {
+  width: 50%;
+}
