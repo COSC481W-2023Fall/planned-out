@@ -35,7 +35,12 @@ app.post("/add", async (req, res) => {
     };
     let collection = await db.collection("Tasks");
     let result = await collection.insertOne(newDocument);
-    res.send(result).status(204);
+    // Checks if the await is complete after certain timeout maybe do alert?
+    while (!result) {
+        res.status(500)
+    }
+    // maybe use a little refreshy status bar until it's done
+    res.send(result).status(201);
 });
 
 app.put("/updatetask/:id", async (req, res) => {
