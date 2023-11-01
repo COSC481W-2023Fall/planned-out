@@ -26,6 +26,45 @@ app.get("/hello-world", async (req, res) => {
   console.log(data.message);
 });
 
+// POST for registering user information
+app.post("/register", async (req, res) => {
+  
+  // schema to create a new user in db
+  let newUser = {
+    user: req.body.username,
+    pwd: req.body.password,
+    roles: [
+      {
+        // readOnly role
+        role : "readAnyDatabase",
+        "db" : "planned-out-database",
+        mechanisms: [ "SCRAM-SHA-256" ]
+      }
+    ]
+  };
+
+  // schema to store all user information in collection
+  let userInfo = {
+    user: req.body.username,
+    pwd: req.body.password,
+    userFirst: req.body.firstName,
+    userLast: req.body.lastName,
+    userEmail: req.body.email
+  };
+
+  // for creating USER in DB
+  db.addUser(newUser);
+  db.createCollection(userInfo.userEmail);
+  let collection = await db.collection(userInfo.userEmail);
+  let result = await collection.insertOne(userInfo);
+
+  while(!result){
+    res.status(500);
+  }
+  res.send(result).status(201); 
+
+});
+
 app.post("/add", async (req, res) => {
   let newDocument = {
       taskName: req.body.name,
