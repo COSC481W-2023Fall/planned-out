@@ -61,3 +61,20 @@ app.put("/updatetask/:id", async (req, res) => {
   }
   console.log("ID: " + taskID + " New Status: " + newStatus);
 });
+
+app.get("/login/:username", async (req, res) => {
+    // Get username and hased password from the front end.
+    const username = req.body.username;
+    const hashedPW = req.body.password;
+
+    // Connect to the Users collection.
+    let collection = await db.collection("Users");
+    // Get the information for the given user
+    let results = await collection.find({username}).toArray();
+
+    // Check if the database user password matches the hashed password from the front end
+    if (results.password === hashedPW) {
+        // TO DO: Send the confirmation to the front end so it can call the users home page.
+        res.send()
+    }
+});
