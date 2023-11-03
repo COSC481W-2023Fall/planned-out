@@ -26,7 +26,12 @@ function LoginForm() {
 
   const handleSubmit = (e) => {
     console.log("Attempting Login");
-    if (username.errors === "" && password.errors === "") {
+    if (
+      username.errors === "" &&
+      password.errors === "" &&
+      username !== "" &&
+      password !== ""
+    ) {
       // Send the name input to the server
       fetch(link + "login", {
         method: "POST",
@@ -34,8 +39,8 @@ function LoginForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          uname: username,
-          pword: password,
+          username: username,
+          password: password,
         }),
       })
         .then((res) => {
@@ -44,6 +49,9 @@ function LoginForm() {
         .then((data) => {});
       console.log("Successfully logged in!");
     } else {
+      e.preventDefault();
+      document.getElementById("badLogin").innerHTML =
+        "Incorrect username or password";
       console.log("Login failed");
     }
   };
@@ -87,12 +95,20 @@ function LoginForm() {
           </Form.Control.Feedback>
           <br />
           <Button
+            className="login-button"
             variant="primary"
             type="submit"
             onClick={(e) => handleSubmit(e)}
           >
             Login
           </Button>
+          <br />
+          <Form.Text id="badLogin"></Form.Text>
+          <br />
+
+          <Form.Text className="text-muted">
+            Don't have an account? <a href="/registration">Register</a>
+          </Form.Text>
         </Form.Group>
       </Form>
     </>
