@@ -1,0 +1,23 @@
+.login-container {
+  padding: 2px 16px; /* creates margins */
+  width: 20%;
+  text-align: center;
+}
+.login-form {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5%;
+}
+label {
+  padding: 5px;
+}
+.login-button {
+  width: 50%;
+}
+#badLogin {
+  text-align: center;
+  color: red;
+}
