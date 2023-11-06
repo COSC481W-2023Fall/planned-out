@@ -16,7 +16,7 @@ const Layout = () => {
               width={"32px"}
               height={"32px"}
               alt={"Planned-Out Logo"}
-              paddingRight={"10px"}
+              padding-right={"10px"}
             />
             Planned-Out
           </Navbar.Brand>
@@ -41,9 +41,10 @@ const Layout = () => {
                 <Button className="main-nav-button">Settings</Button>
               </LinkContainer>
             </Nav.Item>
+
             <Nav.Item>
-              <LinkContainer to="/registration">
-                <Button className="main-nav-button">Regtest</Button>
+              <LinkContainer to="/login">
+                <Button className="main-nav-button">Login</Button>
               </LinkContainer>
             </Nav.Item>
           </Nav>
