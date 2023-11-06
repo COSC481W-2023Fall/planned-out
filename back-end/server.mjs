@@ -2,9 +2,11 @@ import express from "express";
 import cors from "cors";
 import data from "./message.json" assert { "type": "json" };
 import db from "./db/conn.mjs";
+import bcrypt from 'bcryptjs'
 
 const PORT = process.env.PORT || 5050;
 const app = express();
+const salt = bcrypt.genSaltSync(5);
 
 app.use(cors());
 app.use(express.json());
@@ -30,30 +32,34 @@ app.get("/hello-world", async (req, res) => {
 app.post("/register", async (req, res) => {
   
   // schema to create a new user in db
-  let newUser = {
-    user: req.body.username,
-    pwd: req.body.password,
-    roles: [
-      {
-        // readOnly role
-        role : "readAnyDatabase",
-        "db" : "planned-out-database",
-        mechanisms: [ "SCRAM-SHA-256" ]
-      }
-    ]
-  };
+  // let newUser = {
+  //   user: req.body.username,
+  //   pwd: req.body.password,
+  //   roles: [
+  //     {
+  //       // readOnly role
+  //       role : "readAnyDatabase",
+  //       "db" : "planned-out-database",
+  //       mechanisms: [ "SCRAM-SHA-256" ]
+  //     }
+  //   ]
+  // };
+
+  const hashedPwd = bcrypt.hashSync(req.body.password, salt);
+
+  //console.log(req.body.password + " : " + hashedPwd);
 
   // schema to store all user information in collection
   let userInfo = {
     user: req.body.username,
-    pwd: req.body.password,
-    userFirst: req.body.firstName,
-    userLast: req.body.lastName,
+    pwd: hashedPwd,
+    userFirst: req.body.fname,
+    userLast: req.body.lname,
     userEmail: req.body.email
   };
 
   // for creating USER in DB
-  db.addUser(newUser);
+  //db.addUser(newUser);
   db.createCollection(userInfo.userEmail);
   let collection = await db.collection(userInfo.userEmail);
   let result = await collection.insertOne(userInfo);
