@@ -30,24 +30,8 @@ app.get("/hello-world", async (req, res) => {
 
 // POST for registering user information
 app.post("/register", async (req, res) => {
-  
-  // schema to create a new user in db
-  // let newUser = {
-  //   user: req.body.username,
-  //   pwd: req.body.password,
-  //   roles: [
-  //     {
-  //       // readOnly role
-  //       role : "readAnyDatabase",
-  //       "db" : "planned-out-database",
-  //       mechanisms: [ "SCRAM-SHA-256" ]
-  //     }
-  //   ]
-  // };
-
+  // hash user password for secure storage in database
   const hashedPwd = bcrypt.hashSync(req.body.password, salt);
-
-  //console.log(req.body.password + " : " + hashedPwd);
 
   // schema to store all user information in collection
   let userInfo = {
@@ -58,8 +42,7 @@ app.post("/register", async (req, res) => {
     userEmail: req.body.email
   };
 
-  // for creating USER in DB
-  //db.addUser(newUser);
+  // create collection named "user-email"
   db.createCollection(userInfo.userEmail);
   let collection = await db.collection(userInfo.userEmail);
   let result = await collection.insertOne(userInfo);
