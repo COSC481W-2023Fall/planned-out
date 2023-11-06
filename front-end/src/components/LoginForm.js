@@ -53,6 +53,7 @@ function LoginForm() {
         })
         .then((data) => {});
       console.log("Successfully logged in!");
+      e.preventDefault(); //next 2 lines will need to be updated to only redirect if login is valid
       window.location.href = "./";
     } else {
       e.preventDefault();
