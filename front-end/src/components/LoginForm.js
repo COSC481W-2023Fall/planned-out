@@ -1,5 +1,6 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Text from "react-bootstrap/FormText";
 import { useState } from "react";
 
 let link = "https://planned-out-backend-jdx6.onrender.com/";
@@ -94,6 +95,10 @@ function LoginForm() {
           <Form.Control.Feedback type="invalid">
             {errors.password}
           </Form.Control.Feedback>
+          <Text>
+            <a>Forgot password?</a>
+          </Text>
+          <br />
           <br />
           <Button
             className="login-button"
