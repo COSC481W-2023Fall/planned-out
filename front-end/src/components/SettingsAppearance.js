@@ -11,7 +11,7 @@ const SettingsCard = (props) => {
     const [selectedTheme, setSelectedTheme] = useState(theme);
     useEffect(() => {
         setSelectedTheme(theme);
-    }, [themeLoaded]);
+    }, [theme, themeLoaded]);
 
     return (
         themeLoaded && <ThemeProvider theme={selectedTheme}>

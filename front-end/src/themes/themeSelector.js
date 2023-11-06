@@ -26,23 +26,23 @@ const Switch = (props) => {
             <>
                 <Button onClick={(theme) => themeSwitcher(props.theme)}
                     style={{
-                        backgroundColor: props.theme.accent,
-                        color: `black`,
+                        backgroundColor: props.theme.colors.accent,
+                        borderColor: props.theme.colors.accent,
                     }}>
-                    {props.theme.name}
                 </Button>
             </>
         )
     }
 
     return (
-        <>                {
-            themes.length > 0 &&
-            themes.map(theme => (
-                <ThemeButton theme={data[theme]} key={data[theme].id} />
-            ))
-        }
-        </>
+        <div class="theme-container">
+            {
+                themes.length > 0 &&
+                themes.map(theme => (
+                    <ThemeButton theme={data[theme]} key={data[theme].id} />
+                ))
+            }
+        </div>
     )
 }
 

@@ -43,7 +43,7 @@ const Home = () => {
       taskAddRef.current.handleSubmit();
     }
     else {
-      alert("ERROR");
+      alert("ERROR. Task name is empty");
     }
   }
 

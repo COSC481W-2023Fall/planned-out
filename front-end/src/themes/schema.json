@@ -13,6 +13,34 @@
         "colors": {
           "accent": "#0962E6"
         }
+      },
+      "green" : {
+        "id": "T_003",
+        "name": "Green",
+        "colors": {
+          "accent": "#03ba02"
+        }
+      },
+      "purple" : {
+        "id": "T_004",
+        "name": "Purple",
+        "colors": {
+          "accent": "#ab00c1"
+        }
+      },
+      "orange" : {
+        "id": "T_005",
+        "name": "Orange",
+        "colors": {
+          "accent": "#e3a017"
+        }
+      },
+      "mint" : {
+        "id": "T_005",
+        "name": "Mint",
+        "colors": {
+          "accent": "#3eb489"
+        }
       }
     }
   }

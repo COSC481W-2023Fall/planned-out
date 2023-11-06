@@ -190,3 +190,16 @@ button {
 .form-check-input[type="checkbox"] {
   margin-right: 1em;
 }
+
+div.theme-container {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  width: 30%;
+}
+
+div.theme-container .btn {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border-radius: 100%;
+}
