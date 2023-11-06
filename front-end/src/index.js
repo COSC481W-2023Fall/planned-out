@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import Settings from "./pages/Settings.js";
 import Login from "./pages/Login.js";
+import Registration from "./pages/Registration.js";
 
 export default function App() {
   return (
@@ -20,6 +21,9 @@ export default function App() {
         </Route>
         <Route path="/settings" element={<Layout />}>
           <Route index element={<Settings />} />
+        </Route>
+        <Route path="/registration" element={<Layout />}>
+          <Route index element={<Registration />} />
         </Route>
       </Routes>
     </BrowserRouter>
