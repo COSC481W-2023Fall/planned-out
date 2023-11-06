@@ -1,0 +1,18 @@
+{
+    "data" : {
+      "red" : {
+        "id": "T_001",
+        "name": "Red",
+        "colors": {
+          "accent": "#E60909"
+        }
+      },
+      "blue" : {
+        "id": "T_002",
+        "name": "Blue",
+        "colors": {
+          "accent": "#0962E6"
+        }
+      }
+    }
+  }
