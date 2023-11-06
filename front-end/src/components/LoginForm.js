@@ -29,11 +29,15 @@ function LoginForm() {
   const handleSubmit = (e) => {
     console.log("Attempting Login");
     if (
-      username.errors === "" &&
-      password.errors === "" &&
+      !errors.username &&
+      !errors.password &&
       username !== "" &&
       password !== ""
     ) {
+      //next 2 lines need to be changed to direct to user home
+      e.preventDefault(); //comment out when backend is ready
+      window.location.href = "./"; //comment out when backend is ready
+
       // Send the name input to the server
       fetch(link + "login", {
         method: "POST",
