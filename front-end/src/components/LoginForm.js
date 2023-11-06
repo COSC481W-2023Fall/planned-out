@@ -28,9 +28,12 @@ function LoginForm() {
 
   const handleSubmit = (e) => {
     console.log("Attempting Login");
+    console.log(username);
+    console.log(password);
+    // console.log(errors);
     if (
-      username.errors === "" &&
-      password.errors === "" &&
+      !errors.username &&
+      !errors.password &&
       username !== "" &&
       password !== ""
     ) {
@@ -50,6 +53,7 @@ function LoginForm() {
         })
         .then((data) => {});
       console.log("Successfully logged in!");
+      window.location.href = "./";
     } else {
       e.preventDefault();
       document.getElementById("badLogin").innerHTML =
