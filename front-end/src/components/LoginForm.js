@@ -3,8 +3,8 @@ import Button from "react-bootstrap/Button";
 import Text from "react-bootstrap/FormText";
 import { useState } from "react";
 
-let link = "https://planned-out-backend-jdx6.onrender.com/";
-// let link = "http://localhost:3000/";
+// let link = "https://planned-out-backend-jdx6.onrender.com/";
+let link = "http://localhost:5050/";
 
 function LoginForm() {
   const [username, setUsername] = useState("");
@@ -38,8 +38,8 @@ function LoginForm() {
       password !== ""
     ) {
       //next 2 lines need to be changed to direct to user home
-      e.preventDefault(); //comment out when backend is ready
-      window.location.href = "./"; //comment out when backend is ready
+    //   e.preventDefault(); //comment out when backend is ready
+    //   window.location.href = "./"; //comment out when backend is ready
 
       // Send the name input to the server
       fetch(link + "login", {
@@ -55,10 +55,10 @@ function LoginForm() {
         .then((res) => {
           res.json();
         })
-        .then((data) => {});
-      console.log("Successfully logged in!");
-      e.preventDefault(); //next 2 lines will need to be updated to only redirect if login is valid
-      window.location.href = "./";
+        .then((data) => {
+            alert("STUFF")
+        });
+
     } else {
       e.preventDefault();
       document.getElementById("badLogin").innerHTML =

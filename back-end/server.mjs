@@ -43,15 +43,14 @@ app.post("/register", async (req, res) => {
   };
 
   // create collection named "user-email"
-  db.createCollection(userInfo.userEmail);
-  let collection = await db.collection(userInfo.userEmail);
+  db.createCollection(userInfo.user);
+  let collection = await db.collection(userInfo.user);
   let result = await collection.insertOne(userInfo);
 
   while(!result){
     res.status(500);
   }
   res.send(result).status(201); 
-
 });
 
 app.post("/add", async (req, res) => {
@@ -90,19 +89,17 @@ app.put("/updatetask/:id", async (req, res) => {
   console.log("ID: " + taskID + " New Status: " + newStatus);
 });
 
-app.get("/login/:username", async (req, res) => {
+app.post("/login", async (req, res) => {
     // Get username and hased password from the front end.
     const username = req.body.username;
-    const hashedPW = req.body.password;
+    const hashedPwd = await bcrypt.hashSync(req.body.password, salt);
 
     // Connect to the Users collection.
-    let collection = await db.collection("Users");
+    let collection = await db.collection(username);
     // Get the information for the given user
-    let results = await collection.find({username}).toArray();
+    let results = await collection.find({}).toArray();
 
-    // Check if the database user password matches the hashed password from the front end
-    if (results.password === hashedPW) {
-        // TO DO: Send the confirmation to the front end so it can call the users home page.
-        res.send()
-    }
+    console.log(results);
+    console.log(hashedPwd);
+
 });
