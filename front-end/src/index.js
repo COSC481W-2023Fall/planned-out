@@ -5,8 +5,9 @@ import Home from "./pages/Home";
 import ReactDOM from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-import Registration from "./pages/Registration.js";
 import Settings from "./pages/Settings.js";
+import Login from "./pages/Login.js";
+import Registration from "./pages/Registration.js";
 
 export default function App() {
   return (
@@ -16,10 +17,13 @@ export default function App() {
           <Route index element={<Home />} />
         </Route>
         <Route path="/" element={<Layout />}>
-          <Route path="/registration" element={<Registration />} />
+          <Route path="/login" element={<Login />} />
         </Route>
         <Route path="/settings" element={<Layout />}>
           <Route index element={<Settings />} />
+        </Route>
+        <Route path="/registration" element={<Layout />}>
+          <Route index element={<Registration />} />
         </Route>
       </Routes>
     </BrowserRouter>
