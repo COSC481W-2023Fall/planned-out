@@ -6,7 +6,7 @@ import bcrypt from 'bcryptjs'
 
 const PORT = process.env.PORT || 5050;
 const app = express();
-const salt = bcrypt.genSaltSync(5);
+const salt = '$2a$10$CwTycUXWue0Thq9StjUM0u';
 
 app.use(cors());
 app.use(express.json());
