@@ -36,10 +36,24 @@
         }
       },
       "mint" : {
-        "id": "T_005",
+        "id": "T_006",
         "name": "Mint",
         "colors": {
           "accent": "#3eb489"
+        }
+      },
+      "pink" : {
+        "id": "T_007",
+        "name": "Pink",
+        "colors": {
+          "accent": "#ff9999"
+        }
+      },
+      "grey" : {
+        "id": "T_008",
+        "name": "Grey",
+        "colors": {
+          "accent": "grey"
         }
       }
     }
