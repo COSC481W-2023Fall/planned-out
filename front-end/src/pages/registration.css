@@ -7,9 +7,10 @@
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
-  border: 1px solid rgb(0, 0, 0);
+  border: 1px solid lightgray;
   text-align: left;
   border-radius: 5%;
+  background-color: var(--card-background-color);
 }
 Form {
   text-align: center;
