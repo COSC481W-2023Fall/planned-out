@@ -8,9 +8,15 @@
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
-  border: 1px solid rgb(0, 0, 0);
+  border: 1px solid lightgray;
   border-radius: 5%;
+  background-color: var(--card-background-color);
 }
+
+.form-text {
+  color: var(--text-color) !important;
+}
+
 div.login-form label {
   padding: 5px;
 }
