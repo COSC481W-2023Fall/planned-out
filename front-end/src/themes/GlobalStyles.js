@@ -1,7 +1,7 @@
 import { createGlobalStyle} from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
-  .btn, .btn.active, .btn:hover {
+  .btn, .btn.active, .btn:hover, .btn:disabled {
     background: ${({ theme }) => theme.colors.accent};
     border-color: ${({ theme }) => theme.colors.accent};
   }
