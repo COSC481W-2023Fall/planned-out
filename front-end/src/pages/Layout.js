@@ -16,7 +16,6 @@ const Layout = () => {
               width={"32px"}
               height={"32px"}
               alt={"Planned-Out Logo"}
-              paddingRight={"10px"}
             />
             Planned-Out
           </Navbar.Brand>
