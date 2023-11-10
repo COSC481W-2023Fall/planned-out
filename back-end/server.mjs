@@ -2,9 +2,11 @@ import express from "express";
 import cors from "cors";
 import data from "./message.json" assert { "type": "json" };
 import db from "./db/conn.mjs";
+import bcrypt from 'bcryptjs'
 
 const PORT = process.env.PORT || 5050;
 const app = express();
+const salt = bcrypt.genSaltSync(5);
 
 app.use(cors());
 app.use(express.json());
@@ -24,6 +26,32 @@ app.get("/", async (req, res) => {
 app.get("/hello-world", async (req, res) => {
   res.send(data);
   console.log(data.message);
+});
+
+// POST for registering user information
+app.post("/register", async (req, res) => {
+  // hash user password for secure storage in database
+  const hashedPwd = bcrypt.hashSync(req.body.password, salt);
+
+  // schema to store all user information in collection
+  let userInfo = {
+    user: req.body.username,
+    pwd: hashedPwd,
+    userFirst: req.body.fname,
+    userLast: req.body.lname,
+    userEmail: req.body.email
+  };
+
+  // create collection named "user-email"
+  db.createCollection(userInfo.userEmail);
+  let collection = await db.collection(userInfo.userEmail);
+  let result = await collection.insertOne(userInfo);
+
+  while(!result){
+    res.status(500);
+  }
+  res.send(result).status(201); 
+
 });
 
 app.post("/add", async (req, res) => {
