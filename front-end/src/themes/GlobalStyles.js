@@ -15,4 +15,9 @@ export const GlobalStyles = createGlobalStyle`
     background: ${({ theme }) => theme.colors.accent};
     border-color: ${({ theme }) => theme.colors.accent};
   }
-`;
+
+  .form-check-input:checked[type="checkbox"] {
+    background-color: ${({ theme }) => theme.colors.accent};
+    border-color: ${({ theme }) => theme.colors.accent};
+  }
+`;  
