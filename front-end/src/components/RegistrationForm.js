@@ -116,7 +116,11 @@ function RegistrationForm() {
         }),
       })
         .then((res) => {
-          res.json();
+          if (res.status === 500) {
+            alert("Hello World!")
+          }
+          //res.json();
+          console.log(res.json());
         })
         .then((data) => {});
       console.log("Successfully registered user!");

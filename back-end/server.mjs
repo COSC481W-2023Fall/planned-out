@@ -3,6 +3,7 @@ import cors from "cors";
 import data from "./message.json" assert { "type": "json" };
 import db from "./db/conn.mjs";
 import bcrypt from 'bcryptjs'
+import { isNull } from "util";
 
 const PORT = process.env.PORT || 5050;
 const app = express();
@@ -30,27 +31,39 @@ app.get("/hello-world", async (req, res) => {
 
 // POST for registering user information
 app.post("/register", async (req, res) => {
+
+  // get username to test to see if it exists in database
+  const username = req.body.username;
   // hash user password for secure storage in database
   const hashedPwd = bcrypt.hashSync(req.body.password, salt);
 
-  // schema to store all user information in collection
-  let userInfo = {
-    user: req.body.username,
-    pwd: hashedPwd,
-    userFirst: req.body.fname,
-    userLast: req.body.lname,
-    userEmail: req.body.email
-  };
+  // Connect to the Users collection.
+  let collection = await db.collection(username);
+  // Get the information for the given user
+  let results = await collection.find({}).toArray();
 
-  // create collection named "user-email"
-  db.createCollection(userInfo.user);
-  let collection = await db.collection(userInfo.user);
-  let result = await collection.insertOne(userInfo);
+  if (results[0] === undefined) {
+    // schema to store all user information in collection
+    let userInfo = {
+      user: username,
+      pwd: hashedPwd,
+      userFirst: req.body.fname,
+      userLast: req.body.lname,
+      userEmail: req.body.email
+    };
 
-  while(!result){
-    res.status(500);
+    // create collection named "user-email"
+    db.createCollection(userInfo.user);
+    let collection = await db.collection(userInfo.user);
+    let result = await collection.insertOne(userInfo);
+
+    while(!result){
+      res.status(500);
+    }
+    res.send(result).status(201);
+  } else {
+    //res.send('invalid');
   }
-  res.send(result).status(201); 
 });
 
 app.post("/add", async (req, res) => {
