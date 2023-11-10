@@ -5,6 +5,7 @@ import db from "./db/conn.mjs";
 import bcrypt from 'bcryptjs'
 import { isNull } from "util";
 
+
 const PORT = process.env.PORT || 5050;
 const app = express();
 const salt = '$2a$10$CwTycUXWue0Thq9StjUM0u';
@@ -14,64 +15,57 @@ app.use(express.json());
 
 // start the Express server
 app.listen(PORT, () => {
-  console.log(`Server is running on port: ${PORT}`);
+    console.log(`Server is running on port: ${PORT}`);
 });
 
-app.get("/", async (req, res) => {
-  let collection = await db.collection("Tasks");
-  let results = await collection.find({}).toArray();
-  console.log("results: ", results);
-  res.send(results).status(200);
+app.get('/', (req, res) => {
+
+});
+
+app.post("/:username", async(req, res) => {
+    const { username } = req.body;
+    console.log(username)
+
+    let collection = await db.collection("Tasks");
+    let results = await collection.find({ "user": username }).toArray();
+    console.log("results: ", results);
+
+    res.send(results).status(200);
 });
 
 app.get("/hello-world", async (req, res) => {
-  res.send(data);
-  console.log(data.message);
+    res.send(data);
+    console.log(data.message);
 });
 
 // POST for registering user information
 app.post("/register", async (req, res) => {
 
-  // get username to test to see if it exists in database
-  const username = req.body.username;
-  // hash user password for secure storage in database
-  const hashedPwd = bcrypt.hashSync(req.body.password, salt);
+    // get username to test to see if it exists in database
+    const username = req.body.username;
+    // hash user password for secure storage in database
+    const hashedPwd = bcrypt.hashSync(req.body.password, salt);
 
-  // Connect to the Users collection.
-  let collection = await db.collection(username);
-  // Get the information for the given user
-  let results = await collection.find({}).toArray();
-
-  if (results[0] === undefined) {
-    // schema to store all user information in collection
     let userInfo = {
-      user: username,
-      pwd: hashedPwd,
-      userFirst: req.body.fname,
-      userLast: req.body.lname,
-      userEmail: req.body.email
+        user: username,
+        pwd: hashedPwd,
+        userFirst: req.body.fname,
+        userLast: req.body.lname,
+        userEmail: req.body.email
     };
 
     // create collection named "user-email"
     db.createCollection(userInfo.user);
     let collection = await db.collection(userInfo.user);
     let result = await collection.insertOne(userInfo);
-
-    while(!result){
-      res.status(500);
-    }
-    res.send(result).status(201);
-  } else {
-    //res.send('invalid');
-  }
 });
 
 app.post("/add", async (req, res) => {
-  let newDocument = {
-      taskName: req.body.name,
-      taskDate: req.body.date,
-      taskDesc: req.body.desc,
-      taskStatus: "Incomplete"
+    let newDocument = {
+        taskName: req.body.name,
+        taskDate: req.body.date,
+        taskDesc: req.body.desc,
+        taskStatus: "Incomplete"
     };
     let collection = await db.collection("Tasks");
     let result = await collection.insertOne(newDocument);
@@ -83,23 +77,23 @@ app.post("/add", async (req, res) => {
 });
 
 app.put("/updatetask/:id", async (req, res) => {
-  let collection = await db.collection("Tasks");
-  const taskID = req.body.id;
-  let newStatus = req.body.status;
+    let collection = await db.collection("Tasks");
+    const taskID = req.body.id;
+    let newStatus = req.body.status;
 
-  if (newStatus != null) {
-    const result = await db.collection("Tasks").updateOne(
-      { "taskName": req.body.name},
-      { $set: { "taskStatus": newStatus } }
-    );
+    if (newStatus != null) {
+        const result = await db.collection("Tasks").updateOne(
+            { "taskName": req.body.name },
+            { $set: { "taskStatus": newStatus } }
+        );
 
-    res.send(result).status(204);
-    console.log(result);
-  }
-  else {
-    console.log("ERROR: The new status is null");
-  }
-  console.log("ID: " + taskID + " New Status: " + newStatus);
+        res.send(result).status(204);
+        console.log(result);
+    }
+    else {
+        console.log("ERROR: The new status is null");
+    }
+    console.log("ID: " + taskID + " New Status: " + newStatus);
 });
 
 app.post("/login", async (req, res) => {
@@ -110,9 +104,18 @@ app.post("/login", async (req, res) => {
     // Connect to the Users collection.
     let collection = await db.collection(username);
     // Get the information for the given user
-    let results = await collection.find({}).toArray();
+    let results = await collection.find({ "pwd": hashedPwd }).toArray();
 
+    if (results.length > 0) {
+        console.log(results.length);
+        res.status(200);
+        res.send({ "Status": "Success" });
+    }
+    else {
+        console.log("ERROR: The new status is null");
+        res.status(403);
+        res.send({ "Status": "Error" });
+    }
     console.log(results);
-    console.log(hashedPwd);
-
+    // console.log(hashedPwd);
 });

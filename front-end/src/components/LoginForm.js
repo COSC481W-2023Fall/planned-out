@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Text from "react-bootstrap/FormText";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // let link = "https://planned-out-backend-jdx6.onrender.com/";
 let link = "http://localhost:5050/";
@@ -38,8 +38,7 @@ function LoginForm() {
       password !== ""
     ) {
       //next 2 lines need to be changed to direct to user home
-    //   e.preventDefault(); //comment out when backend is ready
-    //   window.location.href = "./"; //comment out when backend is ready
+       e.preventDefault(); //comment out when backend is ready
 
       // Send the name input to the server
       fetch(link + "login", {
@@ -53,10 +52,23 @@ function LoginForm() {
         }),
       })
         .then((res) => {
-          res.json();
+            if (res.status === 200) {
+                fetch(link + "/?" + username, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        username: username})
+                });
+                window.location.href = "./?" + username;    
+            } else {
+                document.getElementById("badLogin").innerHTML =
+                "Incorrect username or password";
+            }
+          return res.json();
         })
         .then((data) => {
-            alert("STUFF")
         });
 
     } else {
