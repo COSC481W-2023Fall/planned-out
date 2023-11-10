@@ -10,7 +10,6 @@ import { useState, useRef, useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from '../themes/GlobalStyles.js';
 import { useTheme } from '../themes/useTheme';
-import  ThemeSelector from '../themes/themeSelector.js';
 
 const Home = () => {
 
@@ -19,7 +18,7 @@ const Home = () => {
 
   useEffect(() => {
     setSelectedTheme(theme);
-  }, [themeLoaded]);
+  }, [theme, themeLoaded]);
 
 
   const [isTaskListShown, setIsTaskListShown] = useState(true);

@@ -1,8 +1,8 @@
 import Card from "react-bootstrap/Card";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from '../themes/GlobalStyles.js';
-import { useTheme } from '../themes/useTheme';
+import { useTheme } from '../themes/useTheme.js';
 import ThemeSelector from '../themes/themeSelector.js';
 
 const SettingsCard = (props) => {
@@ -18,7 +18,8 @@ const SettingsCard = (props) => {
             <GlobalStyles />
             <Card className="settings-card">
                 <Card.Title>Appearance</Card.Title>
-                <ThemeSelector setter={ setSelectedTheme }/>
+                <Card.Text className="accent-color">Accent Color</Card.Text>
+                <ThemeSelector setter={setSelectedTheme} />
             </Card>
         </ThemeProvider>
     )
