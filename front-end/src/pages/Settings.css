@@ -10,7 +10,7 @@
     font-size: 150%;
     background-color: transparent !important;
     border-color: transparent !important;
-    color: black !important;
+    color: var(--text-color);
     text-align: left !important;
 }
 

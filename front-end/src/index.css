@@ -1,13 +1,33 @@
+/* ---- LIGHT MODE COLORS ---- */
 :root {
-  --default-color: #98d498;
-  --default-hover: #627262;
-  --default-click: #a5c1a5;
-  --default-nextMonth: #dfdfdf;
+  --background-color: #FFFFFF;
+  --text-color: #000000;
+  --card-background-color: var(--background-color);
+}
+
+/* ---- DARK MODE COLORS ---- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #121212;
+    --text-color: #d1cfcf;
+    --card-background-color: #3b3b3b;
+  }
 }
 
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+div.card, div.task-list {
+  background-color: var(--card-background-color) !important;
+  color: var(--text-color);
+}
+
+.list-group {
+  --bs-list-group-bg: var(--card-background-color);
 }
 
 code {
@@ -22,6 +42,11 @@ code {
   margin-bottom: 3em;
   padding: 1em;
 }
+
+.navbar-brand {
+  color: var(--text-color);
+}
+
 .navbar-brand img {
   margin-right: 10px;
 }
@@ -87,7 +112,6 @@ div.tasks-add button {
   width: 50%;
   margin: 5% auto 0px auto;
   border-radius: 24px;
-  background-color: var(--bs-btn-active-bg);
 }
 
 .react-datepicker-wrapper {
@@ -109,30 +133,37 @@ div.tasks-add .taskDescBox,
 .react-calendar {
   text-align: center;
 }
+
 .react-calendar__navigation {
   margin-bottom: 1em;
   display: flex;
 }
+
 .react-calendar__navigation__label {
   font-size: 1.5em;
   font-weight: bold;
 }
+
 .react-calendar__navigation__arrow {
   font-size: 1.5em;
   flex-grow: 0.333;
 }
+
 .react-calendar__month-view__weekdays {
   text-align: center;
+
   abbreviation {
     text-decoration: none;
   }
 }
+
 button {
   margin: 2px;
   background-color: var(--default-color);
   border: 0;
   color: white;
   height: 9vh;
+
   &:hover {
     background-color: var(--default-hover);
   }
@@ -141,6 +172,7 @@ button {
     background-color: var(--default-click);
   }
 }
+
 /* ~~~ day grid styles ~~~ */
 .react-calendar__month-view__days {
   display: grid !important;
@@ -150,10 +182,12 @@ button {
     max-width: initial !important;
   }
 }
+
 /* ~~~ neighboring month & weekend styles ~~~ */
 .react-calendar__month-view__days__day--neighboringMonth {
   opacity: 0.6;
 }
+
 .react-calendar__month-view__days__day--weekend {
   color: --;
 }
@@ -162,6 +196,7 @@ button {
 .react-calendar__tile--range {
   box-shadow: 0 0 6px 2px black;
 }
+
 /* ~~~ other view styles ~~~ */
 .react-calendar__year-view__months,
 .react-calendar__decade-view__years,
@@ -172,6 +207,7 @@ button {
   &.react-calendar__year-view__months {
     grid-template-columns: 33.3% 33.3% 33.3%;
   }
+
   .react-calendar__tile {
     max-width: initial !important;
   }
@@ -179,7 +215,7 @@ button {
 
 .unchecked {
   text-decoration: none !important;
-  color: black;
+  color: var(--text-color);
 }
 
 .checked {
