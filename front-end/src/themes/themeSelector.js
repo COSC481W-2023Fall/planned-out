@@ -35,7 +35,7 @@ const Switch = (props) => {
     }
 
     return (
-        <div class="theme-container">
+        <div className="theme-container">
             {
                 themes.length > 0 &&
                 themes.map(theme => (
