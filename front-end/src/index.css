@@ -94,6 +94,18 @@ div.task label {
   height: 80vh;
 }
 
+
+
+button, .btn, [type="button"]:not(:disabled) {
+  max-height: 50px;
+  border-radius: 24px;
+}
+
+div.react-calendar button, div.react-calendar [type="button"]:not(:disabled) {
+  max-height: none;
+  border-radius: 2px;
+}
+
 div.tasks-card button {
   width: 50%;
   margin: auto;
