@@ -7,24 +7,41 @@ import CalendarView from "../components/CalendarView.js"
 import TaskAdd from "../components/TaskAdd.js"
 import TaskList from "../components/TaskList.js"
 import { useState, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import React from "react";
 
 const Home = () => {
+    const userCookie = localStorage.getItem('user');
+    const navigate = useNavigate();
+
+    React.useEffect(() => {
+        if (userCookie == null) {
+            navigate(`/login`);
+        }
+    })
+
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const username = searchParams.get('username');
-    console.log("FROM HOME" + username);
+    const username = searchParams.get('username') || userCookie;
+    console.log("FROM HOME " + username);
 
     const [isTaskListShown, setIsTaskListShown] = useState(true);
     const [isTaskAddShown, setIsTaskAddShown] = useState(false);
 
     const taskAddRef = useRef();
 
+    
     function showTaskAdd() {
         // Show the Task Add card
         setIsTaskAddShown(current => !current);
         // Hide the Task List card
         setIsTaskListShown(false);
+    }
+
+    function logUserOut() {
+        localStorage.clear();
+        navigate(`/login`);
     }
 
     function showTaskList() {
@@ -70,6 +87,7 @@ const Home = () => {
                     <Col sm={8}>
                         <Card className="react-calendar">
                             <Card.Title>Calendar</Card.Title>
+                            <Button onClick={logUserOut}>Log out</Button>
                             <div className="calendar-container">
                                 <CalendarView />
                             </div>

@@ -56,6 +56,7 @@ function LoginForm() {
                 .then((res) => {
                     if (res.status === 200) {
                         // Redirect to the user's page using React Router
+                        localStorage.setItem("user", username);
                         navigate(`/?username=${username}`);
                       } else {
                         document.getElementById("badLogin").innerHTML =

@@ -7,9 +7,20 @@ import SettingsSecurity from "../components/SettingsSecurity.js";
 import SettingsProfile from "../components/SettingsProfile.js";
 import SettingsAppearance from "../components/SettingsAppearance.js";
 import SettingsPrivacy from "../components/SettingsPrivacy.js";
+import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import "../pages/Settings.css"
 
 const Settings = () => {
+    const userCookie = localStorage.getItem('user');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (userCookie == null) {
+            navigate(`/login`);
+        }
+    })
+
     return (
         <Container className="main-settings-container">
             <Tab.Container transition={false} defaultActiveKey="security">
