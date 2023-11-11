@@ -17,6 +17,9 @@ const Home = () => {
     const userCookie = localStorage.getItem('user');
     const navigate = useNavigate();
 
+    const { theme, themeLoaded } = useTheme();
+    const [selectedTheme, setSelectedTheme] = useState(theme);
+
     useEffect(() => {
         if (userCookie == null) {
             navigate(`/login`);
@@ -29,8 +32,6 @@ const Home = () => {
     const username = searchParams.get('username') || userCookie;
     console.log("FROM HOME " + username);
 
-  const { theme, themeLoaded } = useTheme();
-  const [selectedTheme, setSelectedTheme] = useState(theme);
 
   useEffect(() => {
     setSelectedTheme(theme);
@@ -51,7 +52,7 @@ const Home = () => {
     }
 
     function logUserOut() {
-        localStorage.clear();
+        localStorage.removeItem('user');
         navigate(`/login`);
     }
 

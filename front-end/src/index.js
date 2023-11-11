@@ -7,8 +7,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import Settings from "./pages/Settings.js";
 import Login from "./pages/Login.js";
-import Settings from "./pages/Settings.js";
-import Login from "./pages/Login.js";
 import Registration from "./pages/Registration.js";
 import * as themes from './themes/schema.json';
 import { setToLS } from './utils/storage';
@@ -21,8 +19,8 @@ export default function App() {
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />
                 </Route>
-                <Route path="/" element={<Layout />}>
-                    <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Layout />}>
+                    <Route index element={<Login />} />
                 </Route>
                 <Route path="/settings" element={<Layout />}>
                     <Route index element={<Settings />} />

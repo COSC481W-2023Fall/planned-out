@@ -3,8 +3,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState, forwardRef, useRef, useImperativeHandle } from "react";
 
-let link = "http://localhost:5050/"
-//let link = "https://planned-out-backend-jdx6.onrender.com/"
+//let link = "http://localhost:5050/"
+let link = "https://planned-out-backend-jdx6.onrender.com/"
 
 const TaskAdd = forwardRef((props, ref) => {
     const [taskName, setNameInput] = useState(""); // New state for the name input
@@ -43,7 +43,7 @@ const TaskAdd = forwardRef((props, ref) => {
                     res.json();
                 })
                 .then((data) => { });
-
+            window.location.reload()
             console.log("Successfully added task!");
         } else {
             alert("Task must be named and have a date.");
