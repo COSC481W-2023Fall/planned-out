@@ -3,18 +3,23 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import { useState, useEffect } from "react";
 
-let link = "http://localhost:5050/"
-//let link = "https://planned-out-backend-jdx6.onrender.com/"
-
-function TaskList() {
+function TaskList({ username }) {
+    console.log(username);
+    const [tasksList, setTaskList] = useState([]);
 
     useEffect(() => {
-        fetch(link)
+        fetch(`http://localhost:5050/username=?${username}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username: username,
+            }),
+        })
             .then((res) => res.json())
             .then((data) => setTaskList(data));
-    }, []);
-
-    const [tasksList, setTaskList] = useState([]);
+    }, [username]);
 
     function CheckBox({ id, taskID, taskName, taskDate, taskDesc, taskStatus }) {
         let labelID = id + "label";

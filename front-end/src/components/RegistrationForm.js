@@ -1,6 +1,7 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 let link = "http://localhost:5050/"
 // let link = "https://planned-out-backend-jdx6.onrender.com/";
@@ -14,6 +15,7 @@ function RegistrationForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
+  const navigate = useNavigate();
 
   const validation = (e) => {
     const { name, value } = e.target;
@@ -116,14 +118,15 @@ function RegistrationForm() {
         }),
       })
         .then((res) => {
-          if (res.status === 500) {
-            alert("Hello World!")
-          }
-          //res.json();
-          console.log(res.json());
+            if (res.status !== 200) {
+                alert("Username already exists. Please try again.")
+            }
+            else {
+                navigate(`/login`);
+            }
+            
         })
         .then((data) => {});
-      console.log("Successfully registered user!");
     } else {
       alert("Please fill out all fields correctly");
       console.log("Error registering user");

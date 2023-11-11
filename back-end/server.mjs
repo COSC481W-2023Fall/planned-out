@@ -18,21 +18,6 @@ app.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`);
 });
 
-app.get('/', (req, res) => {
-
-});
-
-app.post("/:username", async(req, res) => {
-    const { username } = req.body;
-    console.log(username)
-
-    let collection = await db.collection("Tasks");
-    let results = await collection.find({ "user": username }).toArray();
-    console.log("results: ", results);
-
-    res.send(results).status(200);
-});
-
 app.get("/hello-world", async (req, res) => {
     res.send(data);
     console.log(data.message);
@@ -40,7 +25,6 @@ app.get("/hello-world", async (req, res) => {
 
 // POST for registering user information
 app.post("/register", async (req, res) => {
-
     // get username to test to see if it exists in database
     const username = req.body.username;
     // hash user password for secure storage in database
@@ -54,10 +38,25 @@ app.post("/register", async (req, res) => {
         userEmail: req.body.email
     };
 
-    // create collection named "user-email"
-    db.createCollection(userInfo.user);
-    let collection = await db.collection(userInfo.user);
-    let result = await collection.insertOne(userInfo);
+    // make collections = a search of all collections with username as the name of the collection
+    const collections = await db.listCollections().toArray();
+    const existingCollection = collections.find(collection => collection.name === username);
+
+    console.log(existingCollection);
+
+    // check collections length
+    if (!existingCollection) {
+        db.createCollection(userInfo.user);
+        let collection = await db.collection(userInfo.user);
+        let result = await collection.insertOne(userInfo);
+        res.status(200);
+        res.send(result);
+        console.log("Super Unique")
+    } else {
+        res.status(500);
+        res.send({"Error": "User already exists"});
+        console.log("Not so unique")
+    }
 });
 
 app.post("/add", async (req, res) => {
@@ -109,7 +108,7 @@ app.post("/login", async (req, res) => {
     if (results.length > 0) {
         console.log(results.length);
         res.status(200);
-        res.send({ "Status": "Success" });
+        res.send({ "username": username });
     }
     else {
         console.log("ERROR: The new status is null");
@@ -118,4 +117,15 @@ app.post("/login", async (req, res) => {
     }
     console.log(results);
     // console.log(hashedPwd);
+});
+
+app.post("/:username", async (req, res) => {
+    const username = req.body.username;
+    console.log(username)
+
+    let collection = await db.collection("Tasks");
+    let results = await collection.find({ "user": username }).toArray();
+    console.log("results: ", results);
+
+    res.send(results).status(200);
 });
