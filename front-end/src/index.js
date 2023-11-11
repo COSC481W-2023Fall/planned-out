@@ -7,9 +7,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import Settings from "./pages/Settings.js";
 import Login from "./pages/Login.js";
+import Settings from "./pages/Settings.js";
+import Login from "./pages/Login.js";
 import Registration from "./pages/Registration.js";
+import * as themes from './themes/schema.json';
+import { setToLS } from './utils/storage';
 
 export default function App() {
+    setToLS('all-themes', themes.default);
     return (
         <BrowserRouter>
             <Routes>

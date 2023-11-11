@@ -129,7 +129,7 @@ function TaskList({ username }) {
             </ListGroup.Item>
             {/* For loop for each task in the tasks list */}
             {tasksList.map((task) => (
-                <ListGroup.Item className="task">
+                <ListGroup.Item key={task._id} className="task">
                     <CheckBox
                         className="task"
                         id={"task" + tasksList.indexOf(task)}
