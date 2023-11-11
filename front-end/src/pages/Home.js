@@ -89,7 +89,7 @@ const Home = () => {
                             <Card.Title>Calendar</Card.Title>
                             <Button onClick={logUserOut}>Log out</Button>
                             <div className="calendar-container">
-                                <CalendarView />
+                                <CalendarView username={username} />
                             </div>
                         </Card>
                     </Col>

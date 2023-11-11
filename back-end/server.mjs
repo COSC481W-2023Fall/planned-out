@@ -64,7 +64,8 @@ app.post("/add", async (req, res) => {
         taskName: req.body.name,
         taskDate: req.body.date,
         taskDesc: req.body.desc,
-        taskStatus: "Incomplete"
+        taskStatus: "Incomplete",
+        user: req.body.user
     };
     let collection = await db.collection("Tasks");
     let result = await collection.insertOne(newDocument);
@@ -73,6 +74,7 @@ app.post("/add", async (req, res) => {
         res.status(500)
     }
     res.send(result).status(201);
+    console.log("ADDED TASK")
 });
 
 app.put("/updatetask/:id", async (req, res) => {
