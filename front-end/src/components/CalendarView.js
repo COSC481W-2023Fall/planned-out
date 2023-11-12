@@ -9,8 +9,7 @@ function CalendarView({ username }) {
     const [tasks, setTasks] = useState([]); // this is where we can store the tasks from the database
 
     useEffect(() => {
-        console.log("Calendar" + username )
-        fetch(link , `username=?${username}`, {
+        fetch(link + `username=?${username}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
