@@ -11,6 +11,7 @@ function TaskList({ username }) {
     const [tasksList, setTaskList] = useState([]);
 
     useEffect(() => {
+        // verify user info from URL to display task list
         fetch(link + `username=?${username}`, {
             method: "POST",
             headers: {

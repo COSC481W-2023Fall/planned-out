@@ -106,27 +106,33 @@ app.post("/login", async (req, res) => {
     let collection = await db.collection(username);
     // Get the information for the given user
     let results = await collection.find({ "pwd": hashedPwd }).toArray();
-
+    
+    // Send user's info to frontend if successful
     if (results.length > 0) {
         console.log(results.length);
         res.status(200);
         res.send({ "username": username });
-    }
+    } // if unsuccessful, send error
     else {
         console.log("ERROR: The new status is null");
         res.status(403);
         res.send({ "Status": "Error" });
     }
     console.log(results);
-    // console.log(hashedPwd);
 });
 
 app.post("/:username", async (req, res) => {
+    // Grabbing our username from the URL
     const username = req.body.username;
     console.log(username)
 
+    // Select tasks collection to find our user's tasks specifically
     let collection = await db.collection("Tasks");
+
+    // Narrow down collection to only user's tasks
     let results = await collection.find({ "user": username }).toArray();
+
+    // display results for testing
     console.log("results: ", results);
 
     res.send(results).status(200);

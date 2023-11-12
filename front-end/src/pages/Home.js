@@ -28,6 +28,7 @@ const Home = () => {
     }, [theme, themeLoaded]);
 
     const location = useLocation();
+    // Using URLSearchParams function to verify user information
     const searchParams = new URLSearchParams(location.search);
     const username = searchParams.get('username') || userCookie;
     console.log("FROM HOME " + username);
@@ -42,7 +43,6 @@ const Home = () => {
     const [isTaskAddShown, setIsTaskAddShown] = useState(false);
 
     const taskAddRef = useRef();
-
     
     function showTaskAdd() {
         // Show the Task Add card
@@ -51,6 +51,7 @@ const Home = () => {
         setIsTaskListShown(false);
     }
 
+    // Log user out
     function logUserOut() {
         localStorage.removeItem('user');
         navigate(`/login`);

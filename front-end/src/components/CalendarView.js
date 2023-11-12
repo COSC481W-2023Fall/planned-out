@@ -9,6 +9,7 @@ function CalendarView({ username }) {
     const [tasks, setTasks] = useState([]); // this is where we can store the tasks from the database
 
     useEffect(() => {
+        // Fetch our user's name from the URL
         fetch(link + `username=?${username}`, {
             method: "POST",
             headers: {
@@ -17,7 +18,7 @@ function CalendarView({ username }) {
             body: JSON.stringify({
                 username: username,
             }),
-        })
+        }) // display specific user's tasks
             .then((res) => res.json())
             .then((data) => setTasks(data));
     }, [username]);
