@@ -43,7 +43,7 @@ const TaskAdd = forwardRef((props, ref) => {
                     res.json();
                 })
                 .then((data) => { });
-            window.location.reload()
+            //window.location.reload()
             console.log("Successfully added task!");
         } else {
             alert("Task must be named and have a date.");
