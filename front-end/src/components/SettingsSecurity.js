@@ -1,7 +1,7 @@
 import Card from "react-bootstrap/Card";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 let link = "https://planned-out-backend-jdx6.onrender.com/";
 //let link = "http://localhost:5050/";
 
@@ -27,7 +27,7 @@ const SettingsCard = (props) => {
             }));
         }
 
-        if(newPassword1 !== newPassword2){
+        if (newPassword1 !== newPassword2) {
             e.preventDefault();
             document.getElementById("badLogin").innerHTML =
                 "PASSWORDS DO NOT MATCH";
@@ -65,7 +65,7 @@ const SettingsCard = (props) => {
                 .then((res) => {
                     if (res.status === 200) {
                         console.log("Successfully updated password!");
-                    }else{
+                    } else {
                         alert("PASSWORD ERROR: Current password is incorrect ");
                     }
                 })
@@ -84,17 +84,17 @@ const SettingsCard = (props) => {
                 <Card.Subtitle>Change Password</Card.Subtitle>
                 <Card.Body>
 
-                    <Form>
-                        <Form.Group controlId="SecUserName">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control type="username" placeholder="something@example.com" onChange={(e) => {
+                    <Form style={{ textAlign: 'left' }}>
+                        <Form.Group controlId="SecUserName" className="mb-3">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control type="email" placeholder="something@example.com" onChange={(e) => {
                                 setUsername(e.target.value);
                                 validation(e);
                             }}
                                 isInvalid={!!errors.username} onBlur={(e) => validation(e)} />
                         </Form.Group>
 
-                        <Form.Group controlId="SecPassOld">
+                        <Form.Group controlId="SecPassOld" className="mb-3">
                             <Form.Label>Current Password</Form.Label>
                             <Form.Control type="password" placeholder="Enter your current password" onChange={(e) => {
                                 setPassword(e.target.value);
@@ -103,7 +103,7 @@ const SettingsCard = (props) => {
                                 isInvalid={!!errors.password} onBlur={(e) => validation(e)} />
                         </Form.Group>
 
-                        <Form.Group controlId="SecPassNew1">
+                        <Form.Group controlId="SecPassNew1" className="mb-3">
                             <Form.Label>New Password</Form.Label>
                             <Form.Control type="password" placeholder="Enter a new password" onChange={(e) => {
                                 setNewPassword1(e.target.value);
@@ -112,7 +112,7 @@ const SettingsCard = (props) => {
                                 isInvalid={!!errors.password} onBlur={(e) => validation(e)} />
                         </Form.Group>
 
-                        <Form.Group controlId="SecPassNew2">
+                        <Form.Group controlId="SecPassNew2" className="mb-3">
                             <Form.Label>Confirm New Password</Form.Label>
                             <Form.Control type="password" placeholder="Repeat new password" onChange={(e) => {
                                 setNewPassword2(e.target.value);
@@ -120,14 +120,11 @@ const SettingsCard = (props) => {
                             }}
                                 isInvalid={!!errors.password} onBlur={(e) => validation(e)} />
                         </Form.Group>
-                        <br />
-                    <Form.Text id="badLogin"></Form.Text>
-                    <br />
+                        <Form.Text id="badLogin"></Form.Text>
+
                         <Button className="login-button" variant="primary" onClick={handleSubmit} type="submit" >
                             Submit
                         </Button>
-
-
                     </Form>
                 </Card.Body>
             </Card>
