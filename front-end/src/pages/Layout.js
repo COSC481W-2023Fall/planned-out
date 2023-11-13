@@ -5,9 +5,24 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
 
 const Layout = () => {
   const navigate = useNavigate();
+  const userCookie = localStorage.getItem('user');
+  const [isUserLoggedIn, setLoggedIn] = useState([]);
+  const [isUserLoggedOut, setLoggedOut] = useState([]);
+
+  useEffect(() => {
+    if (userCookie == null) {
+      setLoggedIn(false);
+      setLoggedOut(true);
+    }
+    else {
+      setLoggedIn(true)
+      setLoggedOut(false);
+    }
+  }, [userCookie]);
 
   // Log user out
   function logUserOut() {
@@ -49,16 +64,20 @@ const Layout = () => {
                 <Button className="main-nav-button">Settings</Button>
               </LinkContainer>
             </Nav.Item>
-            <Nav.Item>
-              <LinkContainer to="/login">
-                <Button className="main-nav-button">Login</Button>
-              </LinkContainer>
-            </Nav.Item>
-            <Nav.Item>
-              <LinkContainer to="/login">
-                <Button onClick={logUserOut} className="main-nav-button">Log Out</Button>
-              </LinkContainer>
-            </Nav.Item>
+            {isUserLoggedOut &&
+              <Nav.Item>
+                <LinkContainer to="/login">
+                  <Button className="main-nav-button">Login</Button>
+                </LinkContainer>
+              </Nav.Item>
+            }
+            {isUserLoggedIn &&
+              < Nav.Item >
+                <LinkContainer to="/login">
+                  <Button onClick={logUserOut} className="main-nav-button">Log Out</Button>
+                </LinkContainer>
+              </Nav.Item>
+            }
           </Nav>
         </Container>
       </Navbar>

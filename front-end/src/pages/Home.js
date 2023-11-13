@@ -25,7 +25,7 @@ const Home = () => {
       navigate(`/login`);
     }
     setSelectedTheme(theme);
-  }, [theme, themeLoaded]);
+  }, [navigate, userCookie, theme, themeLoaded]);
 
   const location = useLocation();
   // Using URLSearchParams function to verify user information
