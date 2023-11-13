@@ -1,10 +1,9 @@
 import Card from "react-bootstrap/Card";
-import CardBody from "react-bootstrap/esm/CardBody";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useState, useEffect } from "react";
-// let link = "https://planned-out-backend-jdx6.onrender.com/";
-let link = "http://localhost:5050/";
+let link = "https://planned-out-backend-jdx6.onrender.com/";
+//let link = "http://localhost:5050/";
 
 const SettingsCard = (props) => {
     const [username, setUsername] = useState("");
