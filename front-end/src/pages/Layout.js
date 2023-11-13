@@ -4,8 +4,27 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import { LinkContainer } from "react-router-bootstrap";
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+
 
 const Layout = () => {
+
+  const userCookie = localStorage.getItem('user');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userCookie == null) {
+        navigate(`/login`);
+    }
+}, []);
+
+  // Log user out
+  function logUserOut() {
+    localStorage.removeItem('user');
+    navigate(`/login`);
+  }
+
   return (
     <>
       <Navbar>
@@ -43,6 +62,11 @@ const Layout = () => {
             <Nav.Item>
               <LinkContainer to="/login">
                 <Button className="main-nav-button">Login</Button>
+              </LinkContainer>
+            </Nav.Item>
+            <Nav.Item>
+              <LinkContainer to="login">
+                <Button onClick={logUserOut} className="main-nav-button">Log Out</Button>
               </LinkContainer>
             </Nav.Item>
           </Nav>
