@@ -35,13 +35,15 @@ const TaskAdd = forwardRef((props, ref) => {
                     name: taskName,
                     date: taskDateOut,
                     desc: taskDesc,
+                    taskStatus: "incomplete",
+                    user: localStorage.getItem("user")
                 }),
             })
                 .then((res) => {
                     res.json();
                 })
                 .then((data) => { });
-
+            window.location.reload()
             console.log("Successfully added task!");
         } else {
             alert("Task must be named and have a date.");
