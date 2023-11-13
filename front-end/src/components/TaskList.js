@@ -114,7 +114,7 @@ function TaskList({ username }) {
         };
 
     return (
-        <ListGroup className="task-list">
+        <ListGroup className="task-list no-scroll">
             <ListGroup.Item className="task">
                 <InputGroup>
                     <Form.Check
