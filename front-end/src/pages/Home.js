@@ -33,12 +33,6 @@ const Home = () => {
   const username = searchParams.get('username') || userCookie;
   console.log("FROM HOME " + username);
 
-
-  useEffect(() => {
-    setSelectedTheme(theme);
-  }, [theme, themeLoaded]);
-
-
   const [isTaskListShown, setIsTaskListShown] = useState(true);
   const [isTaskAddShown, setIsTaskAddShown] = useState(false);
 
@@ -53,14 +47,15 @@ const Home = () => {
 
   function showTaskList() {
     if (!(taskAddRef.current.getTaskName() === "")) {
-      // Show the Task List card
-      setIsTaskListShown(current => !current);
+      // Submit to TaskAdd
+      taskAddRef.current.handleSubmit();
       // Hide the Task Add card
       setIsTaskAddShown(false);
-      taskAddRef.current.handleSubmit();
+      // Show the Task List card
+      setIsTaskListShown(current => !current);
     }
     else {
-      alert("ERROR");
+      alert("ERROR! You must enter a task name");
     }
   }
 
