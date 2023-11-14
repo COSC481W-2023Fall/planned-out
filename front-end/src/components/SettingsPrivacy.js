@@ -3,6 +3,9 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 
+let link = "http://localhost:5050/"
+//let link = "https://planned-out-backend-jdx6.onrender.com/"
+
 const SettingsCard = (props) => {
 
     const [showTaskDelete, setTaskDeleteShow] = useState(false);
@@ -14,7 +17,19 @@ const SettingsCard = (props) => {
     const handleAccountDeleteShow = () => setAccountDeleteShow(true);
 
     function deleteTasks() {
-        alert("All tasks deleted");
+        // Send the delete request to the server
+        fetch(link + "delete-all-tasks", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username: localStorage.getItem("user")
+            }),
+        })
+            .then((res) => {
+                res.json();
+            })
         // Hide the modal
         setTaskDeleteShow(false);
     }

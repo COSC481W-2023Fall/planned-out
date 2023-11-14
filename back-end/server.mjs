@@ -18,7 +18,7 @@ app.listen(PORT, () => {
 
 app.get("/hello-world", async (req, res) => {
     res.send(data);
-    console.log(data.message);
+    //console.log(data.message);
 });
 
 // POST for registering user information
@@ -40,7 +40,7 @@ app.post("/register", async (req, res) => {
     const collections = await db.listCollections().toArray();
     const existingCollection = collections.find(collection => collection.name === username);
 
-    console.log(existingCollection);
+    //console.log(existingCollection);
 
     // check collections length
     if (!existingCollection) {
@@ -49,11 +49,11 @@ app.post("/register", async (req, res) => {
         let result = await collection.insertOne(userInfo);
         res.status(200);
         res.send(result);
-        console.log("Super Unique")
+        //console.log("Super Unique")
     } else {
         res.status(500);
-        res.send({"Error": "User already exists"});
-        console.log("Not so unique")
+        res.send({ "Error": "User already exists" });
+        //console.log("Not so unique")
     }
 });
 
@@ -72,7 +72,7 @@ app.post("/add", async (req, res) => {
         res.status(500);
     }
     res.send(result).status(201);
-    console.log("ADDED TASK")
+    //console.log("ADDED TASK")
 });
 
 app.put("/updatetask/:id", async (req, res) => {
@@ -87,12 +87,12 @@ app.put("/updatetask/:id", async (req, res) => {
         );
 
         res.send(result).status(204);
-        console.log(result);
+        //console.log(result);
     }
     else {
-        console.log("ERROR: The new status is null");
+        //console.log("ERROR: The new status is null");
     }
-    console.log("ID: " + taskID + " New Status: " + newStatus);
+    //console.log("ID: " + taskID + " New Status: " + newStatus);
 });
 
 app.post("/login", async (req, res) => {
@@ -104,25 +104,25 @@ app.post("/login", async (req, res) => {
     let collection = await db.collection(username);
     // Get the information for the given user
     let results = await collection.find({ "pwd": hashedPwd }).toArray();
-    
+
     // Send user's info to frontend if successful
     if (results.length > 0) {
-        console.log(results.length);
+        //console.log(results.length);
         res.status(200);
         res.send({ "username": username });
     } // if unsuccessful, send error
     else {
-        console.log("ERROR: The new status is null");
+        //console.log("ERROR: The new status is null");
         res.status(403);
         res.send({ "Status": "Error" });
     }
-    console.log(results);
+    //console.log(results);
 });
 
 app.post("/:username", async (req, res) => {
     // Grabbing our username from the URL
     const username = req.body.username;
-    console.log(username)
+    //console.log(username)
 
     // Select tasks collection to find our user's tasks specifically
     let collection = await db.collection("Tasks");
@@ -131,37 +131,52 @@ app.post("/:username", async (req, res) => {
     let results = await collection.find({ "user": username }).toArray();
 
     // display results for testing
-    console.log("results: ", results);
+    //console.log("results: ", results);
 
     res.send(results).status(200);
 });
 
 app.put("/update", async (req, res) => {    // update user password
-    console.log("update: " + req.body.username);
+    //console.log("update: " + req.body.username);
     const username = req.body.username;
     const hashedPwd = await bcrypt.hashSync(req.body.password, salt);   // hash user password
-    console.log(username);
-    console.log(hashedPwd);
+    //console.log(username);
+    //console.log(hashedPwd);
     // Connect to the Users collection.
     let collection = await db.collection(username);
     // Get the information for the given user
     let results = await collection.find({ "pwd": hashedPwd }).toArray();
-    console.log(results.length);
+    //console.log(results.length);
     const newPwd = await bcrypt.hashSync(req.body.newPassword, salt);
-    console.log(newPwd);
+    //console.log(newPwd);
     if (results.length > 0) {   // check if password is correct
-      
-      let updatePassword = await db.collection(username).updateOne(
-        { "user": username },
-        { $set: { "pwd": newPwd }}
-      )
+
+        let updatePassword = await db.collection(username).updateOne(
+            { "user": username },
+            { $set: { "pwd": newPwd } }
+        )
         res.status(200);
         res.send({ "username": username });   // send new password
     }
     else {
-        console.log("ERROR: The new status is null");
+        //console.log("ERROR: The new status is null");
         res.status(403);
         res.send({ "Status": "Error" });
     }
-    console.log(results);
-  });
+    //console.log(results);
+});
+
+app.put("/delete-all-tasks", async (req, res) => {
+    // Get the username
+    const username = req.body.username;
+
+    console.log("DELETE TASKS USERNAME IS ",username);
+    // Get the Tasks collection
+    let collection = await db.collection("Tasks");
+    // Delete all of that user's tasks
+    let result = await collection.deleteMany( {"user": username } );
+
+    // Send result and log
+    res.send(result).status(201);
+    console.log("ALL TASKS FOR", username, "DELETED");
+});
