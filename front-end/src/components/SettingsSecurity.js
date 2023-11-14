@@ -14,7 +14,7 @@ const SettingsCard = (props) => {
                     
                     <Form style={{ textAlign: 'left' }}>
                         <Form.Group controlId="SecEmail" className="mb-3">
-                            <Form.Label>Email address</Form.Label>
+                            <Form.Label>Email Address</Form.Label>
                             <Form.Control type = "email" placeholder="something@example.com"/>
                         </Form.Group>
 
