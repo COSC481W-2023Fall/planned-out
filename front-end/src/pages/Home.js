@@ -25,8 +25,8 @@ const Home = () => {
   const location = useLocation();
 
   // Using URLSearchParams function to verify user information
-  const searchParams = "";
-  const username = "default";
+  let searchParams = "";
+  let username = "default";
 
   try {
     searchParams = new URLSearchParams(location.search);
