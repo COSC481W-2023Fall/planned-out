@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Text from "react-bootstrap/FormText";
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 
 let link = localStorage.getItem("backendURL");
@@ -12,6 +12,10 @@ function LoginForm() {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState(false);
     const navigate = useNavigate();
+    
+    function goToRegistration() {
+        navigate(`/registration`);
+    }
 
     const validation = (e) => {
         const { name, value } = e.target;
@@ -130,7 +134,7 @@ function LoginForm() {
                     <br />
 
                     <Form.Text className="text-muted">
-                        Don't have an account? <a href="/registration">Register</a>
+                        Don't have an account? <p className="register-link" onClick={goToRegistration}>Register</p>
                     </Form.Text>
                 </Form.Group>
             </Form>

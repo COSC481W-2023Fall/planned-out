@@ -29,7 +29,9 @@ const Layout = () => {
     if (userCookie == null) {
       setLoggedIn(false);
       setLoggedOut(true);
-      navigate(`/login`);
+      if (window.location.pathname !== "/registration") {
+        navigate(`/login`);
+      }
     }
     else {
       setLoggedIn(true)
