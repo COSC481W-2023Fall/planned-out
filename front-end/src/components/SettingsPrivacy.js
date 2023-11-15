@@ -4,8 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-//let link = "http://localhost:5050/"
-let link = "https://planned-out-backend-jdx6.onrender.com/"
+let link = localStorage.getItem("backendURL");
 
 const SettingsCard = (props) => {
 
