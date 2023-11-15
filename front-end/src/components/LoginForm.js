@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 
 
-let link = localStorage.getItem("backendURL");;
+let link = localStorage.getItem("backendURL");
 
 function LoginForm() {
     const [username, setUsername] = useState("");

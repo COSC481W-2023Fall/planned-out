@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useState } from "react";
 
-let link = localStorage.getItem("backendURL");;
+let link = localStorage.getItem("backendURL");
 
 const SettingsCard = (props) => {
     const [username, setUsername] = useState("");
