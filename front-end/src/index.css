@@ -2,6 +2,7 @@
 :root {
   --background-color: #FFFFFF;
   --text-color: #000000;
+  --text-color-filter: invert(0%) sepia(100%) saturate(0%) hue-rotate(21deg) brightness(97%) contrast(103%);
   --card-background-color: var(--background-color);
 }
 
@@ -10,6 +11,7 @@
   :root {
     --background-color: #121212;
     --text-color: #d1cfcf;
+    --text-color-filter: invert(93%) sepia(18%) saturate(13%) hue-rotate(314deg) brightness(90%) contrast(84%);
     --card-background-color: #3b3b3b;
   }
 }
@@ -265,7 +267,7 @@ div.theme-container .btn {
   border-radius: 100%;
 }
 
-p.accent-color {
+p.settings-section {
   margin-top: 1em;
   font-size: 150%;
 }

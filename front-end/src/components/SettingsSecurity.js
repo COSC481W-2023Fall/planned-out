@@ -2,8 +2,8 @@ import Card from "react-bootstrap/Card";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useState } from "react";
-let link = "https://planned-out-backend-jdx6.onrender.com/";
-//let link = "http://localhost:5050/";
+
+let link = localStorage.getItem("backendURL");
 
 const SettingsCard = (props) => {
     const [username, setUsername] = useState("");
