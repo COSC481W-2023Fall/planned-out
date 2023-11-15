@@ -113,7 +113,7 @@ function TaskList({ username }) {
         };
 
     return (
-        <ListGroup className="task-list no-scroll">
+        <ListGroup data-testid="TaskListGroup" className="task-list no-scroll">
             {/* For loop for each task in the tasks list */}
             {tasksList.map((task) => (
                 <ListGroup.Item key={task._id} className="task">

@@ -11,27 +11,33 @@ import { useLocation } from 'react-router-dom';
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from '../themes/GlobalStyles.js';
 import { useTheme } from '../themes/useTheme';
-import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const userCookie = localStorage.getItem('user');
-  const navigate = useNavigate();
 
   const { theme, themeLoaded } = useTheme();
   const [selectedTheme, setSelectedTheme] = useState(theme);
 
   useEffect(() => {
-    if (userCookie == null) {
-      navigate(`/login`);
-    }
     setSelectedTheme(theme);
-  }, [navigate, userCookie, theme, themeLoaded]);
+  }, [theme, themeLoaded]);
 
   const location = useLocation();
+
   // Using URLSearchParams function to verify user information
-  const searchParams = new URLSearchParams(location.search);
-  const username = searchParams.get('username') || userCookie;
-  console.log("FROM HOME " + username);
+  const searchParams = "";
+  const username = "default";
+
+  try {
+    searchParams = new URLSearchParams(location.search);
+
+    //const searchParams = new URLSearchParams(location.search);
+    username = searchParams.get('username') || userCookie;
+    console.log("FROM HOME " + username);
+
+  } catch (error) {
+    console.log("Error while trying to get username from URL");
+  }
 
   const [isTaskListShown, setIsTaskListShown] = useState(true);
   const [isTaskAddShown, setIsTaskAddShown] = useState(false);
