@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 //let link = "http://localhost:5050/"
 let link = "https://planned-out-backend-jdx6.onrender.com/";
@@ -45,7 +45,7 @@ function RegistrationForm() {
         password: "",
       }));
     } else if (
-      (name === "confimPassword" && value === password) ||
+      (name === "confirmPassword" && value === password) ||
       (name === "password" && value === confirmPassword)
     ) {
       setErrors((prevErrors) => ({
@@ -75,6 +75,8 @@ function RegistrationForm() {
         [name]: "",
       }));
     }
+  };
+  useEffect(() => {
     const isAllValid =
       firstName.trim() !== "" &&
       lastName.trim() !== "" &&
@@ -90,7 +92,7 @@ function RegistrationForm() {
       !errors.confirmPassword;
 
     setIsFormValid(isAllValid);
-  };
+  }, [firstName, lastName, email, username, password, confirmPassword, errors]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -118,13 +120,11 @@ function RegistrationForm() {
         }),
       })
         .then((res) => {
-            if (res.status !== 200) {
-                alert("Username already exists. Please try again.")
-            }
-            else {
-                navigate(`/login`);
-            }
-            
+          if (res.status !== 200) {
+            alert("Username already exists. Please try again.");
+          } else {
+            navigate(`/login`);
+          }
         })
         .then((data) => {});
     } else {
@@ -133,37 +133,20 @@ function RegistrationForm() {
     }
   };
 
-  const fnameInput = (e) => {
-    setFirstName(e.target.value);
-  };
-  const lnameInput = (e) => {
-    setLastName(e.target.value);
-  };
-  const emailInput = (e) => {
-    setEmail(e.target.value);
-  };
-  const usernameInput = (e) => {
-    setUsername(e.target.value);
-  };
-  const passwordInput = (e) => {
-    setPassword(e.target.value);
-  };
-  const confirmPasswordInput = (e) => {
-    setConfirmPassword(e.target.value);
-  };
-
   return (
     <>
       <Form className="registration-form">
         <Form.Group className="form-group">
-          <Form.Label className="registration-label">First Name</Form.Label>
+          <Form.Label className="registration-label" htmlFor="firstName">
+            First Name
+          </Form.Label>
           <Form.Control
             required
             type="text"
             placeholder="Enter first name"
             value={firstName}
             onChange={(e) => {
-              fnameInput(e);
+              setFirstName(e.target.value);
               validation(e);
             }}
             isInvalid={!!errors.firstName}
@@ -171,18 +154,21 @@ function RegistrationForm() {
               validation(e);
             }}
             name="firstName"
+            id="firstName"
           />
           <Form.Control.Feedback type="invalid">
             {errors.firstName}
           </Form.Control.Feedback>
           <br />
-          <Form.Label className="registration-label">Last Name</Form.Label>
+          <Form.Label className="registration-label" htmlFor="lastName">
+            Last Name
+          </Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter last name"
             value={lastName}
             onChange={(e) => {
-              lnameInput(e);
+              setLastName(e.target.value);
               validation(e);
             }}
             isInvalid={!!errors.lastName}
@@ -190,19 +176,22 @@ function RegistrationForm() {
               validation(e);
             }}
             name="lastName"
+            id="lastName"
           />
           <Form.Control.Feedback type="invalid">
             {errors.lastName}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="form-group">
-          <Form.Label className="registration-label">Email</Form.Label>
+          <Form.Label className="registration-label" htmlFor="email">
+            Email
+          </Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
             value={email}
             onChange={(e) => {
-              emailInput(e);
+              setEmail(e.target.value);
               validation(e);
             }}
             isInvalid={!!errors.email}
@@ -210,18 +199,21 @@ function RegistrationForm() {
               validation(e);
             }}
             name="email"
+            id="email"
           />
           <Form.Control.Feedback type="invalid">
             {errors.email}
           </Form.Control.Feedback>
           <br />
-          <Form.Label className="registration-label">Username</Form.Label>
+          <Form.Label className="registration-label" htmlFor="username">
+            Username
+          </Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter username"
             value={username}
             onChange={(e) => {
-              usernameInput(e);
+              setUsername(e.target.value);
               validation(e);
             }}
             isInvalid={!!errors.username}
@@ -229,19 +221,22 @@ function RegistrationForm() {
               validation(e);
             }}
             name="username"
+            id="username"
           />
           <Form.Control.Feedback type="invalid">
             {errors.username}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="form-group">
-          <Form.Label className="registration-label">Password</Form.Label>
+          <Form.Label className="registration-label" htmlFor="password">
+            Password
+          </Form.Label>
           <Form.Control
             type="password"
             placeholder="Enter password"
             value={password}
             onChange={(e) => {
-              passwordInput(e);
+              setPassword(e.target.value);
               validation(e);
             }}
             isInvalid={!!errors.password}
@@ -249,18 +244,21 @@ function RegistrationForm() {
               validation(e);
             }}
             name="password"
+            id="password"
           />
           <Form.Control.Feedback type="invalid">
             {errors.password}
           </Form.Control.Feedback>
           <br />
-          <Form.Label className="registration-label">Confirm Password</Form.Label>
+          <Form.Label className="registration-label" htmlFor="confirmPassword">
+            Confirm Password
+          </Form.Label>
           <Form.Control
             type="password"
             placeholder="Confirm password"
             value={confirmPassword}
             onChange={(e) => {
-              confirmPasswordInput(e);
+              setConfirmPassword(e.target.value);
               validation(e);
             }}
             isInvalid={!!errors.confirmPassword}
@@ -268,6 +266,7 @@ function RegistrationForm() {
               validation(e);
             }}
             name="confirmPassword"
+            id="confirmPassword"
           />
           <Form.Control.Feedback type="invalid">
             {errors.confirmPassword}
