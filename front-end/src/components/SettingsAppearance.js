@@ -18,7 +18,7 @@ const SettingsCard = (props) => {
             <GlobalStyles />
             <Card className="settings-card">
                 <Card.Title>Appearance</Card.Title>
-                <Card.Text className="accent-color">Accent Color</Card.Text>
+                <Card.Text className="settings-section">Accent Color</Card.Text>
                 <ThemeSelector setter={setSelectedTheme} />
             </Card>
         </ThemeProvider>

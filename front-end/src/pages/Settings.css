@@ -29,3 +29,31 @@
 .main-settings-container {
     width: 75vw;
 }
+
+.modal-content {
+    background-color: var(--card-background-color);
+}
+
+.modal-content .btn {
+    border-radius: 10px;
+}
+
+.btn-close {
+    filter: var(--text-color-filter);
+}
+
+.modal-content .danger, .modal-content .danger:hover {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+.danger:hover {
+    opacity: 80%;
+}
+
+.delete-button, .delete-button:hover {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+    width: 30%;
+    border-radius: 10px !important;
+}

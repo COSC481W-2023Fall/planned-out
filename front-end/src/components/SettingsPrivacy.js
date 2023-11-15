@@ -4,8 +4,8 @@ import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-let link = "http://localhost:5050/"
-//let link = "https://planned-out-backend-jdx6.onrender.com/"
+//let link = "http://localhost:5050/"
+let link = "https://planned-out-backend-jdx6.onrender.com/"
 
 const SettingsCard = (props) => {
 
@@ -69,10 +69,10 @@ const SettingsCard = (props) => {
         <>
             <Card className="settings-card">
                 <Card.Title>Privacy</Card.Title>
-                <Card.Subtitle>Delete all tasks</Card.Subtitle>
-                <Button onClick={handleTaskDeleteShow}>Delete all tasks</Button>
-                <Card.Subtitle>Delete account</Card.Subtitle>
-                <Button onClick={handleAccountDeleteShow}>Delete account</Button>
+                <Card.Text className="settings-section">Delete all tasks</Card.Text>
+                <Button className="delete-button" onClick={handleTaskDeleteShow}>Delete all tasks</Button>
+                <Card.Text className="settings-section">Delete Account</Card.Text>
+                <Button className="delete-button" onClick={handleAccountDeleteShow}>Delete account</Button>
             </Card>
 
             <Modal show={showTaskDelete} onHide={handleTaskDeleteClose}>
@@ -81,7 +81,7 @@ const SettingsCard = (props) => {
                 </Modal.Header>
                 <Modal.Body>Are you sure you want to delete all of your tasks? This action cannot be reversed.</Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={deleteTasks}>
+                    <Button className="danger" onClick={deleteTasks}>
                         Delete all tasks
                     </Button>
                     <Button onClick={handleTaskDeleteClose}>
@@ -96,10 +96,10 @@ const SettingsCard = (props) => {
                 </Modal.Header>
                 <Modal.Body>Are you sure you want to delete your account? This action cannot be reversed.</Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={deleteAccount}>
+                    <Button className="danger" onClick={deleteAccount}>
                         Delete account
                     </Button>
-                    <Button onClick={handleAccountDeleteClose}>
+                    <Button classNAme onClick={handleAccountDeleteClose}>
                         Cancel
                     </Button>
 
