@@ -2,11 +2,14 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 let link = "http://localhost:5050/"
 //let link = "https://planned-out-backend-jdx6.onrender.com/"
 
 const SettingsCard = (props) => {
+
+    const navigate = useNavigate();
 
     const [showTaskDelete, setTaskDeleteShow] = useState(false);
     const [showAccountDelete, setAccountDeleteShow] = useState(false);
@@ -35,9 +38,30 @@ const SettingsCard = (props) => {
     }
 
     function deleteAccount() {
-        alert("Account deleted");
+        // First, delete all of the tasks
+        deleteTasks();
+        // Then, send a delete account request to the server
+        fetch(link + "delete-account", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username: localStorage.getItem("user")
+            }),
+        })
+            .then((res) => {
+                res.json();
+            })
+
         // Hide the modal
         setAccountDeleteShow(false);
+
+        // Delete the user from local storage
+        localStorage.removeItem("user");
+
+        // Navigate to login page
+        navigate(`/login`);
     }
 
 

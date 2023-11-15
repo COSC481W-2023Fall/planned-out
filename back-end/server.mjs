@@ -170,7 +170,7 @@ app.put("/delete-all-tasks", async (req, res) => {
     // Get the username
     const username = req.body.username;
 
-    console.log("DELETE TASKS USERNAME IS ",username);
+    //console.log("DELETE TASKS USERNAME IS ",username);
     // Get the Tasks collection
     let collection = await db.collection("Tasks");
     // Delete all of that user's tasks
@@ -178,5 +178,19 @@ app.put("/delete-all-tasks", async (req, res) => {
 
     // Send result and log
     res.send(result).status(201);
-    console.log("ALL TASKS FOR", username, "DELETED");
+    //console.log("ALL TASKS FOR", username, "DELETED");
+});
+
+app.put("/delete-account", async (req, res) => {
+    // Get the username
+    const username = req.body.username;
+
+    // Get the Tasks collection
+    let collection = await db.collection(username);
+    // Drop the user's collection
+    let result = await collection.drop();
+
+    // Send result and log
+    res.send(result).status(201);
+    //console.log("ACCOUNT", username, "DELETED");
 });
