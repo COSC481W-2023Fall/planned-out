@@ -27,3 +27,10 @@ Form {
 .regButton {
   width: 50%;
 }
+
+.register-link {
+  text-decoration: underline;
+  cursor: pointer;
+  display: inline;
+  color: rgba(var(--bs-link-color-rgb),var(--bs-link-opacity,1));
+}
