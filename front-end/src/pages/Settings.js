@@ -7,20 +7,9 @@ import SettingsSecurity from "../components/SettingsSecurity.js";
 import SettingsProfile from "../components/SettingsProfile.js";
 import SettingsAppearance from "../components/SettingsAppearance.js";
 import SettingsPrivacy from "../components/SettingsPrivacy.js";
-import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
 import "../pages/Settings.css"
 
 const Settings = () => {
-    const userCookie = localStorage.getItem('user');
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (userCookie == null) {
-            navigate(`/login`);
-        }
-    })
-
     return (
         <Container className="main-settings-container">
             <Tab.Container transition={false} defaultActiveKey="security">
@@ -28,16 +17,16 @@ const Settings = () => {
                     <Col>
                         <Nav variant="pills" className="settings-list flex-column">
                             <Nav.Item>
-                                <Nav.Link eventKey="security">Security</Nav.Link>
+                                <Nav.Link data-testid="Security" eventKey="security">Security</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="profile">Profile</Nav.Link>
+                                <Nav.Link data-testid="Profile" eventKey="profile">Profile</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="appearance">Appearance</Nav.Link>
+                                <Nav.Link data-testid="Appearance" eventKey="appearance">Appearance</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="privacy">Privacy</Nav.Link>
+                                <Nav.Link data-testid="Privacy" eventKey="privacy">Privacy</Nav.Link>
                             </Nav.Item>
                         </Nav>
                     </Col>

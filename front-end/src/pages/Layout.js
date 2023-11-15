@@ -29,12 +29,13 @@ const Layout = () => {
     if (userCookie == null) {
       setLoggedIn(false);
       setLoggedOut(true);
+      navigate(`/login`);
     }
     else {
       setLoggedIn(true)
       setLoggedOut(false);
     }
-  }, [userCookie]);
+  }, [navigate, userCookie]);
 
   // Log user out
   function logUserOut() {

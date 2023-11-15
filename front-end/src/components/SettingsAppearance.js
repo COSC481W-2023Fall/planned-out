@@ -9,6 +9,7 @@ const SettingsCard = (props) => {
 
     const { theme, themeLoaded } = useTheme();
     const [selectedTheme, setSelectedTheme] = useState(theme);
+
     useEffect(() => {
         setSelectedTheme(theme);
     }, [theme, themeLoaded]);
