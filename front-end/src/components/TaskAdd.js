@@ -70,6 +70,7 @@ const TaskAdd = forwardRef((props, ref) => {
     return (
         <>
             <Form.Control
+                data-testid="TaskNameBox"
                 ref={inputBox}
                 className="taskNameBox"
                 value={taskName}

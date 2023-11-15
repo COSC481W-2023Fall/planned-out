@@ -6,6 +6,7 @@ const SettingsCard = (props) => {
         <>
             <Card className="settings-card">
                 <Card.Title>Profile</Card.Title>
+                <Card.Subtitle>Profile picture</Card.Subtitle>
             </Card>
         </>
     )

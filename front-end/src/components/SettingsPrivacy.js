@@ -69,9 +69,9 @@ const SettingsCard = (props) => {
             <Card className="settings-card">
                 <Card.Title>Privacy</Card.Title>
                 <Card.Text className="settings-section">Delete all tasks</Card.Text>
-                <Button className="delete-button" onClick={handleTaskDeleteShow}>Delete all tasks</Button>
+                <Button data-testid="DeleteTasksButton" className="delete-button" onClick={handleTaskDeleteShow}>Delete all tasks</Button>
                 <Card.Text className="settings-section">Delete Account</Card.Text>
-                <Button className="delete-button" onClick={handleAccountDeleteShow}>Delete account</Button>
+                <Button data-testid="DeleteAccountButton" className="delete-button" onClick={handleAccountDeleteShow}>Delete account</Button>
             </Card>
 
             <Modal show={showTaskDelete} onHide={handleTaskDeleteClose}>

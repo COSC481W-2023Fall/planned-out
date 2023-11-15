@@ -2,8 +2,13 @@ import { useEffect, useState } from 'react';
 import { setToLS, getFromLS } from '../utils/storage';
 
 export const useTheme = () => {
-  const themes = getFromLS('all-themes');
-  const [theme, setTheme] = useState(themes.data.blue);
+  const [theme, setTheme] = useState({
+    "id": "T_002",
+    "name": "Blue",
+    "colors": {
+      "accent": "#0962E6"
+    }
+  });
   const [themeLoaded, setThemeLoaded] = useState(false);
 
   const setMode = mode => {
@@ -13,7 +18,9 @@ export const useTheme = () => {
 
   useEffect(() =>{
     const localTheme = getFromLS('theme');
-    localTheme ? setTheme(localTheme) : setTheme(themes.data.blue);
+    if (localTheme != null) {
+      setTheme(localTheme);
+    }
     setThemeLoaded(true);
   }, []);
 

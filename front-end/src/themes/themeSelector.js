@@ -6,7 +6,11 @@ import Button from 'react-bootstrap/Button';
 
 const Switch = (props) => {
     const themesFromStore = getFromLS('all-themes');
-    const [data] = useState(themesFromStore.data);
+    let accentColors = "";
+    if (themesFromStore !== undefined) {
+        accentColors = themesFromStore['data'];
+    }
+    const [data] = useState(accentColors);
     const [themes, setThemes] = useState([]);
     const { setMode } = useTheme();
 

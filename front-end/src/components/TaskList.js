@@ -113,23 +113,7 @@ function TaskList({ username }) {
         };
 
     return (
-        <ListGroup className="task-list no-scroll">
-            <ListGroup.Item className="task">
-                <InputGroup>
-                    <Form.Check
-                        onClick={handleChecked("testtask", "testtasklabel")}
-                        type="checkbox"
-                        id="testtask"
-                    />
-                    <label
-                        className={"unchecked"}
-                        id="testtasklabel"
-                        htmlFor="testtask"
-                    >
-                        This is a test task
-                    </label>
-                </InputGroup>
-            </ListGroup.Item>
+        <ListGroup data-testid="TaskListGroup" className="task-list no-scroll">
             {/* For loop for each task in the tasks list */}
             {tasksList.map((task) => (
                 <ListGroup.Item key={task._id} className="task">
