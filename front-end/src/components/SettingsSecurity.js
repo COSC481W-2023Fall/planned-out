@@ -29,7 +29,7 @@ const SettingsCard = (props) => {
         if (newPassword1 !== newPassword2) {
             e.preventDefault();
             document.getElementById("badLogin").innerHTML =
-                "PASSWORDS DO NOT MATCH";
+                "Passwords do not match!";
         }
         else {
             document.getElementById("badLogin").innerHTML =
@@ -72,7 +72,7 @@ const SettingsCard = (props) => {
         } else {
             e.preventDefault();
             document.getElementById("badLogin").innerHTML =
-                "Incorrect username or password";
+                "Username required!";
             console.log("Login failed");
         }
     };
@@ -119,10 +119,13 @@ const SettingsCard = (props) => {
                                 isInvalid={!!errors.password} onBlur={(e) => validation(e)} />
                         </Form.Group>
                         <Form.Text id="badLogin"></Form.Text>
-
-                        <Button className="login-button" variant="primary" onClick={handleSubmit} type="submit" >
+                        <br />
+                        {/* This is a temporary fix to center the button because Kyle doesn't know what he's doing. - See Settings.css for styling */}
+                        <div class="button-div">
+                        <Button className="settings-change-button" variant="primary" onClick={handleSubmit} type="submit" >
                             Submit
                         </Button>
+                        </div>
                     </Form>
                 </Card.Body>
             </Card>

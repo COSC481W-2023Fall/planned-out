@@ -97,7 +97,7 @@ const Home = () => {
             {/* Calendar Card */}
             <Col sm={8}>
               <Card className="react-calendar">
-                <Card.Title>Calendar</Card.Title>
+                <Card.Title>Hello, {username}!</Card.Title>
                 <div className="calendar-container">
                   <CalendarView username={username} />
                 </div>

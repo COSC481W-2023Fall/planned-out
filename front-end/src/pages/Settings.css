@@ -57,3 +57,22 @@
     width: 30%;
     border-radius: 10px !important;
 }
+
+/* This is a temporary fix to center the submit button because Kyle doesn't know what he's doing. */
+div .button-div {
+    width:35%;
+    margin:auto !important;
+}
+
+.settings-change-button {
+    width:100%;
+  }
+
+#badLogin {
+    display:block;
+    text-align:center;
+    font-size: 1.1em;
+    letter-spacing: .05rem;
+    text-decoration: underline;
+    color: red !important;
+  }
