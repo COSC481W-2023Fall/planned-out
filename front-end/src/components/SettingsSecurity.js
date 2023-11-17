@@ -8,7 +8,6 @@ let link = localStorage.getItem("backendURL");
 const SettingsCard = (props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
     const [newPassword1, setNewPassword1] = useState("");
     const [newPassword2, setNewPassword2] = useState("");
     const [errors, setErrors] = useState(false);
@@ -32,6 +31,10 @@ const SettingsCard = (props) => {
             document.getElementById("badLogin").innerHTML =
                 "PASSWORDS DO NOT MATCH";
         }
+        else {
+            document.getElementById("badLogin").innerHTML =
+                "";
+        }
     };
 
     const handleSubmit = (e) => {
@@ -46,11 +49,6 @@ const SettingsCard = (props) => {
             password !== "" &&
             newPassword1 === newPassword2
         ) {
-            //next 2 lines need to be changed to direct to user home
-            // e.preventDefault(); //comment out when backend is ready
-            // window.location.href = "./login"; //comment out when backend is ready
-
-            // Send the name input to the server
             fetch(link + "update", {
                 method: "PUT",
                 headers: {
@@ -59,11 +57,12 @@ const SettingsCard = (props) => {
                 body: JSON.stringify({
                     username: username,
                     password: password,
-                    newPassword: newPassword,
+                    newPassword: newPassword1,
                 }),
             })
                 .then((res) => {
                     if (res.status === 200) {
+                        alert("Password updated successfully!")
                         console.log("Successfully updated password!");
                     } else {
                         alert("PASSWORD ERROR: Current password is incorrect ");
@@ -86,8 +85,8 @@ const SettingsCard = (props) => {
 
                     <Form style={{ textAlign: 'left' }}>
                         <Form.Group controlId="SecUserName" className="mb-3">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="something@example.com" onChange={(e) => {
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control type="username" placeholder="Enter your Username" onChange={(e) => {
                                 setUsername(e.target.value);
                                 validation(e);
                             }}
@@ -107,7 +106,6 @@ const SettingsCard = (props) => {
                             <Form.Label>New Password</Form.Label>
                             <Form.Control type="password" placeholder="Enter a new password" onChange={(e) => {
                                 setNewPassword1(e.target.value);
-                                validation(e);
                             }}
                                 isInvalid={!!errors.password} onBlur={(e) => validation(e)} />
                         </Form.Group>

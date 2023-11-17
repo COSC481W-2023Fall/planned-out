@@ -64,7 +64,7 @@ function LoginForm() {
                         navigate(`/?username=${username}`);
                       } else {
                         document.getElementById("badLogin").innerHTML =
-                            "Incorrect username or password";
+                            "Invalid username or password!";
                     }
                     return res.json();
                 })
@@ -74,7 +74,7 @@ function LoginForm() {
         } else {
             e.preventDefault();
             document.getElementById("badLogin").innerHTML =
-                "Incorrect username or password";
+                "Incorrect username or password!";
             console.log("Login failed");
         }
     };

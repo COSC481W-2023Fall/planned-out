@@ -25,5 +25,8 @@ div.login-form label {
 }
 #badLogin {
   text-align: center;
-  color: red;
+  font-size: 1.1em;
+  letter-spacing: .05rem;
+  text-decoration: underline;
+  color: red !important;
 }
