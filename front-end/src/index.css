@@ -263,6 +263,20 @@ button {
   margin-right: 1em;
 }
 
+div.select-profile-container {
+  margin-top: 1em;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  row-gap: 1em;
+  column-gap: 1em;
+  width: 30%;
+}
+
+div.select-profile-container img {
+  cursor: pointer;
+  width: 75px;
+}
+
 div.theme-container {
   display: grid;
   grid-template-columns: repeat(4, auto);
