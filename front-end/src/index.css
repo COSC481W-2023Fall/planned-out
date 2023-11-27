@@ -57,6 +57,10 @@ code {
   height: 35px;
 }
 
+.profile-dropdown-container {
+  justify-content: right !important;
+}
+
 .dropdown-toggle {
   padding: 0;
 }
