@@ -61,6 +61,11 @@ code {
   justify-content: right !important;
 }
 
+.dropdown-item.active, .dropdown-item:active {
+  background-color: inherit !important;
+  color: inherit !important;
+}
+
 .dropdown-toggle {
   padding: 0;
 }
