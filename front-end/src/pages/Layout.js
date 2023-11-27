@@ -33,7 +33,6 @@ const Layout = () => {
 
   // Listen for profile_picture in localStorage
   window.addEventListener('profile_picture', () => {
-    console.log("New!");
     setProfilePicture(localStorage.getItem("profile_picture"));
   })
 
