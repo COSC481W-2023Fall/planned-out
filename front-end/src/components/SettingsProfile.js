@@ -2,6 +2,7 @@ import Card from "react-bootstrap/Card";
 
 let link = localStorage.getItem("backendURL");
 
+
 const SettingsCard = (props) => {
 
     const avatars = ['panda', 'bear', 'frog', 'penguin', 'raccoon', 'tiger'];

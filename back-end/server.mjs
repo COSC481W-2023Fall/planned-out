@@ -210,16 +210,17 @@ app.put("/update-profile-picture", async (req, res) => {
     res.send(result).status(201);
 });
 
-app.get("/get-profile-picture", async (req, res) => {
+app.put("/get-profile-picture", async (req, res) => {
     // Get the username
     const username = req.body.username;
 
     // Get the user's collection
     let collection = await db.collection(username);
     // Get the profile pic type
-    let result = db.collection.find("profile_picture");
+    let result = await collection.findOne({user: username}, {$get: "profile_picture"} );
+    //console.log("RESULT", result);
 
     // Send result and log
     res.send(result).status(201);
-    console.log("FETCHED PROFILE PIC");
+    //console.log("FETCHED PROFILE PIC");
 });

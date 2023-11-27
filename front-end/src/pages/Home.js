@@ -3,9 +3,9 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import CalendarView from "../components/CalendarView.js"
-import TaskAdd from "../components/TaskAdd.js"
-import TaskList from "../components/TaskList.js"
+import CalendarView from "../components/CalendarView.js";
+import TaskAdd from "../components/TaskAdd.js";
+import TaskList from "../components/TaskList.js";
 import { useState, useRef, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { ThemeProvider } from "styled-components";
