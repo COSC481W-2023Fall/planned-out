@@ -18,9 +18,9 @@ const Layout = () => {
   let localBackend = "http://localhost:5050/"
 
   // Use render backend
-  //localStorage.setItem("backendURL", renderBackend);
+  localStorage.setItem("backendURL", renderBackend);
   // Use local backend
-  localStorage.setItem("backendURL", localBackend);
+  //localStorage.setItem("backendURL", localBackend);
 
   let link = localStorage.getItem("backendURL");
 
