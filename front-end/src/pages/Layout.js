@@ -3,6 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
+import NavDropdown from "react-bootstrap/NavDropdown"
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
@@ -74,25 +75,29 @@ const Layout = () => {
                 <Button className="main-nav-button">Friends</Button>
               </LinkContainer>
             </Nav.Item>
-            <Nav.Item>
-              <LinkContainer to="/settings">
-                <Button className="main-nav-button">Settings</Button>
-              </LinkContainer>
-            </Nav.Item>
-            {isUserLoggedOut &&
-              <Nav.Item>
-                <LinkContainer to="/login">
-                  <Button className="main-nav-button">Login</Button>
+            <NavDropdown title={
+              <img alt="Profile Icon" className="navbar-profile" src="/avatars/default.png"></img>
+            } id="basic-nav-dropdown">
+              <NavDropdown.Item>
+                <LinkContainer to="/settings">
+                  <Button className="main-nav-button">Settings</Button>
                 </LinkContainer>
-              </Nav.Item>
-            }
-            {isUserLoggedIn &&
-              < Nav.Item >
-                <LinkContainer to="/login">
-                  <Button onClick={logUserOut} className="main-nav-button">Log Out</Button>
-                </LinkContainer>
-              </Nav.Item>
-            }
+              </NavDropdown.Item>
+              {isUserLoggedOut &&
+                <NavDropdown.Item>
+                  <LinkContainer to="/login">
+                    <Button className="main-nav-button">Login</Button>
+                  </LinkContainer>
+                </NavDropdown.Item>
+              }
+              {isUserLoggedIn &&
+                <NavDropdown.Item >
+                  <LinkContainer to="/login">
+                    <Button onClick={logUserOut} className="main-nav-button">Log Out</Button>
+                  </LinkContainer>
+                </NavDropdown.Item>
+              }
+            </NavDropdown>
           </Nav>
         </Container>
       </Navbar>
