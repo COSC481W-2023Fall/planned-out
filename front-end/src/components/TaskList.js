@@ -1,7 +1,7 @@
 import ListGroup from "react-bootstrap/ListGroup";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 
 let link = localStorage.getItem("backendURL");
 
@@ -9,7 +9,7 @@ function TaskList({ username }) {
     console.log(username);
     const [tasksList, setTaskList] = useState([]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         // verify user info from URL to display task list
         fetch(link + `username=?${username}`, {
             method: "POST",

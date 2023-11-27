@@ -24,6 +24,8 @@ function CalendarView({ username }) {
 
     return (
         <Calendar
+            maxDetail={"month"}
+            minDetail={"month"}
             onChange={setDate}
             value={date}
             calendarType="gregory"
