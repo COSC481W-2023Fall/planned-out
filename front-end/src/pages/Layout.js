@@ -6,7 +6,8 @@ import Container from "react-bootstrap/Container";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
+import { useLocation } from 'react-router-dom';
 
 const Layout = () => {
   // For testing purposes: Store the backend link in localStorage 
@@ -30,8 +31,14 @@ const Layout = () => {
 
   const [profilePicture, setProfilePicture] = useState(["default"]);
 
+  // Listen for profile_picture in localStorage
+  window.addEventListener('profile_picture', () => {
+    console.log("New!");
+    setProfilePicture(localStorage.getItem("profile_picture"));
+  })
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    //alert("This triggered use effect");
     fetch(link + "get-profile-picture", {
       method: "PUT",
       headers: {
@@ -63,7 +70,6 @@ const Layout = () => {
   if (profilePicture == null || profilePicture === undefined) {
     setProfilePicture('default');
   }
-
 
   // Log user out
   function logUserOut() {

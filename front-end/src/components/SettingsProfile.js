@@ -22,12 +22,14 @@ const SettingsCard = (props) => {
             .then((res) => {
                 res.json();
             })
+        window.localStorage.setItem("profile_picture", option);
+        window.dispatchEvent(new Event("profile_picture"));
     }
 
     const ProfileButton = props => {
         return (
             <>
-                <img src={props.src} key={props.key} alt={props.alt} onClick={(option) => setProfilePic(props.option)}></img>
+                <img src={props.src} key={props.avatarkey} alt={props.alt} onClick={(option) => setProfilePic(props.option)}></img>
             </>
         )
     }
@@ -40,7 +42,7 @@ const SettingsCard = (props) => {
                 <div className="select-profile-container">
                     {
                         avatars.map(avatar => (
-                            <ProfileButton key={avatar} alt={avatar} option={avatar} src={"/avatars/" + avatar + ".png"} />
+                            <ProfileButton avatarkey={avatar} alt={avatar} option={avatar} src={"/avatars/" + avatar + ".png"} />
                         ))
                     }
                 </div>
