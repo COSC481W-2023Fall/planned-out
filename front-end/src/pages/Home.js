@@ -33,7 +33,7 @@ const Home = () => {
 
     //const searchParams = new URLSearchParams(location.search);
     username = searchParams.get('username') || userCookie;
-    console.log("FROM HOME " + username);
+    //console.log("FROM HOME " + username);
 
   } catch (error) {
     console.log("Error while trying to get username from URL");
@@ -76,7 +76,6 @@ const Home = () => {
               {/* Task List Card */}
               {isTaskListShown &&
                 <Card className="tasks-card">
-                  <Card.Title>Today's Tasks</Card.Title>
                   {/* List of Tasks */}
                   <TaskList username={username} />
                   {/* Spacer */}
