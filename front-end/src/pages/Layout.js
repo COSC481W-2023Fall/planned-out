@@ -17,16 +17,36 @@ const Layout = () => {
   let localBackend = "http://localhost:5050/"
 
   // Use render backend
-  localStorage.setItem("backendURL", renderBackend);
+  //localStorage.setItem("backendURL", renderBackend);
   // Use local backend
-  //localStorage.setItem("backendURL", localBackend);
+  localStorage.setItem("backendURL", localBackend);
+
+  let link = localStorage.getItem("backendURL");
 
   const navigate = useNavigate();
   const userCookie = localStorage.getItem('user');
   const [isUserLoggedIn, setLoggedIn] = useState([]);
   const [isUserLoggedOut, setLoggedOut] = useState([]);
 
+  const [profilePicture, setProfilePicture] = useState(["default"]);
+
   useEffect(() => {
+    fetch(link + "get-profile-picture", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: localStorage.getItem("user")
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("THIS IS THE DATA", data)
+        console.log("THIS IS PROF PIC", data['profile_picture'])
+        setProfilePicture(data['profile_picture'])
+      });
+
     if (userCookie == null) {
       setLoggedIn(false);
       setLoggedOut(true);
@@ -38,7 +58,7 @@ const Layout = () => {
       setLoggedIn(true)
       setLoggedOut(false);
     }
-  }, [navigate, userCookie]);
+  }, [link, navigate, userCookie]);
 
   // Log user out
   function logUserOut() {
@@ -81,7 +101,7 @@ const Layout = () => {
         </Container>
         <Container className="profile-dropdown-container">
           <NavDropdown align="end" title={
-            <img alt="Profile Icon" className="navbar-profile" src="/avatars/default.png"></img>
+            <img alt="Profile Icon" className="navbar-profile" src={"/avatars/" + profilePicture + ".png"}></img>
           } id="basic-nav-dropdown">
             <NavDropdown.Item>
               <LinkContainer to="/settings">
