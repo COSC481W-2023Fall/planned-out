@@ -30,6 +30,7 @@ const Layout = () => {
 
   const [profilePicture, setProfilePicture] = useState(["default"]);
 
+
   useEffect(() => {
     fetch(link + "get-profile-picture", {
       method: "PUT",
@@ -42,8 +43,6 @@ const Layout = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("THIS IS THE DATA", data)
-        console.log("THIS IS PROF PIC", data['profile_picture'])
         setProfilePicture(data['profile_picture'])
       });
 
@@ -58,7 +57,13 @@ const Layout = () => {
       setLoggedIn(true)
       setLoggedOut(false);
     }
-  }, [link, navigate, userCookie]);
+  }, [profilePicture, link, navigate, userCookie]);
+
+  // If profile picture is null or undefined set it to default
+  if (profilePicture == null || profilePicture === undefined) {
+    setProfilePicture('default');
+  }
+
 
   // Log user out
   function logUserOut() {
