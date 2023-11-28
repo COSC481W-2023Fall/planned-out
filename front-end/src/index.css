@@ -98,6 +98,10 @@ div.task label {
   text-decoration: none;
 }
 
+div.task label:hover {
+    text-decoration:underline !important;
+}
+
 .d-flex {
   flex-grow: 1;
 }
