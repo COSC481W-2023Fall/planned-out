@@ -79,11 +79,7 @@ function LoginForm() {
 
   return (
     <>
-      <h1 className="logo">
-        Planned
-        <br />
-        Out
-      </h1>
+      <h1 className="logo">Planned Out</h1>
       <Form>
         <Form.Group className="login-form">
           <h1>Login</h1>

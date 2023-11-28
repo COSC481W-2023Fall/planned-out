@@ -50,9 +50,7 @@ const Layout = () => {
       <Navbar>
         <Container>
           <Navbar.Brand className="logo" href="/">
-            Planned
-            <br />
-            Out
+            Planned Out
           </Navbar.Brand>
           <Nav className="me-auto" variant="pills">
             <Nav.Item>
