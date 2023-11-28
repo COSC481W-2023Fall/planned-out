@@ -11,24 +11,29 @@ function TaskList({ username }) {
     const [tasksList, setTaskList] = useState([]);
     const [tasksDate, setTasksDate] = useState([]);
 
-    // Listen for profile_picture in localStorage
+    // Listen for current_tasks_day in localStorage
     window.addEventListener('current_tasks_day', () => {
         setTasksDate(localStorage.getItem("current_tasks_day"));
         console.log(localStorage.getItem("current_tasks_day"));
     });
 
+    function getToday() {
+        let date = new Date();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        if (day < 10) {
+            day = "0" + day;
+        }
+        let year = date.getFullYear();
+
+        return (month + "-" + day + "-" + year);
+    }
+
     useEffect(() => {
         console.log(tasksDate);
         if (tasksDate.length <= 0) {
-            let date = new Date();
-            let month = date.getMonth() + 1;
-            let day = date.getDate();
-            if (day < 10) {
-                day = "0" + day;
-            }
-            let year = date.getFullYear();
-            console.log(month + "-" + day + "-" + year);
-            setTasksDate(month + "-" + day + "-" + year);
+            setTasksDate(getToday());
+            console.log("GOTTED", getToday());
         }
         // verify user info from URL to display task list
         fetch(link + `username=?${username}`, {
@@ -133,11 +138,11 @@ function TaskList({ username }) {
 
     return (
         <>
-            {tasksDate === '11-27-2023' &&
+            {tasksDate === getToday() &&
                 <Card.Title>Today's Tasks</Card.Title>
 
             }
-            {tasksDate !== '11-27-2023' &&
+            {tasksDate !== getToday() &&
                 <Card.Title>Tasks for {tasksDate}</Card.Title>
 
             }
