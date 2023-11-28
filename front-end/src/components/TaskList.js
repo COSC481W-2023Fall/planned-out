@@ -2,6 +2,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import { useState, useLayoutEffect } from "react";
+import Card from "react-bootstrap/Card";
 
 let link = localStorage.getItem("backendURL");
 

@@ -7,7 +7,6 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import { useState, useLayoutEffect } from "react";
-import { useLocation } from 'react-router-dom';
 
 const Layout = () => {
   // For testing purposes: Store the backend link in localStorage 
