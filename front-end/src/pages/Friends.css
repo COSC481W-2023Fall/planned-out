@@ -1,0 +1,5 @@
+.friends-card, .stats-card {
+    height: 80vh;
+    padding: 1.5em;
+    border-radius: 24px;
+  }

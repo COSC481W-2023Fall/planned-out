@@ -8,6 +8,7 @@ import "./index.css";
 import Settings from "./pages/Settings.js";
 import Login from "./pages/Login.js";
 import Registration from "./pages/Registration.js";
+import Friends from "./pages/Friends.js";
 import * as themes from './themes/schema.json';
 import { setToLS } from './utils/storage';
 
@@ -21,6 +22,9 @@ export default function App() {
                 </Route>
                 <Route path="/login" element={<Layout />}>
                     <Route index element={<Login />} />
+                </Route>
+                <Route path="/friends" element={<Layout />}>
+                    <Route index element={<Friends />} />
                 </Route>
                 <Route path="/settings" element={<Layout />}>
                     <Route index element={<Settings />} />

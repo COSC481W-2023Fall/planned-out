@@ -16,9 +16,9 @@ const Layout = () => {
   let localBackend = "http://localhost:5050/"
 
   // Use render backend
-  localStorage.setItem("backendURL", renderBackend);
+  //localStorage.setItem("backendURL", renderBackend);
   // Use local backend
-  //localStorage.setItem("backendURL", localBackend);
+  localStorage.setItem("backendURL", localBackend);
 
   const navigate = useNavigate();
   const userCookie = localStorage.getItem('user');
@@ -65,12 +65,7 @@ const Layout = () => {
               </LinkContainer>
             </Nav.Item>
             <Nav.Item>
-              <LinkContainer to="/">
-                <Button className="main-nav-button">Stats</Button>
-              </LinkContainer>
-            </Nav.Item>
-            <Nav.Item>
-              <LinkContainer to="/">
+              <LinkContainer to="/friends">
                 <Button className="main-nav-button">Friends</Button>
               </LinkContainer>
             </Nav.Item>
