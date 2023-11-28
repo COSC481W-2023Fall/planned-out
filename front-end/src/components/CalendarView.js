@@ -22,12 +22,26 @@ function CalendarView({ username }) {
             .then((data) => setTasks(data));
     }, [username]);
 
+    const switchTasksDay = (value, event) => {
+        let month = value.getMonth() + 1;
+        let date = value.getDate();
+        if (date < 10) {
+            date = "0" + date;
+        }
+        let year = value.getFullYear();
+
+        let dateToSend = month + "-" + date + "-" + year;
+
+        window.localStorage.setItem("current_tasks_day", dateToSend);
+        window.dispatchEvent(new Event("current_tasks_day"));
+    }
+
     return (
         <Calendar
             onChange={setDate}
             value={date}
             calendarType="gregory"
-            onClickDay={(value, event) => console.log(value)}
+            onClickDay={(value, event) => switchTasksDay(value)}
             tileContent={({ date }) => {
                 if (tasks) {
                     // Convert the date to a string in "MM-DD-YYYY" format
