@@ -20,7 +20,7 @@ const Settings = () => {
                                 <Nav.Link data-testid="Security" eventKey="security">Security</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link data-testid="Profile" eventKey="profile">Profile</Nav.Link>
+                                <Nav.Link href="#profile" data-testid="Profile" eventKey="profile">Profile</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link data-testid="Appearance" eventKey="appearance">Appearance</Nav.Link>

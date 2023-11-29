@@ -174,7 +174,7 @@ app.put("/delete-all-tasks", async (req, res) => {
     // Get the Tasks collection
     let collection = await db.collection("Tasks");
     // Delete all of that user's tasks
-    let result = await collection.deleteMany( {"user": username } );
+    let result = await collection.deleteMany({ "user": username });
 
     // Send result and log
     res.send(result).status(201);
@@ -185,7 +185,7 @@ app.put("/delete-account", async (req, res) => {
     // Get the username
     const username = req.body.username;
 
-    // Get the Tasks collection
+    // Get the user's collection
     let collection = await db.collection(username);
     // Drop the user's collection
     let result = await collection.drop();
@@ -193,4 +193,37 @@ app.put("/delete-account", async (req, res) => {
     // Send result and log
     res.send(result).status(201);
     //console.log("ACCOUNT", username, "DELETED");
+});
+
+app.put("/update-profile-picture", async (req, res) => {
+    // Get the username
+    const username = req.body.username;
+    // Get the profile pic
+    const profilePic = req.body.profilePic;
+
+    // Get the user's collection
+    let collection = await db.collection(username);
+    // Update the profile picture type
+    let result = collection.updateOne({ "user": username }, { $set: { "profile_picture": profilePic } });
+
+    // Send result and log
+    res.send(result).status(201);
+});
+
+app.put("/get-profile-picture", async (req, res) => {
+    // Get the username
+    const username = req.body.username;
+
+    // Get the user's collection
+    let collection = await db.collection(username);
+
+    // Only try to get the profile picture if the user exists 
+    if (collection) {
+        // Get the profile pic type
+        let result = await collection.findOne({ user: username }, { $get: "profile_picture" });
+        res.send(result).status(201);
+    }
+    else {
+        res.status(400);
+    };
 });
