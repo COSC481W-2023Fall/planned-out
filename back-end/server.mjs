@@ -185,7 +185,7 @@ app.put("/delete-account", async (req, res) => {
     // Get the username
     const username = req.body.username;
 
-    // Get the Tasks collection
+    // Get the user's collection
     let collection = await db.collection(username);
     // Drop the user's collection
     let result = await collection.drop();
@@ -193,4 +193,28 @@ app.put("/delete-account", async (req, res) => {
     // Send result and log
     res.send(result).status(201);
     //console.log("ACCOUNT", username, "DELETED");
+});
+
+app.put("/add-friend", async (req, res) => {
+    let result = null;
+    // Get the user's username
+    const username = req.body.username;
+    // Get the potential friend's username
+    const friendUsername = req.body.friendUsername;
+
+    // Get the user's collection
+    let userCollection = await db.collection(username);
+
+    // Get all collections and attempt to find the friend's collection
+    const collections = await db.listCollections().toArray();
+    const existingUser = await collections.find(collection => collection.name === friendUsername);
+
+    // If the friend's username actually exists, add it to the user's collection
+    if (existingUser) {
+        result = await userCollection.updateOne({"user": username}, {"$push":{"friends":friendUsername}});
+        console.log("Friend added");
+    }
+
+    // Send result and log
+    res.send(result).status(201);
 });
