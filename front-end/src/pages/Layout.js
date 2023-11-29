@@ -6,7 +6,7 @@ import Container from "react-bootstrap/Container";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from 'react-router-dom';
-import { useState, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 
 const Layout = () => {
   // For testing purposes: Store the backend link in localStorage 
@@ -35,7 +35,7 @@ const Layout = () => {
     setProfilePicture(localStorage.getItem("profile_picture"));
   })
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (localStorage.getItem("user") !== null) {
       fetch(link + "get-profile-picture", {
         method: "PUT",
