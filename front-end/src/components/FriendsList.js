@@ -12,9 +12,7 @@ const FriendsList = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [username, setUsername] = useState([]);
-
     const [friendsList, setFriendsList] = useState([]);
-    const [profilePictureList, setProfilePictureList] = useState([]);
 
     useEffect(() => {
         fetch(link + "get-friends", {
@@ -72,17 +70,15 @@ const FriendsList = () => {
         })
             .then((res) => {
                 if (!res.ok) {
-                    alert("Error! The friend's username was not found in the database.");
+                    alert(res.statusText);
+                    throw new Error(res.statusText);
                 }
                 else {
                     res.json();
                 }
             })
+            .catch(error => console.error(error))
         handleClose()
-    }
-
-    if (profilePictureList.length <= 0) {
-        console.log("The list is empty!");
     }
 
     return (

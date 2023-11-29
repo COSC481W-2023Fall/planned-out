@@ -174,7 +174,7 @@ app.put("/delete-all-tasks", async (req, res) => {
     // Get the Tasks collection
     let collection = await db.collection("Tasks");
     // Delete all of that user's tasks
-    let result = await collection.deleteMany( {"user": username } );
+    let result = await collection.deleteMany({ "user": username });
 
     // Send result and log
     res.send(result).status(201);
@@ -209,13 +209,25 @@ app.put("/add-friend", async (req, res) => {
     const collections = await db.listCollections().toArray();
     const existingUser = await collections.find(collection => collection.name === friendUsername);
 
-    // If the friend's username actually exists, add it to the user's collection
+
+
+    // If the friend's username actually exists
     if (existingUser) {
-        result = await userCollection.updateOne({"user": username}, {"$push":{"friends":friendUsername}});
-        res.send(result).status(201);
+        // Check if the friend is already in the collection
+        const friendExists = await userCollection.findOne({ "friends": friendUsername });
+        if (!friendExists) {
+            // If the user doesn't already have the incoming friend as a friend
+            result = await userCollection.updateOne({ "user": username }, { "$push": { "friends": friendUsername } });
+            res.send(result).status(201);
+        }
+        else {
+            res.statusMessage = "The friend was already in the collection";
+            res.status(400).end();
+        }
     }
     else {
-        res.status(400).send("Error! The friend's username was not found in the database.");
+        res.statusMessage = "The friend's username was not found in the database.";
+            res.status(400).end();
     }
 });
 
@@ -226,20 +238,7 @@ app.put("/get-friends", async (req, res) => {
     // Get the user's collection
     let collection = await db.collection(username);
     // Get the friends values from the user's collection
-    let result = await collection.findOne({user: username}, {$get: "friends"} );
-
-    // Send result
-    res.send(result).status(201);
-});
-
-app.put("/get-friends", async (req, res) => {
-    // Get the username
-    const username = req.body.username;
-
-    // Get the user's collection
-    let collection = await db.collection(username);
-    // Get the friends values from the user's collection
-    let result = await collection.findOne({user: username}, {$get: "friends"} );
+    let result = await collection.findOne({ user: username }, { $get: "friends" });
 
     // Send result
     res.send(result).status(201);
@@ -252,7 +251,7 @@ app.put("/get-profile-picture", async (req, res) => {
     // Get the user's collection
     let collection = await db.collection(username);
     // Get the profile pic type
-    let result = await collection.findOne({user: username}, {$get: "profile_picture"} );
+    let result = await collection.findOne({ user: username }, { $get: "profile_picture" });
 
     // Send result and log
     res.send(result).status(201);
