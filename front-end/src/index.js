@@ -17,10 +17,10 @@ export default function App() {
         <BrowserRouter>
             <Layout></Layout>
             <Routes>
-                <Route exact path="/" element={<Home />} />
                 <Route path="/registration" element={<Registration />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route exact path="/" element={<Home />} />
             </Routes>
         </BrowserRouter>
     );
