@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./Friends.css";
 import FriendsList from "../components/FriendsList.js";
+import Button from "react-bootstrap/Button";
 
 const Friends = () => {
 
@@ -18,10 +19,19 @@ const Friends = () => {
         setSelectedTheme(theme);
     }, [theme, themeLoaded]);
 
+    const setDateRange = (dateRange) => {
+        window.localStorage.setItem("date_range", dateRange);
+        window.dispatchEvent(new Event("date_range"));
+    }
+
     return (
         themeLoaded && <ThemeProvider theme={selectedTheme}>
             <GlobalStyles />
             <div className="App">
+                <Button onClick={() => setDateRange('daily')}>Daily</Button>
+                <Button onClick={() => setDateRange('weekly')}>Weekly</Button>
+                <Button onClick={() => setDateRange('monthly')}>Monthly</Button>
+                <Button onClick={() => setDateRange('total')}>Total</Button>
                 <Container>
                     <Row>
                         <Col>
