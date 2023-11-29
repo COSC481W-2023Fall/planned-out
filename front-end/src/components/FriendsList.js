@@ -32,7 +32,7 @@ const FriendsList = () => {
 
     function getUser(friends) {
         for (let i = 0; i < friends.length; i++) {
-            fetch(link + "get-profile-picture", {
+            fetch(link + "get-friend-info", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -43,14 +43,14 @@ const FriendsList = () => {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    let profilePic = data['profile_picture'];
+                    let profilePic = data['profilePic'];
                     if (profilePic === undefined) {
                         profilePic = "default";
                     }
                     setFriendsList(friendsList => {
                         return [
                             ...friendsList,
-                            { name: (data['userFirst'] + " " + data['userLast']), username: friends[i], profilePic: profilePic }
+                            { name: (data['firstName'] + " " + data['lastName']), username: friends[i], profilePic: profilePic, numOfTasksCompleted: data['numOfTasksCompleted'] }
                         ]
                     })
                 });
@@ -91,6 +91,7 @@ const FriendsList = () => {
                             <p className="friend-name" key={"friend" + index}>{friend.name}</p>
                             <p className="friend-username" key={"friendusername" + index}>({friend.username})</p>
                         </div>
+                        <p key={"count" + index}>{friend.numOfTasksCompleted}</p>
                     </Card>
                 ))}
             <Button onClick={handleShow}>Add friend</Button>

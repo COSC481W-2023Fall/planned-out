@@ -194,7 +194,21 @@ app.put("/delete-account", async (req, res) => {
     res.send(result).status(201);
     //console.log("ACCOUNT", username, "DELETED");
 });
+
 app.put("/get-profile-picture", async (req, res) => {
+    // Get the username
+    const username = req.body.username;
+    // Get the user's collection
+    let collection = await db.collection(username);
+    // Get the profile pic type
+    let result = await collection.findOne({ user: username }, { $get: "profile_picture" });
+
+    // Send result and log
+    res.send(result).status(201);
+    //console.log("FETCHED PROFILE PIC");
+});
+
+app.put("/get-friend-info", async (req, res) => {
     // Get the username
     const username = req.body.username;
 
@@ -203,8 +217,18 @@ app.put("/get-profile-picture", async (req, res) => {
     // Get the profile pic type
     let result = await collection.findOne({ user: username }, { $get: "profile_picture" });
 
+    console.log("RESULTING USER", result);
+
+    let tasksCollection = await db.collection("Tasks");
+
+    // Narrow down collection to only user's tasks
+    let numOfTasksCompleted = await tasksCollection.countDocuments({"user": username, "taskStatus": "Complete" });
+
+    let userAndTasksCompleted = {firstName: result['userFirst'], lastName: result['userLast'], username: result['user'], profilePic: result['profile_picture'], numOfTasksCompleted: numOfTasksCompleted}
+    //console.log(userAndTasksCompleted);
+
     // Send result and log
-    res.send(result).status(201);
+    res.send(userAndTasksCompleted).status(201);
     //console.log("FETCHED PROFILE PIC");
 });
 
@@ -253,7 +277,7 @@ app.put("/add-friend", async (req, res) => {
     }
     else {
         res.statusMessage = "The friend's username was not found in the database.";
-            res.status(400).end();
+        res.status(400).end();
     }
 });
 
