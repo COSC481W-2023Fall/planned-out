@@ -253,7 +253,6 @@ app.put("/get-profile-picture", async (req, res) => {
     let collection = await db.collection(username);
     // Get the profile pic type
     let result = await collection.findOne({user: username}, {$get: "profile_picture"} );
-    console.log("RESULT", result);
 
     // Send result and log
     res.send(result).status(201);

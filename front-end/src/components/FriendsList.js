@@ -1,10 +1,18 @@
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
+import Modal from 'react-bootstrap/Modal';
 
 let link = localStorage.getItem("backendURL");
 
 const FriendsList = () => {
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const [username, setUsername] = useState([]);
+
     const [friendsList, setFriendsList] = useState([]);
     const [profilePictureList, setProfilePictureList] = useState([]);
 
@@ -44,7 +52,7 @@ const FriendsList = () => {
                     setFriendsList(friendsList => {
                         return [
                             ...friendsList,
-                            {name: (data['userFirst'] + " "+ data['userLast']), username: friends[i], profilePic: profilePic}
+                            { name: (data['userFirst'] + " " + data['userLast']), username: friends[i], profilePic: profilePic }
                         ]
                     })
                 });
@@ -70,6 +78,7 @@ const FriendsList = () => {
                     res.json();
                 }
             })
+        handleClose()
     }
 
     if (profilePictureList.length <= 0) {
@@ -85,8 +94,28 @@ const FriendsList = () => {
                         <p key={"friend" + index}>{friend.name}</p>
                     </Card>
                 ))}
-
-            <Button onClick={() => addFriend('ted')}>Add friend</Button>
+            <Button onClick={handleShow}>Add friend</Button>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Add a friend</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group>
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control type="text" onChange={(e) => setUsername(e.target.value)}placeholder="Friend's username"></Form.Control>
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={() => addFriend(username)}>
+                        Add friend
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 };
