@@ -87,7 +87,10 @@ const FriendsList = () => {
                 .map((friend, index) => (
                     <Card className="friend-info" key={"frienddiv" + index}>
                         <img className="friends-list-profile-pic" alt={friend.profilePic} key={"profilePic" + index} src={"/avatars/" + friend.profilePic + ".png"}></img>
-                        <p key={"friend" + index}>{friend.name}</p>
+                        <div className="friends-name-user-container">
+                            <p className="friend-name" key={"friend" + index}>{friend.name}</p>
+                            <p className="friend-username" key={"friendusername" + index}>({friend.username})</p>
+                        </div>
                     </Card>
                 ))}
             <Button onClick={handleShow}>Add friend</Button>
@@ -99,7 +102,7 @@ const FriendsList = () => {
                     <Form>
                         <Form.Group>
                             <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" onChange={(e) => setUsername(e.target.value)}placeholder="Friend's username"></Form.Control>
+                            <Form.Control type="text" onChange={(e) => setUsername(e.target.value)} placeholder="Friend's username"></Form.Control>
                         </Form.Group>
                     </Form>
                 </Modal.Body>

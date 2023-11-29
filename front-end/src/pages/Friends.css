@@ -18,6 +18,17 @@ img.friends-list-profile-pic {
     padding: 1em;
 }
 
-.friend-info * {
+p.friend-name {
+    margin: 0 0.5em 0 0;
+}
+
+p.friend-username {
+    margin: 0;
+    margin-bottom: 0.2em;
+    font-size: 75%;
+    opacity: 50%;
+}
+
+div.friends-name-user-container * {
     display: inline-block;
 }
