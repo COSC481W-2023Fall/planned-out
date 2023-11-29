@@ -1,5 +1,22 @@
-.friends-card, .stats-card {
+.friends-card,
+.stats-card {
     height: 80vh;
     padding: 1.5em;
     border-radius: 24px;
-  }
+}
+
+img.friends-list-profile-pic {
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+}
+
+.friend-info {
+    display: grid;
+    grid-template-columns: 0.25fr 0.75fr;
+    padding: 1em;
+}
+
+.friend-info * {
+    display: inline-block;
+}
