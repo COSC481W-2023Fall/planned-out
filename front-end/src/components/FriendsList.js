@@ -50,7 +50,14 @@ const FriendsList = () => {
                     setFriendsList(friendsList => {
                         return [
                             ...friendsList,
-                            { name: (data['firstName'] + " " + data['lastName']), username: friends[i], profilePic: profilePic, numOfTasksCompleted: data['numOfTasksCompleted'] }
+                            {
+                                name: (data['firstName'] + " " + data['lastName']),
+                                username: friends[i],
+                                profilePic: profilePic,
+                                numOfTasksCompleted: data['numOfTasksCompleted'],
+                                numOfTasks: data['numOfTasks'],
+                                percentOfTasks: data['percentOfTasks']
+                            }
                         ]
                     })
                 });
@@ -84,15 +91,16 @@ const FriendsList = () => {
     return (
         <>
             {friendsList
+                .sort((a, b) => b.percentOfTasks - a.percentOfTasks)
                 .map((friend, index) => (
-                    <Card className="friend-info" key={"frienddiv" + index}>
-                        <img className="friends-list-profile-pic" alt={friend.profilePic} key={"profilePic" + index} src={"/avatars/" + friend.profilePic + ".png"}></img>
-                        <div className="friends-name-user-container">
-                            <p className="friend-name" key={"friend" + index}>{friend.name}</p>
-                            <p className="friend-username" key={"friendusername" + index}>({friend.username})</p>
-                        </div>
-                        <p key={"count" + index}>{friend.numOfTasksCompleted}</p>
-                    </Card>
+            <Card className="friend-info" key={"frienddiv" + index}>
+                <img className="friends-list-profile-pic" alt={friend.profilePic} key={"profilePic" + index} src={"/avatars/" + friend.profilePic + ".png"}></img>
+                <div className="friends-name-user-container">
+                    <p className="friend-name" key={"friend" + index}>{friend.name}</p>
+                    <p className="friend-username" key={"friendusername" + index}>({friend.username})</p>
+                </div>
+                <p key={"count" + index}>Tasks completed: {friend.numOfTasksCompleted}/{friend.numOfTasks}</p>
+            </Card>
                 ))}
             <Button onClick={handleShow}>Add friend</Button>
             <Modal show={show} onHide={handleClose}>

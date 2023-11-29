@@ -217,19 +217,30 @@ app.put("/get-friend-info", async (req, res) => {
     // Get the profile pic type
     let result = await collection.findOne({ user: username }, { $get: "profile_picture" });
 
-    console.log("RESULTING USER", result);
-
     let tasksCollection = await db.collection("Tasks");
 
-    // Narrow down collection to only user's tasks
-    let numOfTasksCompleted = await tasksCollection.countDocuments({"user": username, "taskStatus": "Complete" });
+    // Get the user's number of completed tasks
+    let numOfTasksCompleted = await tasksCollection.countDocuments({ "user": username, "taskStatus": "Complete" });
+    // Get the user's number of total tasks
+    let numOfTasks = await tasksCollection.countDocuments({ "user": username });
+    // Calculate the completed task percentage
+    let percentOfTasks = Math.round((numOfTasksCompleted / numOfTasks) * 100);
 
-    let userAndTasksCompleted = {firstName: result['userFirst'], lastName: result['userLast'], username: result['user'], profilePic: result['profile_picture'], numOfTasksCompleted: numOfTasksCompleted}
-    //console.log(userAndTasksCompleted);
+    if (isNaN(percentOfTasks)) {
+        percentOfTasks = 0;
+    }
 
-    // Send result and log
+    let userAndTasksCompleted = {
+        firstName: result['userFirst'],
+        lastName: result['userLast'], username: result['user'],
+        profilePic: result['profile_picture'],
+        numOfTasksCompleted: numOfTasksCompleted,
+        numOfTasks: numOfTasks,
+        percentOfTasks: percentOfTasks
+    }
+
+    // Send result
     res.send(userAndTasksCompleted).status(201);
-    //console.log("FETCHED PROFILE PIC");
 });
 
 app.put("/update-profile-picture", async (req, res) => {
