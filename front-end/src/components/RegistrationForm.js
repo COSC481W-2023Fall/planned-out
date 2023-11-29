@@ -2,9 +2,9 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 let link = localStorage.getItem("backendURL");
-
 
 function RegistrationForm() {
   const [firstName, setFirstName] = useState("");
@@ -136,6 +136,7 @@ function RegistrationForm() {
   return (
     <>
       <Form className="registration-form">
+        <h1 className="registration-header">Register</h1>
         <Form.Group className="form-group">
           <Form.Label className="registration-label" htmlFor="firstName">
             First Name
@@ -272,6 +273,7 @@ function RegistrationForm() {
             {errors.confirmPassword}
           </Form.Control.Feedback>
         </Form.Group>
+        <Link to="/login">Already have an account? Login here!</Link>
         <Button
           className="regButton"
           type="button"

@@ -133,15 +133,14 @@ function LoginForm() {
           <br />
           <Form.Text id="badLogin"></Form.Text>
           <br />
-
-          <Form.Text className="text-muted">
-            Don't have an account?{" "}
-            <p className="register-link" onClick={goToRegistration}>
-              Register
-            </p>
-          </Form.Text>
         </Form.Group>
       </Form>
+      <Form.Text className="text-muted">
+        Don't have an account?{" "}
+        <p className="register-link" onClick={goToRegistration}>
+          Register
+        </p>
+      </Form.Text>
     </>
   );
 }

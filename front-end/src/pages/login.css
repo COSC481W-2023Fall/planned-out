@@ -1,5 +1,5 @@
 .login-container {
-  margin-top: 10%;
+  margin-top: 5%;
   padding: 2px 16px; /* creates margins */
   width: 25vw;
   text-align: center;
@@ -28,9 +28,9 @@ div.login-form label {
   text-align: center;
   color: red;
 }
-.logo {
+h1.logo {
   font-family: Light;
-  color: #03ba02;
+  font-size: 4em !important;
 }
 .register-link {
   font-size: large;

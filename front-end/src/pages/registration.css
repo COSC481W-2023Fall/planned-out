@@ -1,6 +1,7 @@
 .registration-container {
   padding: 2px 16px; /* creates margins */
   width: 20vw;
+  margin-top: 10vh;
 }
 .form-group {
   width: 100%;
@@ -32,5 +33,8 @@ Form {
   text-decoration: underline;
   cursor: pointer;
   display: inline;
-  color: rgba(var(--bs-link-color-rgb),var(--bs-link-opacity,1));
+  color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
+}
+.registration-header {
+  text-align: center;
 }
