@@ -36,20 +36,21 @@ const Layout = () => {
   })
 
   useLayoutEffect(() => {
-    //alert("This triggered use effect");
-    fetch(link + "get-profile-picture", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: localStorage.getItem("user")
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setProfilePicture(data['profile_picture'])
-      });
+    if (localStorage.getItem("user") !== null) {
+      fetch(link + "get-profile-picture", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: localStorage.getItem("user")
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setProfilePicture(data['profile_picture'])
+        });
+    }
 
     if (userCookie == null) {
       setLoggedIn(false);

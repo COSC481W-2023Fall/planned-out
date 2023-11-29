@@ -174,7 +174,7 @@ app.put("/delete-all-tasks", async (req, res) => {
     // Get the Tasks collection
     let collection = await db.collection("Tasks");
     // Delete all of that user's tasks
-    let result = await collection.deleteMany( {"user": username } );
+    let result = await collection.deleteMany({ "user": username });
 
     // Send result and log
     res.send(result).status(201);
@@ -216,11 +216,14 @@ app.put("/get-profile-picture", async (req, res) => {
 
     // Get the user's collection
     let collection = await db.collection(username);
-    // Get the profile pic type
-    let result = await collection.findOne({user: username}, {$get: "profile_picture"} );
-    //console.log("RESULT", result);
 
-    // Send result and log
-    res.send(result).status(201);
-    //console.log("FETCHED PROFILE PIC");
+    // Only try to get the profile picture if the user exists 
+    if (collection) {
+        // Get the profile pic type
+        let result = await collection.findOne({ user: username }, { $get: "profile_picture" });
+        res.send(result).status(201);
+    }
+    else {
+        res.status(400);
+    };
 });
