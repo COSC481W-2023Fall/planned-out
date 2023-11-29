@@ -212,9 +212,22 @@ app.put("/add-friend", async (req, res) => {
     // If the friend's username actually exists, add it to the user's collection
     if (existingUser) {
         result = await userCollection.updateOne({"user": username}, {"$push":{"friends":friendUsername}});
-        console.log("Friend added");
+        res.send(result).status(201);
     }
+    else {
+        res.status(400).send("Error! The friend's username was not found in the database.");
+    }
+});
 
-    // Send result and log
+app.put("/get-friends", async (req, res) => {
+    // Get the username
+    const username = req.body.username;
+
+    // Get the user's collection
+    let collection = await db.collection(username);
+    // Get the friends
+    let result = await collection.findOne({user: username}, {$get: "friends"} );
+
+    // Send result
     res.send(result).status(201);
 });
