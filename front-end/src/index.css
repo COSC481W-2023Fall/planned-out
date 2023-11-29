@@ -53,6 +53,24 @@ code {
   margin-right: 10px;
 }
 
+.navbar-profile {
+  height: 35px;
+  border-radius: 100%;
+}
+
+.profile-dropdown-container {
+  justify-content: right !important;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: inherit !important;
+  color: inherit !important;
+}
+
+.dropdown-toggle {
+  padding: 0;
+}
+
 .main-nav-button {
   margin: auto 0.25em auto 0.25em;
   border-radius: 24px;
@@ -249,6 +267,21 @@ button {
 
 .form-check-input[type="checkbox"] {
   margin-right: 1em;
+}
+
+div.select-profile-container {
+  margin-top: 1em;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  row-gap: 1em;
+  column-gap: 1em;
+  width: 30%;
+}
+
+div.select-profile-container img {
+  cursor: pointer;
+  width: 75px;
+  border-radius: 100%;
 }
 
 div.theme-container {

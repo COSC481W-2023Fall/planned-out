@@ -3,9 +3,10 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
+import NavDropdown from "react-bootstrap/NavDropdown";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 
 const Layout = () => {
   // For testing purposes: Store the backend link in localStorage 
@@ -20,12 +21,36 @@ const Layout = () => {
   // Use local backend
   localStorage.setItem("backendURL", localBackend);
 
+  let link = localStorage.getItem("backendURL");
+
   const navigate = useNavigate();
   const userCookie = localStorage.getItem('user');
   const [isUserLoggedIn, setLoggedIn] = useState([]);
   const [isUserLoggedOut, setLoggedOut] = useState([]);
 
-  useEffect(() => {
+  const [profilePicture, setProfilePicture] = useState(["default"]);
+
+  // Listen for profile_picture in localStorage
+  window.addEventListener('profile_picture', () => {
+    setProfilePicture(localStorage.getItem("profile_picture"));
+  })
+
+  useLayoutEffect(() => {
+    //alert("This triggered use effect");
+    fetch(link + "get-profile-picture", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: localStorage.getItem("user")
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setProfilePicture(data['profile_picture'])
+      });
+
     if (userCookie == null) {
       setLoggedIn(false);
       setLoggedOut(true);
@@ -37,7 +62,12 @@ const Layout = () => {
       setLoggedIn(true)
       setLoggedOut(false);
     }
-  }, [navigate, userCookie]);
+  }, [profilePicture, link, navigate, userCookie]);
+
+  // If profile picture is null or undefined set it to default
+  if (profilePicture == null || profilePicture === undefined) {
+    setProfilePicture('default');
+  }
 
   // Log user out
   function logUserOut() {
@@ -58,6 +88,8 @@ const Layout = () => {
             />
             Planned-Out
           </Navbar.Brand>
+        </Container>
+        <Container>
           <Nav className="me-auto" variant="pills">
             <Nav.Item>
               <LinkContainer to="/">
@@ -69,26 +101,32 @@ const Layout = () => {
                 <Button className="main-nav-button">Friends</Button>
               </LinkContainer>
             </Nav.Item>
-            <Nav.Item>
+          </Nav>
+        </Container>
+        <Container className="profile-dropdown-container">
+          <NavDropdown align="end" title={
+            <img alt="Profile Icon" className="navbar-profile" src={"/avatars/" + profilePicture + ".png"}></img>
+          } id="basic-nav-dropdown">
+            <NavDropdown.Item>
               <LinkContainer to="/settings">
-                <Button className="main-nav-button">Settings</Button>
+                <Nav.Link className="main-nav-button">Settings</Nav.Link>
               </LinkContainer>
-            </Nav.Item>
+            </NavDropdown.Item>
             {isUserLoggedOut &&
-              <Nav.Item>
+              <NavDropdown.Item>
                 <LinkContainer to="/login">
-                  <Button className="main-nav-button">Login</Button>
+                  <Nav.Link className="main-nav-button">Login</Nav.Link>
                 </LinkContainer>
-              </Nav.Item>
+              </NavDropdown.Item>
             }
             {isUserLoggedIn &&
-              < Nav.Item >
+              <NavDropdown.Item >
                 <LinkContainer to="/login">
-                  <Button onClick={logUserOut} className="main-nav-button">Log Out</Button>
+                  <Nav.Link onClick={logUserOut} className="main-nav-button">Log Out</Nav.Link>
                 </LinkContainer>
-              </Nav.Item>
+              </NavDropdown.Item>
             }
-          </Nav>
+          </NavDropdown>
         </Container>
       </Navbar>
       <Outlet />

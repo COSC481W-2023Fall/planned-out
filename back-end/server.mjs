@@ -194,6 +194,34 @@ app.put("/delete-account", async (req, res) => {
     res.send(result).status(201);
     //console.log("ACCOUNT", username, "DELETED");
 });
+app.put("/get-profile-picture", async (req, res) => {
+    // Get the username
+    const username = req.body.username;
+
+    // Get the user's collection
+    let collection = await db.collection(username);
+    // Get the profile pic type
+    let result = await collection.findOne({ user: username }, { $get: "profile_picture" });
+
+    // Send result and log
+    res.send(result).status(201);
+    //console.log("FETCHED PROFILE PIC");
+});
+
+app.put("/update-profile-picture", async (req, res) => {
+    // Get the username
+    const username = req.body.username;
+    // Get the profile pic
+    const profilePic = req.body.profilePic;
+
+    // Get the user's collection
+    let collection = await db.collection(username);
+    // Update the profile picture type
+    let result = collection.updateOne({ "user": username }, { $set: { "profile_picture": profilePic } });
+
+    // Send result and log
+    res.send(result).status(201);
+});
 
 app.put("/add-friend", async (req, res) => {
     let result = null;
@@ -208,8 +236,6 @@ app.put("/add-friend", async (req, res) => {
     // Get all collections and attempt to find the friend's collection
     const collections = await db.listCollections().toArray();
     const existingUser = await collections.find(collection => collection.name === friendUsername);
-
-
 
     // If the friend's username actually exists
     if (existingUser) {
@@ -243,18 +269,3 @@ app.put("/get-friends", async (req, res) => {
     // Send result
     res.send(result).status(201);
 });
-
-app.put("/get-profile-picture", async (req, res) => {
-    // Get the username
-    const username = req.body.username;
-
-    // Get the user's collection
-    let collection = await db.collection(username);
-    // Get the profile pic type
-    let result = await collection.findOne({ user: username }, { $get: "profile_picture" });
-
-    // Send result and log
-    res.send(result).status(201);
-    //console.log("FETCHED PROFILE PIC");
-});
-
