@@ -6,7 +6,7 @@ import Container from "react-bootstrap/Container";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useState, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import "../fonts/orange juice 2.0.ttf";
 
 const Layout = () => {
@@ -36,7 +36,7 @@ const Layout = () => {
     setProfilePicture(localStorage.getItem("profile_picture"));
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (localStorage.getItem("user") !== null) {
       fetch(link + "get-profile-picture", {
         method: "PUT",
