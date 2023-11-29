@@ -326,7 +326,8 @@ app.put("/get-friend-info", async (req, res) => {
 
     let userAndTasksCompleted = {
         firstName: result['userFirst'],
-        lastName: result['userLast'], username: result['user'],
+        lastName: result['userLast'], 
+        username: result['user'],
         profilePic: result['profile_picture'],
         numOfTasksCompleted: numOfTasksCompleted,
         numOfTasks: numOfTasks,

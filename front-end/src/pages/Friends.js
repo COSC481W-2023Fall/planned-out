@@ -29,10 +29,12 @@ const Friends = () => {
         themeLoaded && <ThemeProvider theme={selectedTheme}>
             <GlobalStyles />
             <div className="App">
-                <Button onClick={() => setDateRange('daily')}>Daily</Button>
-                <Button onClick={() => setDateRange('weekly')}>Weekly</Button>
-                <Button onClick={() => setDateRange('monthly')}>Monthly</Button>
-                <Button onClick={() => setDateRange('total')}>Total</Button>
+                <div className="date-range-container">
+                    <Button className="daily-button" onClick={() => setDateRange('daily')}>Daily</Button>
+                    <Button className="weekly-button" onClick={() => setDateRange('weekly')}>Weekly</Button>
+                    <Button className="monthly-button" onClick={() => setDateRange('monthly')}>Monthly</Button>
+                    <Button className="total-button" onClick={() => setDateRange('total')}>Total</Button>
+                </div>
                 <Container>
                     <Row>
                         <Col>

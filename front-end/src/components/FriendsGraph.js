@@ -5,17 +5,23 @@ let link = localStorage.getItem("backendURL");
 
 const FriendsGraph = () => {
 
-    const [friendsList, setFriendsList] = useState([]);
     const [dateRange, setDateRange] = useState(['daily']);
     const [graphData, setGraphData] = useState([]);
+    const [userToCompare, setUserToCompare] = useState([]);
 
     // Listen for date_range in localStorage
     window.addEventListener('date_range', () => {
         setDateRange(localStorage.getItem("date_range"));
     })
 
+    // Listen for user_compare in localStorage
+    window.addEventListener('user_to_compare', () => {
+        setUserToCompare(localStorage.getItem("user_to_compare"));
+        handleCompare(localStorage.getItem("user_to_compare"));
+        console.log("COMPARE", localStorage.getItem("user_to_compare"));
+    })
+
     useEffect(() => {
-        setFriendsList([]);
         setGraphData([]);
         fetch(link + "get-friends", {
             method: "PUT",
@@ -47,28 +53,12 @@ const FriendsGraph = () => {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    let profilePic = data['profilePic'];
-                    if (profilePic === undefined) {
-                        profilePic = "default";
-                    }
-                    setFriendsList(friendsList => {
-                        return [
-                            ...friendsList,
-                            {
-                                name: (data['firstName'] + " " + data['lastName']),
-                                username: friends[i],
-                                profilePic: profilePic,
-                                numOfTasksCompleted: data['numOfTasksCompleted'],
-                                numOfTasks: data['numOfTasks'],
-                                percentOfTasks: data['percentOfTasks']
-                            }
-                        ]
-                    })
                     setGraphData(graphData => {
                         return [
                             ...graphData,
                             {
                                 name: (data['firstName'] + " " + data['lastName']),
+                                username: data['username'],
                                 percentage: data['percentOfTasks']
                             }
                         ]
@@ -77,16 +67,49 @@ const FriendsGraph = () => {
         }
     }
 
-    const data2 = [
-        {
-            name: 'Ted',
-            Percentage: 80,
-        },
-        {
-            name: 'Moorhead',
-            Percentage: 20,
-        },
-    ];
+    const handleCompare = (username) => {
+        let currentUser = ""
+        let comparedUser = ""
+
+        console.log("USERNAME THAT WAS PASSED IS", username)
+
+        // Get local user
+        let localUser = localStorage.getItem('user');
+
+        // Get friend to compare
+        for (let i = 0; i < graphData.length; i++) {
+            //console.log("Graph item", i, graphData[i]);
+            console.log("username", graphData[i]['username']);
+            if (graphData[i]['username'] === localUser) {
+                currentUser = graphData[i];
+            }
+            else if (graphData[i]['username'] === username) {
+                comparedUser = graphData[i];
+            }
+        }
+
+        //Clear graphData
+        setGraphData([])
+
+        // Add data to compare
+        setGraphData((graphData) => {
+            return [
+                ...graphData,
+                {
+                    name: currentUser['name'],
+                    username: currentUser['username'],
+                    percentage: currentUser['percentage']
+                }
+                ,
+                {
+                    name: comparedUser['name'],
+                    username: comparedUser['username'],
+                    percentage: comparedUser['percentage']
+                }
+            ]
+        })
+    }
+
 
     return (
         <ResponsiveContainer width="100%" height="100%">

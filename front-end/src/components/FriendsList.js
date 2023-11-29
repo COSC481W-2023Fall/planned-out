@@ -20,6 +20,11 @@ const FriendsList = () => {
         setDateRange(localStorage.getItem("date_range"));
     })
 
+    const setUserToCompare = (userToCompare) => {
+        window.localStorage.setItem("user_to_compare", userToCompare);
+        window.dispatchEvent(new Event("user_to_compare"));
+    }
+
     useEffect(() => {
         setFriendsList([]);
         fetch(link + "get-friends", {
@@ -103,11 +108,13 @@ const FriendsList = () => {
             {friendsList
                 .sort((a, b) => b.percentOfTasks - a.percentOfTasks)
                 .map((friend, index) => (
-                    <Card className="friend-info" key={"frienddiv" + index}>
-                        <img className="friends-list-profile-pic" alt={friend.profilePic} key={"profilePic" + index} src={"/avatars/" + friend.profilePic + ".png"}></img>
-                        <div className="friends-name-user-container">
-                            <p className="friend-name" key={"friend" + index}>{friend.name}</p>
-                            <p className="friend-username" key={"friendusername" + index}>({friend.username})</p>
+                    <Card onClick={() => setUserToCompare(friend.username)} className="friend-info-card" key={"frienddiv" + index}>
+                        <div className="friend-info">
+                            <img className="friends-list-profile-pic" alt={friend.profilePic} key={"profilePic" + index} src={"/avatars/" + friend.profilePic + ".png"}></img>
+                            <div className="friends-name-user-container">
+                                <p className="friend-name" key={"friend" + index}>{friend.name}</p>
+                                <p className="friend-username" key={"friendusername" + index}>({friend.username})</p>
+                            </div>
                         </div>
                         <p key={"count" + index}>Tasks completed: {friend.numOfTasksCompleted}/{friend.numOfTasks}</p>
                     </Card>
