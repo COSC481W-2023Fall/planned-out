@@ -185,7 +185,7 @@ app.put("/delete-account", async (req, res) => {
     // Get the username
     const username = req.body.username;
 
-    // Get the Tasks collection
+    // Get the user's collection
     let collection = await db.collection(username);
     // Drop the user's collection
     let result = await collection.drop();
@@ -193,4 +193,34 @@ app.put("/delete-account", async (req, res) => {
     // Send result and log
     res.send(result).status(201);
     //console.log("ACCOUNT", username, "DELETED");
+});
+
+app.put("/update-profile-picture", async (req, res) => {
+    // Get the username
+    const username = req.body.username;
+    // Get the profile pic
+    const profilePic = req.body.profilePic;
+
+    // Get the user's collection
+    let collection = await db.collection(username);
+    // Update the profile picture type
+    let result = collection.updateOne({ "user": username }, { $set: { "profile_picture": profilePic } });
+
+    // Send result and log
+    res.send(result).status(201);
+});
+
+app.put("/get-profile-picture", async (req, res) => {
+    // Get the username
+    const username = req.body.username;
+
+    // Get the user's collection
+    let collection = await db.collection(username);
+    // Get the profile pic type
+    let result = await collection.findOne({user: username}, {$get: "profile_picture"} );
+    //console.log("RESULT", result);
+
+    // Send result and log
+    res.send(result).status(201);
+    //console.log("FETCHED PROFILE PIC");
 });

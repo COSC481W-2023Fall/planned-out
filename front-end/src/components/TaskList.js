@@ -1,7 +1,7 @@
 import ListGroup from "react-bootstrap/ListGroup";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import Card from "react-bootstrap/Card";
 
 let link = localStorage.getItem("backendURL");
@@ -29,11 +29,9 @@ function TaskList({ username }) {
         return (month + "-" + day + "-" + year);
     }
 
-    useEffect(() => {
-        console.log(tasksDate);
+    useLayoutEffect(() => {
         if (tasksDate.length <= 0) {
             setTasksDate(getToday());
-            console.log("GOTTED", getToday());
         }
         // verify user info from URL to display task list
         fetch(link + `username=?${username}`, {
