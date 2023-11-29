@@ -37,8 +37,9 @@ app.post("/register", async (req, res) => {
     };
 
     // make collections = a search of all collections with username as the name of the collection
-    const collections = await db.listCollections().toArray();
-    const existingCollection = collections.find(collection => collection.name === username);
+    //const collections = await db.listCollections().toArray();
+    //const existingCollection = collections.find(collection => collection.name === username);
+    const collection = await db.collection(username);
 
     //console.log(existingCollection);
 
@@ -98,7 +99,7 @@ app.put("/updatetask/:id", async (req, res) => {
 app.post("/login", async (req, res) => {
     // Get username and hased password from the front end.
     const username = req.body.username;
-    const hashedPwd = await bcrypt.hashSync(req.body.password, salt);
+    const hashedPwd = bcrypt.hashSync(req.body.password, salt);
 
     // Connect to the Users collection.
     let collection = await db.collection(username);
@@ -139,7 +140,7 @@ app.post("/:username", async (req, res) => {
 app.put("/update", async (req, res) => {    // update user password
     //console.log("update: " + req.body.username);
     const username = req.body.username;
-    const hashedPwd = await bcrypt.hashSync(req.body.password, salt);   // hash user password
+    const hashedPwd = bcrypt.hashSync(req.body.password, salt);   // hash user password
     //console.log(username);
     //console.log(hashedPwd);
     // Connect to the Users collection.
@@ -147,9 +148,12 @@ app.put("/update", async (req, res) => {    // update user password
     // Get the information for the given user
     let results = await collection.find({ "pwd": hashedPwd }).toArray();
     //console.log(results.length);
-    const newPwd = await bcrypt.hashSync(req.body.newPassword, salt);
+    const newPwd = bcrypt.hashSync(req.body.newPassword, salt);
+
+    console.log("New password: " + req.body.newPassword);
+    console.log(newPwd);
     //console.log(newPwd);
-    if (results.length > 0) {   // check if password is correct
+    /*if (results.length > 0) {   // check if password is correct
 
         let updatePassword = await db.collection(username).updateOne(
             { "user": username },
@@ -162,7 +166,7 @@ app.put("/update", async (req, res) => {    // update user password
         //console.log("ERROR: The new status is null");
         res.status(403);
         res.send({ "Status": "Error" });
-    }
+    }*/
     //console.log(results);
 });
 

@@ -38,6 +38,12 @@ const SettingsCard = (props) => {
         console.log("Attempting Login");
         console.log(username);
         console.log(password);
+        
+        console.log(!errors.username);
+        console.log(!errors.password);
+        console.log(username !== "");
+        console.log(password !== "");
+        console.log(newPassword1 === newPassword2);
         // console.log(errors);
         if (
             !errors.username &&
@@ -46,6 +52,7 @@ const SettingsCard = (props) => {
             password !== "" &&
             newPassword1 === newPassword2
         ) {
+            console.log(newPassword1);
             //next 2 lines need to be changed to direct to user home
             // e.preventDefault(); //comment out when backend is ready
             // window.location.href = "./login"; //comment out when backend is ready
@@ -59,17 +66,18 @@ const SettingsCard = (props) => {
                 body: JSON.stringify({
                     username: username,
                     password: password,
-                    newPassword: newPassword,
-                }),
+                    newPassword: newPassword1
+                })
             })
                 .then((res) => {
+                    console.log("hello");
                     if (res.status === 200) {
                         console.log("Successfully updated password!");
                     } else {
                         alert("PASSWORD ERROR: Current password is incorrect ");
                     }
                 })
-                .then((data) => { });
+                //.then((data) => { });
         } else {
             e.preventDefault();
             document.getElementById("badLogin").innerHTML =
@@ -86,8 +94,8 @@ const SettingsCard = (props) => {
 
                     <Form style={{ textAlign: 'left' }}>
                         <Form.Group controlId="SecUserName" className="mb-3">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="something@example.com" onChange={(e) => {
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control type="text" placeholder="Enter your username" onChange={(e) => {
                                 setUsername(e.target.value);
                                 validation(e);
                             }}
