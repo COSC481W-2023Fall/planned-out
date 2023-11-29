@@ -15,10 +15,10 @@ const FriendsList = () => {
     const [friendsList, setFriendsList] = useState([]);
     const [dateRange, setDateRange] = useState(['daily']);
 
-        // Listen for date_range in localStorage
-        window.addEventListener('date_range', () => {
-            setDateRange(localStorage.getItem("date_range"));
-        })
+    // Listen for date_range in localStorage
+    window.addEventListener('date_range', () => {
+        setDateRange(localStorage.getItem("date_range"));
+    })
 
     useEffect(() => {
         setFriendsList([]);
@@ -99,7 +99,7 @@ const FriendsList = () => {
 
     return (
         <>
-        <p>Date range: {dateRange}</p>
+            <p>Date range: {dateRange}</p>
             {friendsList
                 .sort((a, b) => b.percentOfTasks - a.percentOfTasks)
                 .map((friend, index) => (

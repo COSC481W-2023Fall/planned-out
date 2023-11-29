@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./Friends.css";
 import FriendsList from "../components/FriendsList.js";
+import FriendsGraph from "../components/FriendsGraph.js";
 import Button from "react-bootstrap/Button";
 
 const Friends = () => {
@@ -43,6 +44,7 @@ const Friends = () => {
                         <Col sm={8}>
                             <Card className="stats-card">
                                 <Card.Title>Stats</Card.Title>
+                                <FriendsGraph></FriendsGraph>
                             </Card>
                         </Col>
                     </Row>
