@@ -1,6 +1,7 @@
 import ListGroup from "react-bootstrap/ListGroup";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
+import Modal from 'react-bootstrap/Modal';
 import { useState, useLayoutEffect } from "react";
 import Card from "react-bootstrap/Card";
 
@@ -8,6 +9,9 @@ let link = localStorage.getItem("backendURL");
 
 function TaskList({ username }) {
 
+    const [modalShow, setModalShow] = useState(false);
+    const [taskName, setTaskName] = useState([]);
+    const [taskDesc, setTaskDesc] = useState([]);
     const [tasksList, setTaskList] = useState([]);
     const [tasksDate, setTasksDate] = useState([]);
 
@@ -47,6 +51,26 @@ function TaskList({ username }) {
             .then((data) => setTaskList(data));
     }, [tasksDate, username]);
 
+    function MyVerticallyCenteredModal(props) {
+        return (
+            <Modal
+                {...props}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        Task Name: {taskName}
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Description: {taskDesc}
+                </Modal.Body>
+            </Modal>
+        );
+    }
+
     function CheckBox({ id, taskID, taskName, taskDate, taskDesc, taskStatus }) {
         let labelID = id + "label";
         let checkedID = id + "checked";
@@ -68,14 +92,16 @@ function TaskList({ username }) {
                         type="checkbox"
                         id={checkedID}
                     />
-                    <label className={"checked"} id={labelID} htmlFor={id}>
+                    <label className={"checked"} id={labelID} htmlFor={id} onClick={() => handleModal(taskName, taskDesc)}>
                         {taskName}
                     </label>
                 </InputGroup>
             );
         }
-        return (
-            <InputGroup>
+        else {
+
+            return (
+                <InputGroup>
                 <Form.Check onChange={handleChecked(
                     id,
                     labelID,
@@ -84,15 +110,17 @@ function TaskList({ username }) {
                     taskDate,
                     taskDesc,
                     taskStatus
-                )}
+                    )}
                     type="checkbox"
                     id={id}
-                />
-                <label className={"unchecked"} id={labelID} htmlFor={id}>
+                    />
+                <label className={"unchecked"} id={labelID} htmlFor={id} onClick={() => handleModal(taskName, taskDesc)}>
                     {taskName}
                 </label>
+                
             </InputGroup>
         );
+    }
     }
 
     const handleChecked = (checkID, labelID, taskID, taskName, taskDate, taskDesc, taskStatus) =>
@@ -134,6 +162,12 @@ function TaskList({ username }) {
             console.log("Successfully updated task!");
         };
 
+    const handleModal = (taskName, taskDesc) => {
+        setModalShow(true);
+        setTaskDesc(taskDesc);
+        setTaskName(taskName);
+    };
+
     return (
         <>
             {tasksDate === getToday() &&
@@ -158,10 +192,16 @@ function TaskList({ username }) {
                                 taskDate={task.taskDate}
                                 taskDesc={task.taskDesc}
                                 taskStatus={task.taskStatus}
-                            ></CheckBox>
+                            >
+                            </CheckBox>
+
                         </ListGroup.Item>
-                    ))}
+                ))}
+
             </ListGroup>
+            <MyVerticallyCenteredModal
+                show={modalShow}
+                onHide={() => setModalShow(false)} />
         </>
     )
 }
