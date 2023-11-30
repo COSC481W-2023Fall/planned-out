@@ -25,9 +25,6 @@ function CalendarView({ username }) {
     const switchTasksDay = (value, event) => {
         let month = value.getMonth() + 1;
         let date = value.getDate();
-        if (date < 10) {
-            date = "0" + date;
-        }
         let year = value.getFullYear();
 
         let dateToSend = month + "-" + date + "-" + year;
