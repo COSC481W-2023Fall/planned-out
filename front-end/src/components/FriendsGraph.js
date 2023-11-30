@@ -38,6 +38,7 @@ const FriendsGraph = () => {
             .then((data) => {
                 getUser(data['friends'], dateRange)
             })
+        addCurrentUser();
     }, [dateRange]);
 
     function getUser(friends, daterange) {
@@ -125,6 +126,36 @@ const FriendsGraph = () => {
                 }
             ]
         })
+    }
+
+    function addCurrentUser() {
+        fetch(link + "get-friend-info", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username: localStorage.getItem("user"),
+                dateRange: dateRange
+            }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                let profilePic = data['profilePic'];
+                if (profilePic === undefined) {
+                    profilePic = "default";
+                }
+                setGraphData(graphData => {
+                    return [
+                        ...graphData,
+                        {
+                            name: (data['firstName'] + " " + data['lastName']),
+                            username: data['username'],
+                            percentage: data['percentOfTasks']
+                        }
+                    ]
+                })
+            });
     }
 
 

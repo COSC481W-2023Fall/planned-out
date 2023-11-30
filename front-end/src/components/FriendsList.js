@@ -41,6 +41,7 @@ const FriendsList = () => {
             .then((data) => {
                 getUser(data['friends'], dateRange)
             })
+        addCurrentUser();
     }, [dateRange]);
 
     function getUser(friends, daterange) {
@@ -100,6 +101,39 @@ const FriendsList = () => {
             })
             .catch(error => console.error(error))
         handleClose()
+    }
+
+    function addCurrentUser() {
+        fetch(link + "get-friend-info", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username: localStorage.getItem("user"),
+                dateRange: dateRange
+            }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                let profilePic = data['profilePic'];
+                if (profilePic === undefined) {
+                    profilePic = "default";
+                }
+                setFriendsList(friendsList => {
+                    return [
+                        ...friendsList,
+                        {
+                            name: (data['firstName'] + " " + data['lastName']),
+                            username: data['username'],
+                            profilePic: profilePic,
+                            numOfTasksCompleted: data['numOfTasksCompleted'],
+                            numOfTasks: data['numOfTasks'],
+                            percentOfTasks: data['percentOfTasks']
+                        }
+                    ]
+                })
+            });
     }
 
     function getDateRange() {
