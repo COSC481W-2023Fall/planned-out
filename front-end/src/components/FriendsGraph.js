@@ -49,52 +49,54 @@ const FriendsGraph = () => {
     }, [dateRange]);
 
     function getUser(friends, daterange) {
-        for (let i = 0; i < friends.length; i++) {
-            fetch(link + "get-friend-info", {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    username: friends[i],
-                    dateRange: daterange
-                }),
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    setGraphData(graphData => {
-                        return [
-                            ...graphData,
-                            {
-                                name: (data['firstName'] + " " + data['lastName']),
-                                username: data['username'],
-                                percentage: data['percentOfTasks']
-                            }
-                        ]
-                    })
-                });
-            fetch(link + "get-friend-info", {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    username: localStorage.getItem("user"),
-                    dateRange: daterange
-                }),
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    setCurrentUser(currentUser => {
-                        return [
-                            {
-                                name: (data['firstName'] + " " + data['lastName']),
-                                username: data['username'],
-                                percentage: data['percentOfTasks']
-                            }
-                        ]
-                    })
-                });
+        if (friends !== undefined) {
+            for (let i = 0; i < friends.length; i++) {
+                fetch(link + "get-friend-info", {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        username: friends[i],
+                        dateRange: daterange
+                    }),
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        setGraphData(graphData => {
+                            return [
+                                ...graphData,
+                                {
+                                    name: (data['firstName'] + " " + data['lastName']),
+                                    username: data['username'],
+                                    percentage: data['percentOfTasks']
+                                }
+                            ]
+                        })
+                    });
+                fetch(link + "get-friend-info", {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        username: localStorage.getItem("user"),
+                        dateRange: daterange
+                    }),
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        setCurrentUser(currentUser => {
+                            return [
+                                {
+                                    name: (data['firstName'] + " " + data['lastName']),
+                                    username: data['username'],
+                                    percentage: data['percentOfTasks']
+                                }
+                            ]
+                        })
+                    });
+            }
         }
     }
 
