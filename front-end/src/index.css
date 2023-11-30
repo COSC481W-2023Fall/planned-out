@@ -64,6 +64,7 @@ code {
 }
 
 .logo {
+  cursor: pointer;
   font-family: Light;
   color: #03ba02;
   text-align: center;

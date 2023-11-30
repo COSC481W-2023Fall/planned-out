@@ -76,11 +76,15 @@ const Layout = () => {
     navigate(`/login`);
   }
 
+  function goToHome() {
+    navigate("/");
+  }
+
   return (
     <>
       <Navbar>
         <Container>
-          <Navbar.Brand className="logo" href="/">
+          <Navbar.Brand className="logo" onClick={goToHome}>
             Planned Out
           </Navbar.Brand>
         </Container>
