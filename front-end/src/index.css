@@ -1,8 +1,9 @@
 /* ---- LIGHT MODE COLORS ---- */
 :root {
-  --background-color: #FFFFFF;
+  --background-color: #ffffff;
   --text-color: #000000;
-  --text-color-filter: invert(0%) sepia(100%) saturate(0%) hue-rotate(21deg) brightness(97%) contrast(103%);
+  --text-color-filter: invert(0%) sepia(100%) saturate(0%) hue-rotate(21deg)
+    brightness(97%) contrast(103%);
   --card-background-color: var(--background-color);
 }
 
@@ -11,9 +12,17 @@
   :root {
     --background-color: #121212;
     --text-color: #d1cfcf;
-    --text-color-filter: invert(93%) sepia(18%) saturate(13%) hue-rotate(314deg) brightness(90%) contrast(84%);
+    --text-color-filter: invert(93%) sepia(18%) saturate(13%) hue-rotate(314deg)
+      brightness(90%) contrast(84%);
     --card-background-color: #3b3b3b;
   }
+}
+
+/* Font for logo */
+@font-face {
+  font-family: "Light"; /*Can be any text*/
+  src: local("orange juice 2.0"),
+    url("./fonts/orange juice 2.0.ttf") format("truetype");
 }
 
 body {
@@ -23,7 +32,8 @@ body {
   color: var(--text-color);
 }
 
-div.card, div.task-list {
+div.card,
+div.task-list {
   background-color: var(--card-background-color) !important;
   color: var(--text-color);
 }
@@ -51,6 +61,36 @@ code {
 
 .navbar-brand img {
   margin-right: 10px;
+}
+
+.logo {
+  cursor: pointer;
+  font-family: Light;
+  text-align: center;
+  font-size: 2em;
+}
+
+.nav-button-container {
+  justify-content: center !important;
+}
+
+.navbar-profile {
+  height: 35px;
+  border-radius: 100%;
+}
+
+.profile-dropdown-container {
+  justify-content: right !important;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: inherit !important;
+  color: inherit !important;
+}
+
+.dropdown-toggle {
+  padding: 0;
 }
 
 .main-nav-button {
@@ -87,7 +127,6 @@ div.task-list {
   display: none; /* Chrome, Safari and Opera */
 }
 
-
 div.task {
   border: none;
   padding-left: 0;
@@ -110,14 +149,15 @@ div.task label:hover {
   height: 80vh;
 }
 
-
-
-button, .btn, [type="button"]:not(:disabled) {
+button,
+.btn,
+[type="button"]:not(:disabled) {
   max-height: 50px;
   border-radius: 24px;
 }
 
-div.react-calendar button, div.react-calendar [type="button"]:not(:disabled) {
+div.react-calendar button,
+div.react-calendar [type="button"]:not(:disabled) {
   max-height: none;
   border-radius: 2px;
 }
@@ -253,6 +293,21 @@ button {
 
 .form-check-input[type="checkbox"] {
   margin-right: 1em;
+}
+
+div.select-profile-container {
+  margin-top: 1em;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  row-gap: 1em;
+  column-gap: 1em;
+  width: 30%;
+}
+
+div.select-profile-container img {
+  cursor: pointer;
+  width: 75px;
+  border-radius: 100%;
 }
 
 div.theme-container {

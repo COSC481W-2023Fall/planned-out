@@ -3,9 +3,9 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import CalendarView from "../components/CalendarView.js"
-import TaskAdd from "../components/TaskAdd.js"
-import TaskList from "../components/TaskList.js"
+import CalendarView from "../components/CalendarView.js";
+import TaskAdd from "../components/TaskAdd.js";
+import TaskList from "../components/TaskList.js";
 import { useState, useRef, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { ThemeProvider } from "styled-components";
@@ -33,7 +33,7 @@ const Home = () => {
 
     //const searchParams = new URLSearchParams(location.search);
     username = searchParams.get('username') || userCookie;
-    console.log("FROM HOME " + username);
+    //console.log("FROM HOME " + username);
 
   } catch (error) {
     console.log("Error while trying to get username from URL");
@@ -76,7 +76,6 @@ const Home = () => {
               {/* Task List Card */}
               {isTaskListShown &&
                 <Card className="tasks-card">
-                  <Card.Title>Today's Tasks</Card.Title>
                   {/* List of Tasks */}
                   <TaskList username={username} />
                   {/* Spacer */}

@@ -8,29 +8,22 @@ import "./index.css";
 import Settings from "./pages/Settings.js";
 import Login from "./pages/Login.js";
 import Registration from "./pages/Registration.js";
-import * as themes from './themes/schema.json';
-import { setToLS } from './utils/storage';
+import * as themes from "./themes/schema.json";
+import { setToLS } from "./utils/storage";
 
 export default function App() {
-    setToLS('all-themes', themes.default);
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<Home />} />
-                </Route>
-                <Route path="/login" element={<Layout />}>
-                    <Route index element={<Login />} />
-                </Route>
-                <Route path="/settings" element={<Layout />}>
-                    <Route index element={<Settings />} />
-                </Route>
-                <Route path="/registration" element={<Layout />}>
-                    <Route index element={<Registration />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    );
+  setToLS("all-themes", themes.default);
+  return (
+    <BrowserRouter>
+      <Layout></Layout>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/registration" element={<Registration />} />
+        <Route exact path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

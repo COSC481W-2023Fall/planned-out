@@ -1,60 +1,60 @@
 {
-    "data" : {
-      "red" : {
-        "id": "T_001",
-        "name": "Red",
-        "colors": {
-          "accent": "#E60909"
-        }
-      },
-      "blue" : {
-        "id": "T_002",
-        "name": "Blue",
-        "colors": {
-          "accent": "#0962E6"
-        }
-      },
-      "green" : {
-        "id": "T_003",
-        "name": "Green",
-        "colors": {
-          "accent": "#03ba02"
-        }
-      },
-      "purple" : {
-        "id": "T_004",
-        "name": "Purple",
-        "colors": {
-          "accent": "#ab00c1"
-        }
-      },
-      "orange" : {
-        "id": "T_005",
-        "name": "Orange",
-        "colors": {
-          "accent": "#e3a017"
-        }
-      },
-      "mint" : {
-        "id": "T_006",
-        "name": "Mint",
-        "colors": {
-          "accent": "#3eb489"
-        }
-      },
-      "pink" : {
-        "id": "T_007",
-        "name": "Pink",
-        "colors": {
-          "accent": "#ff9999"
-        }
-      },
-      "grey" : {
-        "id": "T_008",
-        "name": "Grey",
-        "colors": {
-          "accent": "grey"
-        }
+  "data": {
+    "red": {
+      "id": "T_001",
+      "name": "Red",
+      "colors": {
+        "accent": "#E60909"
+      }
+    },
+    "blue": {
+      "id": "T_002",
+      "name": "Blue",
+      "colors": {
+        "accent": "#0962E6"
+      }
+    },
+    "green": {
+      "id": "T_003",
+      "name": "Green",
+      "colors": {
+        "accent": "#03ba02"
+      }
+    },
+    "purple": {
+      "id": "T_004",
+      "name": "Purple",
+      "colors": {
+        "accent": "#ab00c1"
+      }
+    },
+    "orange": {
+      "id": "T_005",
+      "name": "Orange",
+      "colors": {
+        "accent": "#e3a017"
+      }
+    },
+    "mint": {
+      "id": "T_006",
+      "name": "Mint",
+      "colors": {
+        "accent": "#3eb489"
+      }
+    },
+    "pink": {
+      "id": "T_007",
+      "name": "Pink",
+      "colors": {
+        "accent": "#ff9999"
+      }
+    },
+    "grey": {
+      "id": "T_008",
+      "name": "Grey",
+      "colors": {
+        "accent": "#8e99a2"
       }
     }
   }
+}
