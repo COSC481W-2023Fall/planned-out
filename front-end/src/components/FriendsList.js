@@ -14,6 +14,7 @@ const FriendsList = () => {
     const [username, setUsername] = useState([]);
     const [friendsList, setFriendsList] = useState([]);
     const [dateRange, setDateRange] = useState(['daily']);
+    const [friendAdd, setFriendAdd] = useState([]);
 
     // Listen for date_range in localStorage
     window.addEventListener('date_range', () => {
@@ -42,7 +43,7 @@ const FriendsList = () => {
                 getUser(data['friends'], dateRange)
             })
         addCurrentUser();
-    }, [dateRange]);
+    }, [friendAdd, dateRange]);
 
     function getUser(friends, daterange) {
         for (let i = 0; i < friends.length; i++) {
@@ -98,9 +99,17 @@ const FriendsList = () => {
                 else {
                     res.json();
                 }
+                setFriendAdd(friendAdd => {
+                    return [
+                        ...friendAdd,
+                        {
+                            name: 'newfriend',
+                        }
+                    ]
+                })
+                handleClose();
             })
             .catch(error => console.error(error))
-        handleClose()
     }
 
     function addCurrentUser() {
@@ -183,7 +192,7 @@ const FriendsList = () => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Cancel
                     </Button>
                     <Button variant="primary" onClick={() => addFriend(username)}>
                         Add friend
