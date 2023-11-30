@@ -11,6 +11,7 @@ const FriendsGraph = () => {
     const [graphData, setGraphData] = useState([]);
     const [currentUser, setCurrentUser] = useState([]);
     const { theme } = useTheme();
+    const [hasTriggered, setHasTriggered] = useState(false);
 
     // Listen for date_range in localStorage
     window.addEventListener('date_range', () => {
@@ -19,7 +20,13 @@ const FriendsGraph = () => {
 
     // Listen for user_compare in localStorage
     window.addEventListener('user_to_compare', () => {
-        handleCompare(localStorage.getItem("user_to_compare"));
+        if (hasTriggered) {
+            console.log('Event already triggered');
+        }
+        else {
+            setHasTriggered(true);
+            handleCompare(localStorage.getItem("user_to_compare"));
+        }
     })
 
     useEffect(() => {
@@ -95,6 +102,9 @@ const FriendsGraph = () => {
         let currentUserInfo = "";
         let comparedUser = "";
 
+        //Clear graphData
+        setGraphData([]);
+
         if (currentUser.length === 1) {
             currentUserInfo = currentUser[0];
         }
@@ -106,7 +116,7 @@ const FriendsGraph = () => {
             }
         }
 
-        //Clear graphData
+        // Clear graphData
         setGraphData([])
 
         // Add data to compare
