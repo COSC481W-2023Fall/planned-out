@@ -371,10 +371,14 @@ app.put("/add-friend", async (req, res) => {
     if (existingUser) {
         // Check if the friend is already in the collection
         const friendExists = await userCollection.findOne({ "friends": friendUsername });
-        if (!friendExists) {
+        if (!friendExists && (friendUsername != username)) {
             // If the user doesn't already have the incoming friend as a friend
             result = await userCollection.updateOne({ "user": username }, { "$push": { "friends": friendUsername } });
             res.send(result).status(201);
+        }
+        else if (friendUsername == username) {
+            res.statusMessage = "You can't add yourself as a friend";
+            res.status(400).end();
         }
         else {
             res.statusMessage = "The friend was already in the collection";
