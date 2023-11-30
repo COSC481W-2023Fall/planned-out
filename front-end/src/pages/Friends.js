@@ -38,12 +38,12 @@ const Friends = () => {
                 <Container>
                     <Row>
                         <Col>
-                            <Card className="friends-card">
+                            <Card sm={3} className="friends-card">
                                 <Card.Title>Friends</Card.Title>
                                 <FriendsList></FriendsList>
                             </Card>
                         </Col>
-                        <Col sm={8}>
+                        <Col sm={7}>
                             <Card className="stats-card">
                                 <Card.Title>Stats</Card.Title>
                                 <FriendsGraph></FriendsGraph>
