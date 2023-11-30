@@ -14,14 +14,16 @@ import { setToLS } from './utils/storage';
 
 export default function App() {
   setToLS("all-themes", themes.default);
+
   return (
     <BrowserRouter>
+      <Layout></Layout>
       <Routes>
-        <Route path="/login" element={<Login />}/>
-        <Route path="/friends" element={<Layout />}/>
-        <Route path="/settings" element={<Layout />}/>
+        <Route path="/login" element={<Login />} />
+        <Route path="/friends" element={<Friends />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="/registration" element={<Registration />} />
-        <Route exact path="/" element={<Layout />}/>
+        <Route exact path="/" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );
