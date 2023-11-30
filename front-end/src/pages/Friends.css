@@ -1,0 +1,131 @@
+div.date-range-container {
+    width: 50%;
+    margin: -1em auto 2em auto;
+    text-align: center;
+}
+
+div.friends-list-header {
+    display: grid;
+    grid-template-columns: 0.60fr 0.40fr;
+}
+
+.date-range-button {
+    margin: 0;
+    border: 2px solid var(--bs-border-color-translucent) !important;
+    height: fit-content !important;
+    width: 100px;
+}
+
+.daily-button {
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-right: none !important;
+}
+
+.weekly-button,
+.monthly-button {
+    border-radius: 0px !important;
+    border-right: none !important;
+}
+
+.total-button {
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+}
+
+.friends-card,
+.stats-card {
+    height: 70vh;
+    padding: 1.5em;
+    border-radius: 24px;
+}
+
+img.friends-list-profile-pic {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    justify-self: right;
+}
+
+.friend-info-card {
+    padding: 1em;
+    position: relative;
+    border-radius: 16px;
+    margin-bottom: 1em;
+    animation-name: slideUp;
+    animation-duration: 0.25s;
+    animation-timing-function: ease-out;
+    scale: 100%;
+    opacity: 100%;
+    transition: 0.2s;
+}
+
+
+@keyframes slideUp {
+    from {
+        top: 50%;
+        opacity: 0%;
+    }
+
+    to {
+        top: 0%;
+        opacity: 100%;
+    }
+}
+
+.friend-info-card:hover {
+    opacity: 75%;
+    cursor: pointer;
+    scale: 95%;
+    transition: 0.25s;
+}
+
+.friend-info {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 0.20fr 0.80fr;
+    column-gap: 1em;
+    width: 100%;
+
+}
+
+
+.friend-info * {
+    display: flex;
+    align-items: center;
+}
+
+p.friend-name {
+    font-size: 125%;
+    margin: 0 0.5em 0 0;
+}
+
+p.friend-username {
+    margin: 0;
+    font-size: 75%;
+    opacity: 50%;
+}
+
+div.friends-name-user-container {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+div.friends-name-user-container * {
+    display: inline-block;
+}
+
+p.tasks-completed {
+    margin: 0;
+    font-size: 75%;
+    opacity: 75%;
+}
+
+div.name-username {
+    display: flex;
+    align-items: center;
+}
+
+div.friends-div {
+    overflow: scroll;
+}

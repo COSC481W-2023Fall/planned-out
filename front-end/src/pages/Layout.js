@@ -18,9 +18,9 @@ const Layout = () => {
   let localBackend = "http://localhost:5050/";
 
   // Use render backend
-  localStorage.setItem("backendURL", renderBackend);
+  //localStorage.setItem("backendURL", renderBackend);
   // Use local backend
-  //localStorage.setItem("backendURL", localBackend);
+  localStorage.setItem("backendURL", localBackend);
 
   let link = localStorage.getItem("backendURL");
 
@@ -93,6 +93,11 @@ const Layout = () => {
             <Nav.Item>
               <LinkContainer to="/">
                 <Button className="main-nav-button">Tasks</Button>
+              </LinkContainer>
+            </Nav.Item>
+            <Nav.Item>
+              <LinkContainer to="/friends">
+                <Button className="main-nav-button">Friends</Button>
               </LinkContainer>
             </Nav.Item>
           </Nav>
