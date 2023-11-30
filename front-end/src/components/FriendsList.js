@@ -102,24 +102,37 @@ const FriendsList = () => {
         handleClose()
     }
 
+    function getDateRange() {
+        return dateRange.toString().charAt(0).toUpperCase() + dateRange.toString().slice(1);
+    }
+
     return (
         <>
-            <p>Date range: {dateRange}</p>
+            <div className="friends-list-header">
+                <div>
+                    <Card.Title>Leaderboard</Card.Title>
+                    <p>Range: {getDateRange()}</p>
+                </div>
+                <Button onClick={handleShow}>Add friend</Button>
+            </div>
             {friendsList
                 .sort((a, b) => b.percentOfTasks - a.percentOfTasks)
                 .map((friend, index) => (
-                    <Card onClick={() => setUserToCompare(friend.username)} className="friend-info-card" key={"frienddiv" + index}>
-                        <div className="friend-info">
-                            <img className="friends-list-profile-pic" alt={friend.profilePic} key={"profilePic" + index} src={"/avatars/" + friend.profilePic + ".png"}></img>
-                            <div className="friends-name-user-container">
-                                <p className="friend-name" key={"friend" + index}>{friend.name}</p>
-                                <p className="friend-username" key={"friendusername" + index}>({friend.username})</p>
+                    <div className="test">
+                        <Card onClick={() => setUserToCompare(friend.username)} className="friend-info-card" key={"frienddiv" + index}>
+                            <div className="friend-info">
+                                <img className="friends-list-profile-pic" alt={friend.profilePic} key={"profilePic" + index} src={"/avatars/" + friend.profilePic + ".png"}></img>
+                                <div className="friends-name-user-container">
+                                    <div className="name-username">
+                                        <p className="friend-name" key={"friend" + index}>{friend.name}</p>
+                                        <p className="friend-username" key={"friendusername" + index}>({friend.username})</p>
+                                    </div>
+                                    <p className="tasks-completed" key={"count" + index}>{getDateRange()} tasks: {friend.numOfTasksCompleted}/{friend.numOfTasks}</p>
+                                </div>
                             </div>
-                        </div>
-                        <p key={"count" + index}>Tasks completed: {friend.numOfTasksCompleted}/{friend.numOfTasks}</p>
-                    </Card>
+                        </Card>
+                    </div>
                 ))}
-            <Button onClick={handleShow}>Add friend</Button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Add a friend</Modal.Title>

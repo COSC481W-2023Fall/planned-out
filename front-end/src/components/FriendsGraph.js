@@ -1,4 +1,4 @@
-import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, LabelList, ResponsiveContainer } from 'recharts';
 import { useState, useEffect } from "react";
 import { useTheme } from '../themes/useTheme';
 
@@ -113,7 +113,7 @@ const FriendsGraph = () => {
             return [
                 ...graphData,
                 {
-                    name: currentUserInfo['name'],
+                    name: 'You',
                     username: currentUserInfo['username'],
                     percentage: currentUserInfo['percentage']
                 }
@@ -129,14 +129,14 @@ const FriendsGraph = () => {
 
 
     return (
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer width="100%" height="90%">
             <BarChart data={graphData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis domain={[0, 100]} />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="percentage" fill={theme['colors']['accent']} activeBar={<Rectangle fill="lightgrey" stroke="blue" />} />
+                <Bar name="Percentage of tasks completed" dataKey="percentage" fill={theme['colors']['accent']} activeBar={<Rectangle fill="lightgrey" stroke="blue" />}>
+                    <LabelList dataKey="percentage" formatter={(percentage) => `${percentage}%`} position="top" />
+                </Bar>
             </BarChart>
         </ResponsiveContainer>
     );
