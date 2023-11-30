@@ -13,28 +13,18 @@ import * as themes from './themes/schema.json';
 import { setToLS } from './utils/storage';
 
 export default function App() {
-    setToLS('all-themes', themes.default);
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<Home />} />
-                </Route>
-                <Route path="/login" element={<Layout />}>
-                    <Route index element={<Login />} />
-                </Route>
-                <Route path="/friends" element={<Layout />}>
-                    <Route index element={<Friends />} />
-                </Route>
-                <Route path="/settings" element={<Layout />}>
-                    <Route index element={<Settings />} />
-                </Route>
-                <Route path="/registration" element={<Layout />}>
-                    <Route index element={<Registration />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    );
+  setToLS("all-themes", themes.default);
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />}/>
+        <Route path="/friends" element={<Layout />}/>
+        <Route path="/settings" element={<Layout />}/>
+        <Route path="/registration" element={<Registration />} />
+        <Route exact path="/" element={<Layout />}/>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

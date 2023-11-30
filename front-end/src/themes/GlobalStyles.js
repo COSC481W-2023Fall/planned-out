@@ -1,4 +1,4 @@
-import { createGlobalStyle} from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
   .btn, .btn.active, .btn:hover, .btn:disabled {
@@ -20,4 +20,15 @@ export const GlobalStyles = createGlobalStyle`
     background-color: ${({ theme }) => theme.colors.accent};
     border-color: ${({ theme }) => theme.colors.accent};
   }
-`;  
+
+  .logo{
+    color: ${({ theme }) => theme.colors.accent};
+    
+  }
+  .logo:hover{
+    color: ${({ theme }) => theme.colors.accent};
+  }
+ body{
+  // background-color: ${({ theme }) => theme.colors.accent};
+ }
+`;
