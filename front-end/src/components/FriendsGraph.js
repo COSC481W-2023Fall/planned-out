@@ -7,7 +7,7 @@ let link = localStorage.getItem("backendURL");
 
 const FriendsGraph = () => {
 
-    const [dateRange, setDateRange] = useState(['daily']);
+    const [dateRange, setDateRange] = useState(['total']);
     const [graphData, setGraphData] = useState([]);
     const [currentUser, setCurrentUser] = useState([]);
     const { theme } = useTheme();

@@ -13,7 +13,7 @@ const FriendsList = () => {
     const handleShow = () => setShow(true);
     const [username, setUsername] = useState([]);
     const [friendsList, setFriendsList] = useState([]);
-    const [dateRange, setDateRange] = useState(['daily']);
+    const [dateRange, setDateRange] = useState(['total']);
     const [friendAdd, setFriendAdd] = useState([]);
 
     // Listen for date_range in localStorage
