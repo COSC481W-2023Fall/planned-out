@@ -15,15 +15,12 @@ export default function App() {
   setToLS("all-themes", themes.default);
   return (
     <BrowserRouter>
+      <Layout></Layout>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-        </Route>
         <Route path="/login" element={<Login />} />
-        <Route path="/settings" element={<Layout />}>
-          <Route index element={<Settings />} />
-        </Route>
+        <Route path="/settings" element={<Settings />} />
         <Route path="/registration" element={<Registration />} />
+        <Route exact path="/" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );
