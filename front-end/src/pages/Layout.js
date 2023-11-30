@@ -82,57 +82,59 @@ const Layout = () => {
 
   return (
     <>
-      <Navbar>
-        <Container>
-          <Navbar.Brand className="logo" onClick={goToHome}>
-            Planned Out
-          </Navbar.Brand>
-        </Container>
-        <Container className="nav-button-container">
-          <Nav variant="pills">
-            <Nav.Item>
-              <LinkContainer to="/">
-                <Button className="main-nav-button">Tasks</Button>
-              </LinkContainer>
-            </Nav.Item>
-          </Nav>
-        </Container>
-        <Container className="profile-dropdown-container">
-          <NavDropdown
-            align="end"
-            title={
-              <img
-                alt="Profile Icon"
-                className="navbar-profile"
-                src={"/avatars/" + profilePicture + ".png"}
-              ></img>
-            }
-            id="basic-nav-dropdown"
-          >
-            <NavDropdown.Item>
-              <LinkContainer to="/settings">
-                <Nav.Link className="main-nav-button">Settings</Nav.Link>
-              </LinkContainer>
-            </NavDropdown.Item>
-            {isUserLoggedOut && (
+      {isUserLoggedIn &&
+        <Navbar>
+          <Container>
+            <Navbar.Brand className="logo" onClick={goToHome}>
+              Planned Out
+            </Navbar.Brand>
+          </Container>
+          <Container className="nav-button-container">
+            <Nav variant="pills">
+              <Nav.Item>
+                <LinkContainer to="/">
+                  <Button className="main-nav-button">Tasks</Button>
+                </LinkContainer>
+              </Nav.Item>
+            </Nav>
+          </Container>
+          <Container className="profile-dropdown-container">
+            <NavDropdown
+              align="end"
+              title={
+                <img
+                  alt="Profile Icon"
+                  className="navbar-profile"
+                  src={"/avatars/" + profilePicture + ".png"}
+                ></img>
+              }
+              id="basic-nav-dropdown"
+            >
               <NavDropdown.Item>
-                <LinkContainer to="/login">
-                  <Nav.Link className="main-nav-button">Login</Nav.Link>
+                <LinkContainer to="/settings">
+                  <Nav.Link className="main-nav-button">Settings</Nav.Link>
                 </LinkContainer>
               </NavDropdown.Item>
-            )}
-            {isUserLoggedIn && (
-              <NavDropdown.Item>
-                <LinkContainer to="/login">
-                  <Nav.Link onClick={logUserOut} className="main-nav-button">
-                    Log Out
-                  </Nav.Link>
-                </LinkContainer>
-              </NavDropdown.Item>
-            )}
-          </NavDropdown>
-        </Container>
-      </Navbar>
+              {isUserLoggedOut && (
+                <NavDropdown.Item>
+                  <LinkContainer to="/login">
+                    <Nav.Link className="main-nav-button">Login</Nav.Link>
+                  </LinkContainer>
+                </NavDropdown.Item>
+              )}
+              {isUserLoggedIn && (
+                <NavDropdown.Item>
+                  <LinkContainer to="/login">
+                    <Nav.Link onClick={logUserOut} className="main-nav-button">
+                      Log Out
+                    </Nav.Link>
+                  </LinkContainer>
+                </NavDropdown.Item>
+              )}
+            </NavDropdown>
+          </Container>
+        </Navbar>
+      }
       <Outlet />
     </>
   );
