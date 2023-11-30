@@ -1,5 +1,7 @@
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useState, useEffect } from "react";
+import { useTheme } from '../themes/useTheme';
+
 
 let link = localStorage.getItem("backendURL");
 
@@ -7,8 +9,8 @@ const FriendsGraph = () => {
 
     const [dateRange, setDateRange] = useState(['daily']);
     const [graphData, setGraphData] = useState([]);
-    const [userToCompare, setUserToCompare] = useState([]);
     const [currentUser, setCurrentUser] = useState([]);
+    const { theme } = useTheme();
 
     // Listen for date_range in localStorage
     window.addEventListener('date_range', () => {
@@ -17,9 +19,7 @@ const FriendsGraph = () => {
 
     // Listen for user_compare in localStorage
     window.addEventListener('user_to_compare', () => {
-        setUserToCompare(localStorage.getItem("user_to_compare"));
         handleCompare(localStorage.getItem("user_to_compare"));
-        console.log("COMPARE", localStorage.getItem("user_to_compare"));
     })
 
     useEffect(() => {
@@ -77,7 +77,6 @@ const FriendsGraph = () => {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log("DATAAAA", data);
                     setCurrentUser(currentUser => {
                         return [
                             {
@@ -95,17 +94,12 @@ const FriendsGraph = () => {
         let currentUserInfo = "";
         let comparedUser = "";
 
-        //getCurrentUser();
-        console.log("CURRENT USER THAT WAS PASSED IS", currentUser);
-
         if (currentUser.length === 1) {
             currentUserInfo = currentUser[0];
         }
 
         // Get friend to compare
         for (let i = 0; i < graphData.length; i++) {
-            //console.log("Graph item", i, graphData[i]);
-            console.log("username", graphData[i]['username']);
             if (graphData[i]['username'] === username) {
                 comparedUser = graphData[i];
             }
@@ -142,7 +136,7 @@ const FriendsGraph = () => {
                 <YAxis domain={[0, 100]} />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="percentage" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
+                <Bar dataKey="percentage" fill={theme['colors']['accent']} activeBar={<Rectangle fill="lightgrey" stroke="blue" />} />
             </BarChart>
         </ResponsiveContainer>
     );
