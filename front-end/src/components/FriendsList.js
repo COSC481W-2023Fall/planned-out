@@ -149,6 +149,13 @@ const FriendsList = () => {
         return dateRange.toString().charAt(0).toUpperCase() + dateRange.toString().slice(1);
     }
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter'){
+            event.preventDefault();
+            addFriend(username);
+        }
+    }
+
     return (
         <>
             <div className="friends-list-header">
@@ -186,7 +193,7 @@ const FriendsList = () => {
                     <Form>
                         <Form.Group>
                             <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" onChange={(e) => setUsername(e.target.value)} placeholder="Friend's username"></Form.Control>
+                            <Form.Control onKeyDown={handleKeyDown} type="text" onChange={(e) => setUsername(e.target.value)} placeholder="Friend's username"></Form.Control>
                         </Form.Group>
                     </Form>
                 </Modal.Body>
