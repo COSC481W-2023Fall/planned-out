@@ -2,7 +2,6 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import "../fonts/orange juice 2.0.ttf";
 
