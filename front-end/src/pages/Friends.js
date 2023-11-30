@@ -30,10 +30,10 @@ const Friends = () => {
             <GlobalStyles />
             <div className="App">
                 <div className="date-range-container">
-                    <Button className="daily-button" onClick={() => setDateRange('daily')}>Daily</Button>
-                    <Button className="weekly-button" onClick={() => setDateRange('weekly')}>Weekly</Button>
-                    <Button className="monthly-button" onClick={() => setDateRange('monthly')}>Monthly</Button>
-                    <Button className="total-button" onClick={() => setDateRange('total')}>Total</Button>
+                    <Button className="daily-button date-range-button" onClick={() => setDateRange('daily')}>Daily</Button>
+                    <Button className="weekly-button date-range-button" onClick={() => setDateRange('weekly')}>Weekly</Button>
+                    <Button className="monthly-button date-range-button" onClick={() => setDateRange('monthly')}>Monthly</Button>
+                    <Button className="total-button date-range-button" onClick={() => setDateRange('total')}>Total</Button>
                 </div>
                 <Container>
                     <Row>

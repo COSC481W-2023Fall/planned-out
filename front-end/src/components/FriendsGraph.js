@@ -8,6 +8,7 @@ const FriendsGraph = () => {
     const [dateRange, setDateRange] = useState(['daily']);
     const [graphData, setGraphData] = useState([]);
     const [userToCompare, setUserToCompare] = useState([]);
+    const [currentUser, setCurrentUser] = useState([]);
 
     // Listen for date_range in localStorage
     window.addEventListener('date_range', () => {
@@ -64,26 +65,48 @@ const FriendsGraph = () => {
                         ]
                     })
                 });
+            fetch(link + "get-friend-info", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: localStorage.getItem("user"),
+                    dateRange: daterange
+                }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log("DATAAAA", data);
+                    setCurrentUser(currentUser => {
+                        return [
+                            {
+                                name: (data['firstName'] + " " + data['lastName']),
+                                username: data['username'],
+                                percentage: data['percentOfTasks']
+                            }
+                        ]
+                    })
+                });
         }
     }
 
     const handleCompare = (username) => {
-        let currentUser = ""
-        let comparedUser = ""
+        let currentUserInfo = "";
+        let comparedUser = "";
 
-        console.log("USERNAME THAT WAS PASSED IS", username)
+        //getCurrentUser();
+        console.log("CURRENT USER THAT WAS PASSED IS", currentUser);
 
-        // Get local user
-        let localUser = localStorage.getItem('user');
+        if (currentUser.length === 1) {
+            currentUserInfo = currentUser[0];
+        }
 
         // Get friend to compare
         for (let i = 0; i < graphData.length; i++) {
             //console.log("Graph item", i, graphData[i]);
             console.log("username", graphData[i]['username']);
-            if (graphData[i]['username'] === localUser) {
-                currentUser = graphData[i];
-            }
-            else if (graphData[i]['username'] === username) {
+            if (graphData[i]['username'] === username) {
                 comparedUser = graphData[i];
             }
         }
@@ -96,9 +119,9 @@ const FriendsGraph = () => {
             return [
                 ...graphData,
                 {
-                    name: currentUser['name'],
-                    username: currentUser['username'],
-                    percentage: currentUser['percentage']
+                    name: currentUserInfo['name'],
+                    username: currentUserInfo['username'],
+                    percentage: currentUserInfo['percentage']
                 }
                 ,
                 {
