@@ -38,7 +38,6 @@ div.friends-list-header {
     height: 70vh;
     padding: 1.5em;
     border-radius: 24px;
-    overflow: scroll;
 }
 
 img.friends-list-profile-pic {
@@ -125,4 +124,8 @@ p.tasks-completed {
 div.name-username {
     display: flex;
     align-items: center;
+}
+
+div.friends-div {
+    overflow: scroll;
 }
