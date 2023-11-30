@@ -14,12 +14,25 @@ function TaskList({ username }) {
     const [taskDesc, setTaskDesc] = useState([]);
     const [tasksList, setTaskList] = useState([]);
     const [tasksDate, setTasksDate] = useState([]);
+    const [taskAdded, setTaskAdded] = useState([]);
 
     // Listen for current_tasks_day in localStorage
     window.addEventListener('current_tasks_day', () => {
         setTasksDate(localStorage.getItem("current_tasks_day"));
         console.log(localStorage.getItem("current_tasks_day"));
     });
+
+    // Listen for task_was_added
+    window.addEventListener('task_was_added', () => {
+        setTaskAdded(taskAdded => {
+            return [
+                ...taskAdded,
+                {
+                    taskAdded: "yes"
+                }
+            ]
+        })
+    })
 
     function getToday() {
         let date = new Date();
@@ -49,7 +62,7 @@ function TaskList({ username }) {
         })
             .then((res) => res.json())
             .then((data) => setTaskList(data));
-    }, [tasksDate, username]);
+    }, [taskAdded, tasksDate, username]);
 
     function MyVerticallyCenteredModal(props) {
         return (
