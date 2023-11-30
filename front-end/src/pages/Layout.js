@@ -84,8 +84,8 @@ const Layout = () => {
             Planned Out
           </Navbar.Brand>
         </Container>
-        <Container>
-          <Nav className="me-auto" variant="pills">
+        <Container className="nav-button-container">
+          <Nav variant="pills">
             <Nav.Item>
               <LinkContainer to="/">
                 <Button className="main-nav-button">Tasks</Button>

@@ -70,6 +70,10 @@ code {
   font-size: 2em;
 }
 
+.nav-button-container {
+  justify-content: center !important;
+}
+
 .navbar-profile {
   height: 35px;
   border-radius: 100%;
