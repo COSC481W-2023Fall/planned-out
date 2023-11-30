@@ -5,16 +5,17 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { LinkContainer } from "react-router-bootstrap";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import "../fonts/orange juice 2.0.ttf";
 
 const Layout = () => {
-  // For testing purposes: Store the backend link in localStorage 
+  // For testing purposes: Store the backend link in localStorage
   // so that it can be pulled from any page. This makes it so that
   // we don't have to change the backend link on every single page
   // when testing things with localhost
   let renderBackend = "https://planned-out-backend-jdx6.onrender.com/";
-  let localBackend = "http://localhost:5050/"
+  let localBackend = "http://localhost:5050/";
 
   // Use render backend
   localStorage.setItem("backendURL", renderBackend);
@@ -24,16 +25,16 @@ const Layout = () => {
   let link = localStorage.getItem("backendURL");
 
   const navigate = useNavigate();
-  const userCookie = localStorage.getItem('user');
+  const userCookie = localStorage.getItem("user");
   const [isUserLoggedIn, setLoggedIn] = useState([]);
   const [isUserLoggedOut, setLoggedOut] = useState([]);
 
   const [profilePicture, setProfilePicture] = useState(["default"]);
 
   // Listen for profile_picture in localStorage
-  window.addEventListener('profile_picture', () => {
+  window.addEventListener("profile_picture", () => {
     setProfilePicture(localStorage.getItem("profile_picture"));
-  })
+  });
 
   useEffect(() => {
     if (localStorage.getItem("user") !== null) {
@@ -43,12 +44,12 @@ const Layout = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: localStorage.getItem("user")
+          username: localStorage.getItem("user"),
         }),
       })
         .then((res) => res.json())
         .then((data) => {
-          setProfilePicture(data['profile_picture'])
+          setProfilePicture(data["profile_picture"]);
         });
     }
 
@@ -58,80 +59,77 @@ const Layout = () => {
       if (window.location.pathname !== "/registration") {
         navigate(`/login`);
       }
-    }
-    else {
-      setLoggedIn(true)
+    } else {
+      setLoggedIn(true);
       setLoggedOut(false);
     }
   }, [profilePicture, link, navigate, userCookie]);
 
   // If profile picture is null or undefined set it to default
   if (profilePicture == null || profilePicture === undefined) {
-    setProfilePicture('default');
+    setProfilePicture("default");
   }
 
   // Log user out
   function logUserOut() {
-    localStorage.removeItem('user');
+    localStorage.removeItem("user");
     navigate(`/login`);
+  }
+
+  function goToHome() {
+    navigate("/");
   }
 
   return (
     <>
       <Navbar>
         <Container>
-          <Navbar.Brand href="/">
-            <img
-              src="/favicon-32x32.png"
-              width={"32px"}
-              height={"32px"}
-              alt={"Planned-Out Logo"}
-            />
-            Planned-Out
+          <Navbar.Brand className="logo" onClick={goToHome}>
+            Planned Out
           </Navbar.Brand>
         </Container>
-        <Container>
-          <Nav className="me-auto" variant="pills">
+        <Container className="nav-button-container">
+          <Nav variant="pills">
             <Nav.Item>
               <LinkContainer to="/">
-                <Button className="main-nav-button">Home</Button>
-              </LinkContainer>
-            </Nav.Item>
-            <Nav.Item>
-              <LinkContainer to="/">
-                <Button className="main-nav-button">Stats</Button>
-              </LinkContainer>
-            </Nav.Item>
-            <Nav.Item>
-              <LinkContainer to="/">
-                <Button className="main-nav-button">Friends</Button>
+                <Button className="main-nav-button">Tasks</Button>
               </LinkContainer>
             </Nav.Item>
           </Nav>
         </Container>
         <Container className="profile-dropdown-container">
-          <NavDropdown align="end" title={
-            <img alt="Profile Icon" className="navbar-profile" src={"/avatars/" + profilePicture + ".png"}></img>
-          } id="basic-nav-dropdown">
+          <NavDropdown
+            align="end"
+            title={
+              <img
+                alt="Profile Icon"
+                className="navbar-profile"
+                src={"/avatars/" + profilePicture + ".png"}
+              ></img>
+            }
+            id="basic-nav-dropdown"
+          >
             <NavDropdown.Item>
               <LinkContainer to="/settings">
                 <Nav.Link className="main-nav-button">Settings</Nav.Link>
               </LinkContainer>
             </NavDropdown.Item>
-            {isUserLoggedOut &&
+            {isUserLoggedOut && (
               <NavDropdown.Item>
                 <LinkContainer to="/login">
                   <Nav.Link className="main-nav-button">Login</Nav.Link>
                 </LinkContainer>
               </NavDropdown.Item>
-            }
-            {isUserLoggedIn &&
-              <NavDropdown.Item >
+            )}
+            {isUserLoggedIn && (
+              <NavDropdown.Item>
                 <LinkContainer to="/login">
-                  <Nav.Link onClick={logUserOut} className="main-nav-button">Log Out</Nav.Link>
+                  <Nav.Link onClick={logUserOut} className="main-nav-button">
+                    Log Out
+                  </Nav.Link>
                 </LinkContainer>
               </NavDropdown.Item>
-            }
+            )}
           </NavDropdown>
         </Container>
       </Navbar>
