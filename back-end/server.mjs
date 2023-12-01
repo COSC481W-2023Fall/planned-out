@@ -37,9 +37,8 @@ app.post("/register", async (req, res) => {
     };
 
     // make collections = a search of all collections with username as the name of the collection
-    //const collections = await db.listCollections().toArray();
-    //const existingCollection = collections.find(collection => collection.name === username);
-    const collection = await db.collection(username);
+    const collections = await db.listCollections().toArray();
+    const existingCollection = collections.find(collection => collection.name === username);
 
     //console.log(existingCollection);
 
@@ -152,7 +151,7 @@ app.put("/update", async (req, res) => {    // update user password
     const newPwd = bcrypt.hashSync(req.body.newPassword, salt);
 
     console.log("New password: " + req.body.newPassword);
-    console.log(newPwd);
+    //console.log(newPwd);
     //console.log(newPwd);
     if (results.length > 0) {   // check if password is correct
 
