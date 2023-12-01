@@ -96,7 +96,8 @@ const Home = () => {
                 <Card className="tasks-add">
                   <div className="taskAddHeader">
                     <Card.Title class="addHeader">New Task</Card.Title>
-                    <CloseButton className="closeButton" onClick={goBack}></CloseButton>
+                    <div class="cbDiv"><CloseButton className="closeButton" onClick={goBack}></CloseButton></div>
+                    
                     {/* <p className="backText" onClick={goBack}>Back</p> */}
                     {/* <Button className="backButton" onClick={goBack}>back</Button> */}
                   </div>

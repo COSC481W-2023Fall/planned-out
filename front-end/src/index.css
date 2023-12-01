@@ -335,12 +335,16 @@ div.taskAddHeader{
   grid-template-columns: 80% 20%;
   align-items: center;
 }
-.closeButton{
-  height: 5px;
-  display:flex;
-  align-items: center;
+div.cbDiv{
+  display:grid;
   justify-items: right;
-
+}
+.closeButton{
+  filter: var(--text-color-filter) !important;
+  opacity: 100% !important;
+  height: 10px !important;
+  width: 10px !important;
+  margin: 0 !important;
 }
 .addHeader{
   align-items: center;
