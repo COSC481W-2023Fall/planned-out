@@ -110,11 +110,12 @@ const Home = () => {
             </Col>
             {/* Calendar Card */}
             <Col sm={8}>
-              <Card className="react-calendar">
+              <Card className="calendar-card">
                 <Card.Title>Calendar</Card.Title>
                 <div className="calendar-container">
                   <CalendarView username={username} />
                 </div>
+                <div className="d-flex flex-column"></div>
               </Card>
             </Col>
           </Row>

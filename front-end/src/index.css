@@ -102,14 +102,18 @@ code {
 /* ----- TASK VIEW ----- */
 div.tasks-card,
 div.tasks-add,
-div.calendar-card div.tasks-card,
-div.react-calendar {
+div.calendar-card {
   height: 80vh;
   padding: 1.5em;
   border-radius: 24px;
 }
 
+div.calendar-card {
+  text-align: center;
+}
+
 div.calendar-container {
+  margin: 1em 2em 0em 2em;
   overflow: scroll;
 }
 
@@ -209,16 +213,19 @@ div.tasks-add .taskDescBox,
 .react-calendar__navigation {
   margin-bottom: 1em;
   display: flex;
+  max-height: fit-content;
 }
 
 .react-calendar__navigation__label {
   font-size: 1.5em;
   font-weight: bold;
+  max-height: 50px !important;
 }
 
 .react-calendar__navigation__arrow {
   font-size: 1.5em;
   flex-grow: 0.333;
+  max-height: 50px !important;
 }
 
 .react-calendar__month-view__weekdays {
