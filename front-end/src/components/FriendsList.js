@@ -165,8 +165,6 @@ const FriendsList = () => {
         }
     }
 
-    console.log(leaderboardList);
-
     return (
         <>
             <div className="friends-list-header">

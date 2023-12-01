@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import CalendarView from "../components/CalendarView.js";
 import TaskAdd from "../components/TaskAdd.js";
 import TaskList from "../components/TaskList.js";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from '../themes/GlobalStyles.js';
@@ -19,7 +19,7 @@ const Home = () => {
   const { theme, themeLoaded } = useTheme();
   const [selectedTheme, setSelectedTheme] = useState(theme);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setSelectedTheme(theme);
   }, [theme, themeLoaded]);
 
