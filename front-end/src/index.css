@@ -330,3 +330,21 @@ p.settings-section {
   margin-top: 1em;
   font-size: 150%;
 }
+div.taskAddHeader{
+  display: grid;
+  grid-template-columns: 80% 20%;
+  align-items: center;
+}
+.closeButton{
+  height: 5px;
+  display:flex;
+  align-items: center;
+  justify-items: right;
+
+}
+.addHeader{
+  align-items: center;
+  display: flex;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
