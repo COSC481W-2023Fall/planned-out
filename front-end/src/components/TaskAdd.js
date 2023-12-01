@@ -40,6 +40,8 @@ const TaskAdd = forwardRef((props, ref) => {
             })
                 .then((res) => {
                     res.json();
+                    // Dispatch event so we know to refresh the task list
+                    window.dispatchEvent(new Event("task_was_added"));
                 })
             console.log("Successfully added task!");
         } else {

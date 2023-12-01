@@ -6,6 +6,19 @@ let link = localStorage.getItem("backendURL");
 function CalendarView({ username }) {
     const [date, setDate] = useState(new Date());
     const [tasks, setTasks] = useState([]); // this is where we can store the tasks from the database
+    const [taskAdded, setTaskAdded] = useState([]);
+
+        // Listen for task_was_added
+        window.addEventListener('task_was_added', () => {
+            setTaskAdded(taskAdded => {
+                return [
+                    ...taskAdded,
+                    {
+                        taskAdded: "yes"
+                    }
+                ]
+            })
+        })
 
     useEffect(() => {
         // Fetch our user's name from the URL
@@ -20,14 +33,27 @@ function CalendarView({ username }) {
         }) // display specific user's tasks
             .then((res) => res.json())
             .then((data) => setTasks(data));
-    }, [username]);
+    }, [taskAdded, username]);
+
+    const switchTasksDay = (value, event) => {
+        let month = value.getMonth() + 1;
+        let date = value.getDate();
+        let year = value.getFullYear();
+
+        let dateToSend = month + "-" + date + "-" + year;
+
+        window.localStorage.setItem("current_tasks_day", dateToSend);
+        window.dispatchEvent(new Event("current_tasks_day"));
+    }
 
     return (
         <Calendar
+            maxDetail={"month"}
+            minDetail={"month"}
             onChange={setDate}
             value={date}
             calendarType="gregory"
-            onClickDay={(value, event) => console.log(value)}
+            onClickDay={(value, event) => switchTasksDay(value)}
             tileContent={({ date }) => {
                 if (tasks) {
                     // Convert the date to a string in "MM-DD-YYYY" format

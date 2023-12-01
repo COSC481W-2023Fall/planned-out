@@ -3,14 +3,15 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import CalendarView from "../components/CalendarView.js"
-import TaskAdd from "../components/TaskAdd.js"
-import TaskList from "../components/TaskList.js"
+import CalendarView from "../components/CalendarView.js";
+import TaskAdd from "../components/TaskAdd.js";
+import TaskList from "../components/TaskList.js";
 import { useState, useRef, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from '../themes/GlobalStyles.js';
 import { useTheme } from '../themes/useTheme';
+import CloseButton from 'react-bootstrap/CloseButton';
 
 const Home = () => {
   const userCookie = localStorage.getItem('user');
@@ -33,7 +34,7 @@ const Home = () => {
 
     //const searchParams = new URLSearchParams(location.search);
     username = searchParams.get('username') || userCookie;
-    console.log("FROM HOME " + username);
+    //console.log("FROM HOME " + username);
 
   } catch (error) {
     console.log("Error while trying to get username from URL");
@@ -65,6 +66,12 @@ const Home = () => {
     }
   }
 
+  function goBack() {
+     // Hide the Task Add card
+     setIsTaskAddShown(false);
+     // Show the Task List card
+     setIsTaskListShown(current => !current);
+  }
   return (
 
     themeLoaded && <ThemeProvider theme={selectedTheme}>
@@ -76,7 +83,6 @@ const Home = () => {
               {/* Task List Card */}
               {isTaskListShown &&
                 <Card className="tasks-card">
-                  <Card.Title>Today's Tasks</Card.Title>
                   {/* List of Tasks */}
                   <TaskList username={username} />
                   {/* Spacer */}
@@ -88,9 +94,17 @@ const Home = () => {
               {/* Task Add Card */}
               {isTaskAddShown &&
                 <Card className="tasks-add">
-                  <Card.Title>New Task</Card.Title>
+                  <div className="taskAddHeader">
+                    <Card.Title class="addHeader">New Task</Card.Title>
+                    <div class="cbDiv"><CloseButton className="closeButton" onClick={goBack}></CloseButton></div>
+                    
+                    {/* <p className="backText" onClick={goBack}>Back</p> */}
+                    {/* <Button className="backButton" onClick={goBack}>back</Button> */}
+                  </div>
+                  
                   <TaskAdd ref={taskAddRef} />
                   <Button onClick={showTaskList}>Submit!</Button>
+                  
                 </Card>
               }
             </Col>

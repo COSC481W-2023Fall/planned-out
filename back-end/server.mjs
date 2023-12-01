@@ -179,7 +179,7 @@ app.put("/delete-all-tasks", async (req, res) => {
     // Get the Tasks collection
     let collection = await db.collection("Tasks");
     // Delete all of that user's tasks
-    let result = await collection.deleteMany( {"user": username } );
+    let result = await collection.deleteMany({ "user": username });
 
     // Send result and log
     res.send(result).status(201);
@@ -190,7 +190,7 @@ app.put("/delete-account", async (req, res) => {
     // Get the username
     const username = req.body.username;
 
-    // Get the Tasks collection
+    // Get the user's collection
     let collection = await db.collection(username);
     // Drop the user's collection
     let result = await collection.drop();
@@ -198,4 +198,218 @@ app.put("/delete-account", async (req, res) => {
     // Send result and log
     res.send(result).status(201);
     //console.log("ACCOUNT", username, "DELETED");
+});
+
+app.put("/get-profile-picture", async (req, res) => {
+    // Get the username
+    const username = req.body.username;
+    // Get the user's collection
+    let collection = await db.collection(username);
+    // Get the profile pic type
+    let result = await collection.findOne({ user: username }, { $get: "profile_picture" });
+
+    // Send result and log
+    res.send(result).status(201);
+    //console.log("FETCHED PROFILE PIC");
+});
+
+function convertDateForDb(dateToBeConverted) {
+    let month = dateToBeConverted.getMonth() + 1;
+    let date = dateToBeConverted.getDate();
+    if (date < 10) {
+        date = "0" + date;
+    }
+    let year = dateToBeConverted.getFullYear();
+    return month + "-" + date + "-" + year;
+}
+
+app.put("/get-friend-info", async (req, res) => {
+    // Get the username
+    const username = req.body.username;
+    // Get the date range
+    const dateRange = req.body.dateRange;
+
+    // Get the user's collection
+    let collection = await db.collection(username);
+    // Get the profile pic type
+    let result = await collection.findOne({ user: username }, { $get: "profile_picture" });
+
+    let tasksCollection = await db.collection("Tasks");
+
+    let numOfTasksCompleted = 0;
+    let numOfTasks = 0;
+    let percentOfTasks = 0;
+
+    // If the date range is daily
+    if (dateRange == 'daily') {
+        // Get today's date and convert it for db
+        let today = new Date();
+        let dateToSend = convertDateForDb(today);
+
+        // Get the user's number of completed tasks
+        numOfTasksCompleted = await tasksCollection.countDocuments({ "user": username, "taskStatus": "Complete", "taskDate": dateToSend });
+        // Get the user's number of total tasks
+        numOfTasks = await tasksCollection.countDocuments({ "user": username, "taskDate": dateToSend });
+        // Calculate the completed task percentage
+        percentOfTasks = Math.round((numOfTasksCompleted / numOfTasks) * 100);
+    }
+
+    // If the date range is weekly
+    if (dateRange == 'weekly') {
+        // Get today's date
+        let dateToday = new Date();
+        // Convert today's date into db date format
+        let dateTodayToSend = convertDateForDb(dateToday);
+
+        // Week ago date
+        let weekAgoDate = dateToday;
+        weekAgoDate.setDate(weekAgoDate.getDate() - 7);
+        // Conver week ago date into db date format
+        let weekAgoDateToSend = convertDateForDb(weekAgoDate);
+
+        // Get the user's number of completed tasks
+        numOfTasksCompleted = await tasksCollection.countDocuments({
+            "user": username, "taskStatus": "Complete", "taskDate": {
+                $gte: weekAgoDateToSend,
+                $lte: dateTodayToSend
+            }
+        });
+        // Get the user's number of total tasks
+        numOfTasks = await tasksCollection.countDocuments({
+            "user": username, "taskDate": {
+                $gte: weekAgoDateToSend,
+                $lte: dateTodayToSend
+            }
+        });
+        // Calculate the completed task percentage
+        percentOfTasks = Math.round((numOfTasksCompleted / numOfTasks) * 100);
+    }
+
+    // If the date range is monthly
+    if (dateRange == 'monthly') {
+        // Get today's date
+        let dateToday = new Date();
+        // Convert today's date into db date format
+        let dateTodayToSend = convertDateForDb(dateToday);
+
+        // Month ago date
+        let monthAgoDate = dateToday;
+        monthAgoDate.setDate(monthAgoDate.getDate() - 31);
+        // Conver week ago date into db date format
+        let monthAgoDateToSend = convertDateForDb(monthAgoDate);
+
+        // Get the user's number of completed tasks
+        numOfTasksCompleted = await tasksCollection.countDocuments({
+            "user": username, "taskStatus": "Complete", "taskDate": {
+                $gte: monthAgoDateToSend,
+                $lte: dateTodayToSend
+            }
+        });
+        // Get the user's number of total tasks
+        numOfTasks = await tasksCollection.countDocuments({
+            "user": username, "taskDate": {
+                $gte: monthAgoDateToSend,
+                $lte: dateTodayToSend
+            }
+        });
+    }
+
+    // If the date range is total of all tasks
+    if (dateRange == 'total') {
+        // Get the user's number of completed tasks
+        numOfTasksCompleted = await tasksCollection.countDocuments({ "user": username, "taskStatus": "Complete" });
+        // Get the user's number of total tasks
+        numOfTasks = await tasksCollection.countDocuments({ "user": username });
+    }
+
+    // Calculate the completed task percentage
+    percentOfTasks = Math.round((numOfTasksCompleted / numOfTasks) * 100);
+
+    if (isNaN(percentOfTasks)) {
+        percentOfTasks = 0;
+    }
+
+    let userAndTasksCompleted = {
+        firstName: result['userFirst'],
+        lastName: result['userLast'], 
+        username: result['user'],
+        profilePic: result['profile_picture'],
+        numOfTasksCompleted: numOfTasksCompleted,
+        numOfTasks: numOfTasks,
+        percentOfTasks: percentOfTasks
+    }
+
+    // Send result
+    res.send(userAndTasksCompleted).status(201);
+});
+
+app.put("/update-profile-picture", async (req, res) => {
+    // Get the username
+    const username = req.body.username;
+    // Get the profile pic
+    const profilePic = req.body.profilePic;
+
+    // Get the user's collection
+    let collection = await db.collection(username);
+    // Update the profile picture type
+    let result = collection.updateOne({ "user": username }, { $set: { "profile_picture": profilePic } });
+
+    // Send result and log
+    res.send(result).status(201);
+});
+
+app.put("/add-friend", async (req, res) => {
+    let result = null;
+    // Get the user's username
+    const username = req.body.username;
+    // Get the potential friend's username
+    const friendUsername = req.body.friendUsername;
+
+    // Get the user's collection
+    let userCollection = await db.collection(username);
+
+    // Get all collections and attempt to find the friend's collection
+    const collections = await db.listCollections().toArray();
+    const existingUser = await collections.find(collection => collection.name === friendUsername);
+
+    // If the friend's username actually exists
+    if (existingUser) {
+        // Check if the friend is already in the collection
+        const friendExists = await userCollection.findOne({ "friends": friendUsername });
+        if (!friendExists && (friendUsername != username)) {
+            // If the user doesn't already have the incoming friend as a friend
+            result = await userCollection.updateOne({ "user": username }, { "$push": { "friends": friendUsername } });
+            res.send(result).status(201);
+        }
+        else if (friendUsername == username) {
+            res.statusMessage = "You can't add yourself as a friend";
+            res.status(400).end();
+        }
+        else {
+            res.statusMessage = "The friend was already in the collection";
+            res.status(400).end();
+        }
+    }
+    else {
+        res.statusMessage = "The friend's username was not found in the database.";
+        res.status(400).end();
+    }
+});
+
+app.put("/get-friends", async (req, res) => {
+    // Get the username
+    const username = req.body.username;
+
+    // Get the user's collection
+    let collection = await db.collection(username);
+
+    // Only try to get the profile picture if the user exists 
+    if (collection) {
+        // Get the profile pic type
+        let result = await collection.findOne({ user: username }, { $get: "profile_picture" });
+        res.send(result).status(201);
+    }
+    else {
+        res.status(400);
+    };
 });
