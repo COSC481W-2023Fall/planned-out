@@ -141,10 +141,11 @@ app.put("/update", async (req, res) => {    // update user password
     //console.log("update: " + req.body.username);
     const username = req.body.username;
     const hashedPwd = bcrypt.hashSync(req.body.password, salt);   // hash user password
+    console.log("old password: " + hashedPwd);
     //console.log(username);
     //console.log(hashedPwd);
     // Connect to the Users collection.
-    let collection = await db.collection(username);
+    let collection = db.collection(username);
     // Get the information for the given user
     let results = await collection.find({ "pwd": hashedPwd }).toArray();
     //console.log(results.length);
@@ -153,7 +154,7 @@ app.put("/update", async (req, res) => {    // update user password
     console.log("New password: " + req.body.newPassword);
     console.log(newPwd);
     //console.log(newPwd);
-    /*if (results.length > 0) {   // check if password is correct
+    if (results.length > 0) {   // check if password is correct
 
         let updatePassword = await db.collection(username).updateOne(
             { "user": username },
@@ -166,7 +167,7 @@ app.put("/update", async (req, res) => {    // update user password
         //console.log("ERROR: The new status is null");
         res.status(403);
         res.send({ "Status": "Error" });
-    }*/
+    }
     //console.log(results);
 });
 
