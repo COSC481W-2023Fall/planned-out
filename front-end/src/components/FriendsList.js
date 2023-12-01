@@ -180,20 +180,18 @@ const FriendsList = () => {
                 {leaderboardList
                     .sort((a, b) => b.percentOfTasks - a.percentOfTasks)
                     .map((friend, index) => (
-                        <div>
-                            <Card onClick={() => setUserToCompare(friend.username)} className="friend-info-card" key={"frienddiv" + index}>
-                                <div className="friend-info">
-                                    <img className="friends-list-profile-pic" alt={friend.profilePic} key={"profilePic" + index} src={"/avatars/" + friend.profilePic + ".png"}></img>
-                                    <div className="friends-name-user-container">
-                                        <div className="name-username">
-                                            <p className="friend-name" key={"friend" + index}>{friend.name}</p>
-                                            <p className="friend-username" key={"friendusername" + index}>({friend.username})</p>
-                                        </div>
-                                        <p className="tasks-completed" key={"count" + index}>{getDateRange()} tasks: {friend.numOfTasksCompleted}/{friend.numOfTasks}</p>
+                        <Card onClick={() => setUserToCompare(friend.username)} className="friend-info-card" key={"frienddiv" + index}>
+                            <div className="friend-info" key={"friend-info-div" + index}>
+                                <img className="friends-list-profile-pic" alt={friend.profilePic} key={"profilePic" + index} src={"/avatars/" + friend.profilePic + ".png"}></img>
+                                <div className="friends-name-user-container" key={"friends-name-user-container" + index}>
+                                    <div className="name-username" key={"name-username" + index}>
+                                        <p className="friend-name" key={"friend" + index}>{friend.name}</p>
+                                        <p className="friend-username" key={"friendusername" + index}>({friend.username})</p>
                                     </div>
+                                    <p className="tasks-completed" key={"count" + index}>{getDateRange()} tasks: {friend.numOfTasksCompleted}/{friend.numOfTasks}</p>
                                 </div>
-                            </Card>
-                        </div>
+                            </div>
+                        </Card>
                     ))}
             </div>
             <Modal show={show} onHide={handleClose}>

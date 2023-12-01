@@ -53,7 +53,7 @@ img.friends-list-profile-pic {
     border-radius: 16px;
     margin: 0 0.1em 1em 0.1em;
     animation-name: slideUp;
-    animation-duration: 0.75s;
+    animation-duration: 0.50s;
     animation-timing-function: ease-out;
     scale: 100%;
     opacity: 100%;
@@ -71,7 +71,7 @@ img.friends-list-profile-pic {
 
 @keyframes slideUp {
     from {
-        top: 50%;
+        top: 25%;
         opacity: 0%;
     }
 
