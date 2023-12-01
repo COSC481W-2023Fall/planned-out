@@ -18,7 +18,7 @@ const Layout = () => {
   let localBackend = "http://localhost:5050/";
 
   // Use render backend
-  // localStorage.setItem("backendURL", renderBackend);
+  localStorage.setItem("backendURL", renderBackend);
   // Use local backend
   //localStorage.setItem("backendURL", localBackend);
 
@@ -82,7 +82,7 @@ const Layout = () => {
 
   return (
     <>
-      {isUserLoggedIn &&
+      {isUserLoggedIn && (
         <Navbar>
           <Container>
             <Navbar.Brand className="logo" onClick={goToHome}>
@@ -139,7 +139,7 @@ const Layout = () => {
             </NavDropdown>
           </Container>
         </Navbar>
-      }
+      )}
       <Outlet />
     </>
   );

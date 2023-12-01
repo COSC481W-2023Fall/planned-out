@@ -37,14 +37,14 @@ const SettingsCard = (props) => {
 
   const handleSubmit = (e) => {
     console.log("Attempting Login");
-    console.log(username);
-    console.log(password);
+    // console.log(username);
+    // console.log(password);
 
-    console.log(!errors.username);
-    console.log(!errors.password);
-    console.log(username !== "");
-    console.log(password !== "");
-    console.log(newPassword1 === newPassword2);
+    // console.log(!errors.username);
+    // console.log(!errors.password);
+    // console.log(username !== "");
+    // console.log(password !== "");
+    // console.log(newPassword1 === newPassword2);
     // console.log(errors);
     if (
       !errors.username &&
@@ -53,7 +53,7 @@ const SettingsCard = (props) => {
       password !== "" &&
       newPassword1 === newPassword2
     ) {
-      console.log(newPassword1);
+      //   console.log(newPassword1);
       //next 2 lines need to be changed to direct to user home
       //e.preventDefault(); //comment out when backend is ready
       // window.location.href = "./login"; //comment out when backend is ready
@@ -71,7 +71,7 @@ const SettingsCard = (props) => {
         }),
       })
         .then((res) => {
-          console.log("hello");
+          //   console.log("hello");
           if (res.status === 200) {
             console.log("Successfully updated password!");
           } else {
@@ -152,12 +152,12 @@ const SettingsCard = (props) => {
               />
             </Form.Group>
             <Form.Text id="badLogin"></Form.Text>
-
+            <br />
             <Button
               className="login-button"
               variant="primary"
               onClick={handleSubmit}
-                 type="submit"
+              type="submit"
             >
               Submit
             </Button>
