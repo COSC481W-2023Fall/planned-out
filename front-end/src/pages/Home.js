@@ -11,6 +11,7 @@ import { useLocation } from 'react-router-dom';
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from '../themes/GlobalStyles.js';
 import { useTheme } from '../themes/useTheme';
+import CloseButton from 'react-bootstrap/CloseButton';
 
 const Home = () => {
   const userCookie = localStorage.getItem('user');
@@ -65,6 +66,12 @@ const Home = () => {
     }
   }
 
+  function goBack() {
+     // Hide the Task Add card
+     setIsTaskAddShown(false);
+     // Show the Task List card
+     setIsTaskListShown(current => !current);
+  }
   return (
 
     themeLoaded && <ThemeProvider theme={selectedTheme}>
@@ -87,9 +94,17 @@ const Home = () => {
               {/* Task Add Card */}
               {isTaskAddShown &&
                 <Card className="tasks-add">
-                  <Card.Title>New Task</Card.Title>
+                  <div className="taskAddHeader">
+                    <Card.Title class="addHeader">New Task</Card.Title>
+                    <div class="cbDiv"><CloseButton className="closeButton" onClick={goBack}></CloseButton></div>
+                    
+                    {/* <p className="backText" onClick={goBack}>Back</p> */}
+                    {/* <Button className="backButton" onClick={goBack}>back</Button> */}
+                  </div>
+                  
                   <TaskAdd ref={taskAddRef} />
                   <Button onClick={showTaskList}>Submit!</Button>
+                  
                 </Card>
               }
             </Col>
