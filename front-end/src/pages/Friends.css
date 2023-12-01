@@ -51,7 +51,7 @@ img.friends-list-profile-pic {
     padding: 1em;
     position: relative;
     border-radius: 16px;
-    margin-bottom: 1em;
+    margin: 0 0.1em 1em 0.1em;
     animation-name: slideUp;
     animation-duration: 0.25s;
     animation-timing-function: ease-out;
