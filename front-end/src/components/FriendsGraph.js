@@ -219,6 +219,18 @@ const FriendsGraph = () => {
                     }
                 </>
             }
+            {graphData.length === 1 && (friendsList === undefined) &&
+                <ResponsiveContainer width="100%" height="90%" >
+                            <BarChart className="bar-chart" data={graphData}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis domain={[0, 100]} />
+                                <Bar name="Percentage of tasks completed" animationDuration={500} dataKey="percentage" fill={theme['colors']['accent']} activeBar={<Rectangle fill="lightgrey" stroke="blue" />}>
+                                    <LabelList dataKey="percentage" formatter={(percentage) => `${percentage}%`} position="top" />
+                                </Bar>
+                            </BarChart>
+                        </ResponsiveContainer >
+            }
         </>
     );
 };
