@@ -184,34 +184,40 @@ const FriendsGraph = () => {
     }
 
     function getFriendsList() {
-        fetch(link + "get-friends", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username: localStorage.getItem("user"),
-            }),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setFriendsList(data['friends'])
-            });
+        if (friendsList !== undefined) {
+            fetch(link + "get-friends", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: localStorage.getItem("user"),
+                }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setFriendsList(data['friends'])
+                });
+        }
     }
 
     return (
         <>
-            {((graphData.length === (friendsList.length + 1)) || (compareExists === true)) &&
-                <ResponsiveContainer width="100%" height="90%" >
-                    <BarChart className="bar-chart" data={graphData}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis domain={[0, 100]} />
-                        <Bar name="Percentage of tasks completed" animationDuration={500} dataKey="percentage" fill={theme['colors']['accent']} activeBar={<Rectangle fill="lightgrey" stroke="blue" />}>
-                            <LabelList dataKey="percentage" formatter={(percentage) => `${percentage}%`} position="top" />
-                        </Bar>
-                    </BarChart>
-                </ResponsiveContainer >
+            {friendsList &&
+                <>
+                    {((graphData.length === (friendsList.length + 1)) || (compareExists === true)) &&
+                        <ResponsiveContainer width="100%" height="90%" >
+                            <BarChart className="bar-chart" data={graphData}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis domain={[0, 100]} />
+                                <Bar name="Percentage of tasks completed" animationDuration={500} dataKey="percentage" fill={theme['colors']['accent']} activeBar={<Rectangle fill="lightgrey" stroke="blue" />}>
+                                    <LabelList dataKey="percentage" formatter={(percentage) => `${percentage}%`} position="top" />
+                                </Bar>
+                            </BarChart>
+                        </ResponsiveContainer >
+                    }
+                </>
             }
         </>
     );
