@@ -46,6 +46,10 @@ code {
     monospace;
 }
 
+.col, .col-sm-8 {
+  height: fit-content !important;
+}
+
 /* ----- NAVBAR ----- */
 
 .navbar {
