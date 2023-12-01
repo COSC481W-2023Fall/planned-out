@@ -4,24 +4,24 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import { LinkContainer } from "react-router-bootstrap";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const Layout = () => {
-  // For testing purposes: Store the backend link in localStorage 
+  // For testing purposes: Store the backend link in localStorage
   // so that it can be pulled from any page. This makes it so that
   // we don't have to change the backend link on every single page
   // when testing things with localhost
   let renderBackend = "https://planned-out-backend-jdx6.onrender.com/";
-  let localBackend = "http://localhost:5050/"
+  let localBackend = "http://localhost:5050/";
 
   // Use render backend
-  localStorage.setItem("backendURL", renderBackend);
+  // localStorage.setItem("backendURL", renderBackend);
   // Use local backend
-  //localStorage.setItem("backendURL", localBackend);
+  localStorage.setItem("backendURL", localBackend);
 
   const navigate = useNavigate();
-  const userCookie = localStorage.getItem('user');
+  const userCookie = localStorage.getItem("user");
   const [isUserLoggedIn, setLoggedIn] = useState([]);
   const [isUserLoggedOut, setLoggedOut] = useState([]);
 
@@ -32,16 +32,15 @@ const Layout = () => {
       if (window.location.pathname !== "/registration") {
         navigate(`/login`);
       }
-    }
-    else {
-      setLoggedIn(true)
+    } else {
+      setLoggedIn(true);
       setLoggedOut(false);
     }
   }, [navigate, userCookie]);
 
   // Log user out
   function logUserOut() {
-    localStorage.removeItem('user');
+    localStorage.removeItem("user");
     navigate(`/login`);
   }
 
@@ -79,20 +78,22 @@ const Layout = () => {
                 <Button className="main-nav-button">Settings</Button>
               </LinkContainer>
             </Nav.Item>
-            {isUserLoggedOut &&
+            {isUserLoggedOut && (
               <Nav.Item>
                 <LinkContainer to="/login">
                   <Button className="main-nav-button">Login</Button>
                 </LinkContainer>
               </Nav.Item>
-            }
-            {isUserLoggedIn &&
-              < Nav.Item >
+            )}
+            {isUserLoggedIn && (
+              <Nav.Item>
                 <LinkContainer to="/login">
-                  <Button onClick={logUserOut} className="main-nav-button">Log Out</Button>
+                  <Button onClick={logUserOut} className="main-nav-button">
+                    Log Out
+                  </Button>
                 </LinkContainer>
               </Nav.Item>
-            }
+            )}
           </Nav>
         </Container>
       </Navbar>
