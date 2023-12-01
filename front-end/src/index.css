@@ -109,6 +109,10 @@ div.react-calendar {
   border-radius: 24px;
 }
 
+div.calendar-container {
+  overflow: scroll;
+}
+
 div.card-title {
   font-weight: bold;
 }
