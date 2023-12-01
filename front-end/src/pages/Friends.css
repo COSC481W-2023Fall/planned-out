@@ -1,6 +1,6 @@
 div.date-range-container {
     width: 50%;
-    margin: -1em auto 2em auto;
+    margin: 0em auto 2em auto;
     text-align: center;
 }
 
@@ -51,19 +51,39 @@ img.friends-list-profile-pic {
     padding: 1em;
     position: relative;
     border-radius: 16px;
-    margin-bottom: 1em;
+    margin: 0 0.1em 1em 0.1em;
     animation-name: slideUp;
-    animation-duration: 0.25s;
+    animation-duration: 0.50s;
     animation-timing-function: ease-out;
     scale: 100%;
     opacity: 100%;
     transition: 0.2s;
 }
 
+.bar-chart {
+    animation-name: graphSlideUp;
+    animation-duration: 0.50s;
+    animation-timing-function: ease-out;
+    scale: 100%;
+    opacity: 100%;
+    transition: 0.2s;
+}
 
 @keyframes slideUp {
     from {
-        top: 50%;
+        top: 25%;
+        opacity: 0%;
+    }
+
+    to {
+        top: 0%;
+        opacity: 100%;
+    }
+}
+
+@keyframes graphSlideUp {
+    from {
+        top: 10%;
         opacity: 0%;
     }
 

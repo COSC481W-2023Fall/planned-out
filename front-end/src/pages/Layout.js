@@ -8,6 +8,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../fonts/orange juice 2.0.ttf";
+import NavigationBar from "../components/NavigationBar.js";
 
 const Layout = () => {
   // For testing purposes: Store the backend link in localStorage
@@ -84,25 +85,7 @@ const Layout = () => {
     <>
       {isUserLoggedIn && (
         <Navbar>
-          <Container>
-            <Navbar.Brand className="logo" onClick={goToHome}>
-              Planned Out
-            </Navbar.Brand>
-          </Container>
-          <Container className="nav-button-container">
-            <Nav variant="pills">
-              <Nav.Item>
-                <LinkContainer to="/">
-                  <Button className="main-nav-button">Tasks</Button>
-                </LinkContainer>
-              </Nav.Item>
-              <Nav.Item>
-                <LinkContainer to="/friends">
-                  <Button className="main-nav-button">Friends</Button>
-                </LinkContainer>
-              </Nav.Item>
-            </Nav>
-          </Container>
+          <NavigationBar></NavigationBar>
           <Container className="profile-dropdown-container">
             <NavDropdown
               align="end"

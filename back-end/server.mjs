@@ -3,6 +3,7 @@ import cors from "cors";
 import data from "./message.json" assert { "type": "json" };
 import db from "./db/conn.mjs";
 import bcrypt from 'bcryptjs'
+import { ObjectId } from "mongodb";
 
 const PORT = process.env.PORT || 5050;
 const app = express();
@@ -37,9 +38,8 @@ app.post("/register", async (req, res) => {
     };
 
     // make collections = a search of all collections with username as the name of the collection
-    //const collections = await db.listCollections().toArray();
-    //const existingCollection = collections.find(collection => collection.name === username);
-    const collection = await db.collection(username);
+    const collections = await db.listCollections().toArray();
+    const existingCollection = collections.find(collection => collection.name === username);
 
     //console.log(existingCollection);
 
@@ -77,13 +77,14 @@ app.post("/add", async (req, res) => {
 });
 
 app.put("/updatetask/:id", async (req, res) => {
-    let collection = await db.collection("Tasks");
     const taskID = req.body.id;
     let newStatus = req.body.status;
 
+    let objectId = new ObjectId(taskID);
+
     if (newStatus != null) {
         const result = await db.collection("Tasks").updateOne(
-            { "taskName": req.body.name },
+            { "_id": objectId },
             { $set: { "taskStatus": newStatus } }
         );
 
@@ -132,7 +133,7 @@ app.post("/:username", async (req, res) => {
     let results = await collection.find({ "user": username }).toArray();
 
     // display results for testing
-    //console.log("results: ", results);
+    //console.log("USER FETCH RESULTS", results);
 
     res.send(results).status(200);
 });
@@ -152,7 +153,7 @@ app.put("/update", async (req, res) => {    // update user password
     const newPwd = bcrypt.hashSync(req.body.newPassword, salt);
 
     console.log("New password: " + req.body.newPassword);
-    console.log(newPwd);
+    //console.log(newPwd);
     //console.log(newPwd);
     if (results.length > 0) {   // check if password is correct
 

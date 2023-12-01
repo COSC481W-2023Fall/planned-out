@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import CalendarView from "../components/CalendarView.js";
 import TaskAdd from "../components/TaskAdd.js";
 import TaskList from "../components/TaskList.js";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from '../themes/GlobalStyles.js';
@@ -19,7 +19,7 @@ const Home = () => {
   const { theme, themeLoaded } = useTheme();
   const [selectedTheme, setSelectedTheme] = useState(theme);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setSelectedTheme(theme);
   }, [theme, themeLoaded]);
 
@@ -95,8 +95,8 @@ const Home = () => {
               {isTaskAddShown &&
                 <Card className="tasks-add">
                   <div className="taskAddHeader">
-                    <Card.Title class="addHeader">New Task</Card.Title>
-                    <div class="cbDiv"><CloseButton className="closeButton" onClick={goBack}></CloseButton></div>
+                    <Card.Title className="addHeader">New Task</Card.Title>
+                    <div className="cbDiv"><CloseButton className="closeButton" onClick={goBack}></CloseButton></div>
                     
                     {/* <p className="backText" onClick={goBack}>Back</p> */}
                     {/* <Button className="backButton" onClick={goBack}>back</Button> */}
@@ -110,11 +110,12 @@ const Home = () => {
             </Col>
             {/* Calendar Card */}
             <Col sm={8}>
-              <Card className="react-calendar">
+              <Card className="calendar-card">
                 <Card.Title>Calendar</Card.Title>
-                <div className="calendar-container">
+                <div className="calendar-container no-scroll">
                   <CalendarView username={username} />
                 </div>
+                <div className="d-flex flex-column"></div>
               </Card>
             </Col>
           </Row>

@@ -12,13 +12,20 @@ const FriendsList = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [username, setUsername] = useState([]);
-    const [friendsList, setFriendsList] = useState([]);
+    const [leaderboardList, setLeaderboardList] = useState([]);
     const [dateRange, setDateRange] = useState(['total']);
     const [friendAdd, setFriendAdd] = useState([]);
+    const [hasTriggered, setHasTriggered] = useState(false);
 
     // Listen for date_range in localStorage
     window.addEventListener('date_range', () => {
-        setDateRange(localStorage.getItem("date_range"));
+        if (hasTriggered) {
+            console.log('Date range event already triggered');
+        }
+        else {
+            setHasTriggered(true);
+            setDateRange(localStorage.getItem("date_range"));
+        }
     })
 
     const setUserToCompare = (userToCompare) => {
@@ -27,7 +34,7 @@ const FriendsList = () => {
     }
 
     useEffect(() => {
-        setFriendsList([]);
+        setLeaderboardList([]);
         fetch(link + "get-friends", {
             method: "PUT",
             headers: {
@@ -41,8 +48,8 @@ const FriendsList = () => {
             .then((res) => res.json())
             .then((data) => {
                 getUser(data['friends'], dateRange)
+                addCurrentUser();
             })
-        addCurrentUser();
     }, [friendAdd, dateRange]);
 
     function getUser(friends, daterange) {
@@ -64,9 +71,9 @@ const FriendsList = () => {
                         if (profilePic === undefined) {
                             profilePic = "default";
                         }
-                        setFriendsList(friendsList => {
+                        setLeaderboardList(leaderboardList => {
                             return [
-                                ...friendsList,
+                                ...leaderboardList,
                                 {
                                     name: (data['firstName'] + " " + data['lastName']),
                                     username: friends[i],
@@ -131,9 +138,9 @@ const FriendsList = () => {
                 if (profilePic === undefined) {
                     profilePic = "default";
                 }
-                setFriendsList(friendsList => {
+                setLeaderboardList(leaderboardList => {
                     return [
-                        ...friendsList,
+                        ...leaderboardList,
                         {
                             name: (data['firstName'] + " " + data['lastName']),
                             username: data['username'],
@@ -168,23 +175,21 @@ const FriendsList = () => {
                 <Button onClick={handleShow}>Add friend</Button>
             </div>
             <div className="friends-div no-scroll">
-                {friendsList
+                {leaderboardList
                     .sort((a, b) => b.percentOfTasks - a.percentOfTasks)
                     .map((friend, index) => (
-                        <div>
-                            <Card onClick={() => setUserToCompare(friend.username)} className="friend-info-card" key={"frienddiv" + index}>
-                                <div className="friend-info">
-                                    <img className="friends-list-profile-pic" alt={friend.profilePic} key={"profilePic" + index} src={"/avatars/" + friend.profilePic + ".png"}></img>
-                                    <div className="friends-name-user-container">
-                                        <div className="name-username">
-                                            <p className="friend-name" key={"friend" + index}>{friend.name}</p>
-                                            <p className="friend-username" key={"friendusername" + index}>({friend.username})</p>
-                                        </div>
-                                        <p className="tasks-completed" key={"count" + index}>{getDateRange()} tasks: {friend.numOfTasksCompleted}/{friend.numOfTasks}</p>
+                        <Card onClick={() => setUserToCompare(friend.username)} className="friend-info-card" key={"frienddiv" + index}>
+                            <div className="friend-info" key={"friend-info-div" + index}>
+                                <img className="friends-list-profile-pic" alt={friend.profilePic} key={"profilePic" + index} src={"/avatars/" + friend.profilePic + ".png"}></img>
+                                <div className="friends-name-user-container" key={"friends-name-user-container" + index}>
+                                    <div className="name-username" key={"name-username" + index}>
+                                        <p className="friend-name" key={"friend" + index}>{friend.name}</p>
+                                        <p className="friend-username" key={"friendusername" + index}>({friend.username})</p>
                                     </div>
+                                    <p className="tasks-completed" key={"count" + index}>{getDateRange()} tasks: {friend.numOfTasksCompleted}/{friend.numOfTasks}</p>
                                 </div>
-                            </Card>
-                        </div>
+                            </div>
+                        </Card>
                     ))}
             </div>
             <Modal show={show} onHide={handleClose}>

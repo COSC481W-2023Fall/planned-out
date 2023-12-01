@@ -12,10 +12,19 @@ const FriendsGraph = () => {
     const [currentUser, setCurrentUser] = useState([]);
     const { theme } = useTheme();
     const [hasTriggered, setHasTriggered] = useState(false);
+    const [hasDateTriggered, setHasDateTriggered] = useState(false);
+    const [friendsList, setFriendsList] = useState([]);
+    const [compareExists, setCompareExists] = useState(false);
 
     // Listen for date_range in localStorage
     window.addEventListener('date_range', () => {
-        setDateRange(localStorage.getItem("date_range"));
+        if (hasDateTriggered) {
+            console.log('Event already triggered');
+        }
+        else {
+            setHasDateTriggered(true);
+            setDateRange(localStorage.getItem("date_range"));
+        }
     })
 
     // Listen for user_compare in localStorage
@@ -31,6 +40,8 @@ const FriendsGraph = () => {
 
     useEffect(() => {
         setGraphData([]);
+        setFriendsList([]);
+        setCompareExists(false);
         fetch(link + "get-friends", {
             method: "PUT",
             headers: {
@@ -43,9 +54,10 @@ const FriendsGraph = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                getUser(data['friends'], dateRange)
+                getUser(data['friends'], dateRange);
+                addCurrentUser();
+                getFriendsList();
             })
-        addCurrentUser();
     }, [dateRange]);
 
     function getUser(friends, daterange) {
@@ -138,6 +150,7 @@ const FriendsGraph = () => {
                 }
             ]
         })
+        setCompareExists(true);
     }
 
     function addCurrentUser() {
@@ -170,18 +183,55 @@ const FriendsGraph = () => {
             });
     }
 
+    function getFriendsList() {
+        if (friendsList !== undefined) {
+            fetch(link + "get-friends", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: localStorage.getItem("user"),
+                }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setFriendsList(data['friends'])
+                });
+        }
+    }
 
     return (
-        <ResponsiveContainer width="100%" height="90%">
-            <BarChart data={graphData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis domain={[0, 100]} />
-                <Bar name="Percentage of tasks completed" dataKey="percentage" fill={theme['colors']['accent']} activeBar={<Rectangle fill="lightgrey" stroke="blue" />}>
-                    <LabelList dataKey="percentage" formatter={(percentage) => `${percentage}%`} position="top" />
-                </Bar>
-            </BarChart>
-        </ResponsiveContainer>
+        <>
+            {friendsList &&
+                <>
+                    {((graphData.length === (friendsList.length + 1)) || (compareExists === true)) &&
+                        <ResponsiveContainer width="100%" height="90%" >
+                            <BarChart className="bar-chart" data={graphData}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis domain={[0, 100]} />
+                                <Bar name="Percentage of tasks completed" animationDuration={500} dataKey="percentage" fill={theme['colors']['accent']} activeBar={<Rectangle fill="lightgrey" stroke="blue" />}>
+                                    <LabelList dataKey="percentage" formatter={(percentage) => `${percentage}%`} position="top" />
+                                </Bar>
+                            </BarChart>
+                        </ResponsiveContainer >
+                    }
+                </>
+            }
+            {graphData.length === 1 && (friendsList === undefined) &&
+                <ResponsiveContainer width="100%" height="90%" >
+                            <BarChart className="bar-chart" data={graphData}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis domain={[0, 100]} />
+                                <Bar name="Percentage of tasks completed" animationDuration={500} dataKey="percentage" fill={theme['colors']['accent']} activeBar={<Rectangle fill="lightgrey" stroke="blue" />}>
+                                    <LabelList dataKey="percentage" formatter={(percentage) => `${percentage}%`} position="top" />
+                                </Bar>
+                            </BarChart>
+                        </ResponsiveContainer >
+            }
+        </>
     );
 };
 

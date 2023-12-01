@@ -2,8 +2,7 @@
 :root {
   --background-color: #ffffff;
   --text-color: #000000;
-  --text-color-filter: invert(0%) sepia(100%) saturate(0%) hue-rotate(21deg)
-    brightness(97%) contrast(103%);
+  --text-color-filter: invert(0%) sepia(100%) saturate(0%) hue-rotate(21deg) brightness(97%) contrast(103%);
   --card-background-color: var(--background-color);
 }
 
@@ -12,15 +11,15 @@
   :root {
     --background-color: #121212;
     --text-color: #d1cfcf;
-    --text-color-filter: invert(93%) sepia(18%) saturate(13%) hue-rotate(314deg)
-      brightness(90%) contrast(84%);
+    --text-color-filter: invert(93%) sepia(18%) saturate(13%) hue-rotate(314deg) brightness(90%) contrast(84%);
     --card-background-color: #3b3b3b;
   }
 }
 
 /* Font for logo */
 @font-face {
-  font-family: "Light"; /*Can be any text*/
+  font-family: "Light";
+  /*Can be any text*/
   src: local("orange juice 2.0"),
     url("./fonts/orange juice 2.0.ttf") format("truetype");
 }
@@ -47,11 +46,15 @@ code {
     monospace;
 }
 
+.col, .col-sm-8 {
+  height: fit-content !important;
+}
+
 /* ----- NAVBAR ----- */
 
 .navbar {
   border-bottom: 1px solid lightgrey;
-  margin-bottom: 3em;
+  margin-bottom: 2em;
   padding: 1em;
 }
 
@@ -102,11 +105,25 @@ code {
 /* ----- TASK VIEW ----- */
 div.tasks-card,
 div.tasks-add,
-div.calendar-card div.tasks-card,
-div.react-calendar {
+div.calendar-card {
   height: 80vh;
   padding: 1.5em;
   border-radius: 24px;
+}
+
+div.calendar-card {
+  text-align: center;
+}
+
+div.calendar-container {
+  margin: 1em 2em 0em 2em;
+  overflow: scroll;
+}
+
+.react-calendar__month-view__days {
+  .react-calendar__tile {
+    max-height: 8vh !important;
+  }
 }
 
 div.card-title {
@@ -120,11 +137,15 @@ div.task-list {
 }
 
 .no-scroll {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
+
 .no-scroll::-webkit-scrollbar {
-  display: none; /* Chrome, Safari and Opera */
+  display: none;
+  /* Chrome, Safari and Opera */
 }
 
 div.task {
@@ -138,7 +159,7 @@ div.task label {
 }
 
 div.task label:hover {
-    text-decoration:underline !important;
+  text-decoration: underline !important;
 }
 
 .d-flex {
@@ -205,16 +226,19 @@ div.tasks-add .taskDescBox,
 .react-calendar__navigation {
   margin-bottom: 1em;
   display: flex;
+  max-height: fit-content;
 }
 
 .react-calendar__navigation__label {
   font-size: 1.5em;
   font-weight: bold;
+  max-height: 50px !important;
 }
 
 .react-calendar__navigation__arrow {
   font-size: 1.5em;
   flex-grow: 0.333;
+  max-height: 50px !important;
 }
 
 .react-calendar__month-view__weekdays {
@@ -330,23 +354,27 @@ p.settings-section {
   margin-top: 1em;
   font-size: 150%;
 }
-div.taskAddHeader{
+
+div.taskAddHeader {
   display: grid;
   grid-template-columns: 80% 20%;
   align-items: center;
 }
-div.cbDiv{
-  display:grid;
+
+div.cbDiv {
+  display: grid;
   justify-items: right;
 }
-.closeButton{
+
+.closeButton {
   filter: var(--text-color-filter) !important;
   opacity: 100% !important;
   height: 10px !important;
   width: 10px !important;
   margin: 0 !important;
 }
-.addHeader{
+
+.addHeader {
   align-items: center;
   display: flex;
   font-size: 1.25rem;
