@@ -56,7 +56,7 @@ const SettingsCard = (props) => {
             //next 2 lines need to be changed to direct to user home
             // e.preventDefault(); //comment out when backend is ready
             // window.location.href = "./login"; //comment out when backend is ready
-
+            
             // Send the name input to the server
             fetch(link + "update", {
                 method: "PUT",
@@ -70,7 +70,6 @@ const SettingsCard = (props) => {
                 })
             })
                 .then((res) => {
-                    console.log("hello");
                     if (res.status === 200) {
                         console.log("Successfully updated password!");
                     } else {
