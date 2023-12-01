@@ -55,7 +55,7 @@ const SettingsCard = (props) => {
     ) {
       console.log(newPassword1);
       //next 2 lines need to be changed to direct to user home
-      e.preventDefault(); //comment out when backend is ready
+      //e.preventDefault(); //comment out when backend is ready
       // window.location.href = "./login"; //comment out when backend is ready
 
       // Send the name input to the server
@@ -157,7 +157,7 @@ const SettingsCard = (props) => {
               className="login-button"
               variant="primary"
               onClick={handleSubmit}
-              //   type="submit"
+                 type="submit"
             >
               Submit
             </Button>
