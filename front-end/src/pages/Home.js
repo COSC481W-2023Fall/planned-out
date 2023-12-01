@@ -95,8 +95,8 @@ const Home = () => {
               {isTaskAddShown &&
                 <Card className="tasks-add">
                   <div className="taskAddHeader">
-                    <Card.Title class="addHeader">New Task</Card.Title>
-                    <div class="cbDiv"><CloseButton className="closeButton" onClick={goBack}></CloseButton></div>
+                    <Card.Title className="addHeader">New Task</Card.Title>
+                    <div className="cbDiv"><CloseButton className="closeButton" onClick={goBack}></CloseButton></div>
                     
                     {/* <p className="backText" onClick={goBack}>Back</p> */}
                     {/* <Button className="backButton" onClick={goBack}>back</Button> */}

@@ -3,6 +3,7 @@ import cors from "cors";
 import data from "./message.json" assert { "type": "json" };
 import db from "./db/conn.mjs";
 import bcrypt from 'bcryptjs'
+import { ObjectId } from "mongodb";
 
 const PORT = process.env.PORT || 5050;
 const app = express();
@@ -76,13 +77,14 @@ app.post("/add", async (req, res) => {
 });
 
 app.put("/updatetask/:id", async (req, res) => {
-    let collection = await db.collection("Tasks");
     const taskID = req.body.id;
     let newStatus = req.body.status;
 
+    let objectId = new ObjectId(taskID);
+
     if (newStatus != null) {
         const result = await db.collection("Tasks").updateOne(
-            { "taskName": req.body.name },
+            { "_id": objectId },
             { $set: { "taskStatus": newStatus } }
         );
 
@@ -131,7 +133,7 @@ app.post("/:username", async (req, res) => {
     let results = await collection.find({ "user": username }).toArray();
 
     // display results for testing
-    //console.log("results: ", results);
+    //console.log("USER FETCH RESULTS", results);
 
     res.send(results).status(200);
 });

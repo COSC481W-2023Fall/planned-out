@@ -135,6 +135,7 @@ function TaskList({ username }) {
 
     const handleChecked = (checkID, labelID, taskID, taskName, taskDate, taskDesc, taskStatus) =>
         (event) => {
+            console.log("Checked task date", taskDate);
             let label = document.getElementById(labelID);
 
             if (checkID.includes("checked")) {
@@ -149,7 +150,7 @@ function TaskList({ username }) {
                 label.className = "checked";
             }
             let fetchRequest =
-                "https://planned-out-backend-jdx6.onrender.com/updatetask/:" + taskID;
+                link + "updatetask/:" + taskID;
 
             fetch(fetchRequest, {
                 method: "PUT",
