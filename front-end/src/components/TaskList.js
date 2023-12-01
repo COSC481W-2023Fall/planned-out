@@ -38,9 +38,6 @@ function TaskList({ username }) {
         let date = new Date();
         let month = date.getMonth() + 1;
         let day = date.getDate();
-        if (day < 10) {
-            day = "0" + day;
-        }
         let year = date.getFullYear();
 
         return (month + "-" + day + "-" + year);
@@ -180,7 +177,7 @@ function TaskList({ username }) {
         setTaskDesc(taskDesc);
         setTaskName(taskName);
     };
-
+    
     return (
         <>
             {tasksDate === getToday() &&
