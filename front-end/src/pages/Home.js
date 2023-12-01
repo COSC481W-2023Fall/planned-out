@@ -112,7 +112,7 @@ const Home = () => {
             <Col sm={8}>
               <Card className="calendar-card">
                 <Card.Title>Calendar</Card.Title>
-                <div className="calendar-container">
+                <div className="calendar-container no-scroll">
                   <CalendarView username={username} />
                 </div>
                 <div className="d-flex flex-column"></div>
