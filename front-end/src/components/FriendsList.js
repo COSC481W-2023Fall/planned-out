@@ -12,13 +12,20 @@ const FriendsList = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [username, setUsername] = useState([]);
-    const [friendsList, setFriendsList] = useState([]);
+    const [leaderboardList, setLeaderboardList] = useState([]);
     const [dateRange, setDateRange] = useState(['total']);
     const [friendAdd, setFriendAdd] = useState([]);
+    const [hasTriggered, setHasTriggered] = useState(false);
 
     // Listen for date_range in localStorage
     window.addEventListener('date_range', () => {
-        setDateRange(localStorage.getItem("date_range"));
+        if (hasTriggered) {
+            console.log('Date range event already triggered');
+        }
+        else {
+            setHasTriggered(true);
+            setDateRange(localStorage.getItem("date_range"));
+        }
     })
 
     const setUserToCompare = (userToCompare) => {
@@ -27,7 +34,7 @@ const FriendsList = () => {
     }
 
     useEffect(() => {
-        setFriendsList([]);
+        setLeaderboardList([]);
         fetch(link + "get-friends", {
             method: "PUT",
             headers: {
@@ -41,8 +48,8 @@ const FriendsList = () => {
             .then((res) => res.json())
             .then((data) => {
                 getUser(data['friends'], dateRange)
+                addCurrentUser();
             })
-        addCurrentUser();
     }, [friendAdd, dateRange]);
 
     function getUser(friends, daterange) {
@@ -64,9 +71,9 @@ const FriendsList = () => {
                         if (profilePic === undefined) {
                             profilePic = "default";
                         }
-                        setFriendsList(friendsList => {
+                        setLeaderboardList(leaderboardList => {
                             return [
-                                ...friendsList,
+                                ...leaderboardList,
                                 {
                                     name: (data['firstName'] + " " + data['lastName']),
                                     username: friends[i],
@@ -131,9 +138,9 @@ const FriendsList = () => {
                 if (profilePic === undefined) {
                     profilePic = "default";
                 }
-                setFriendsList(friendsList => {
+                setLeaderboardList(leaderboardList => {
                     return [
-                        ...friendsList,
+                        ...leaderboardList,
                         {
                             name: (data['firstName'] + " " + data['lastName']),
                             username: data['username'],
@@ -158,6 +165,8 @@ const FriendsList = () => {
         }
     }
 
+    console.log(leaderboardList);
+
     return (
         <>
             <div className="friends-list-header">
@@ -168,7 +177,7 @@ const FriendsList = () => {
                 <Button onClick={handleShow}>Add friend</Button>
             </div>
             <div className="friends-div no-scroll">
-                {friendsList
+                {leaderboardList
                     .sort((a, b) => b.percentOfTasks - a.percentOfTasks)
                     .map((friend, index) => (
                         <div>
