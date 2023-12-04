@@ -232,103 +232,106 @@ app.put("/get-friend-info", async (req, res) => {
 
     // Get the user's collection
     let collection = await db.collection(username);
-    // Get the profile pic type
-    let result = await collection.findOne({ user: username }, { $get: "profile_picture" });
 
-    let tasksCollection = await db.collection("Tasks");
+    // Only try if the user exists 
+    if (collection) {
+        // Get the profile pic type
+        let result = await collection.findOne({ user: username }, { $get: "profile_picture" });
 
-    let numOfTasksCompleted = 0;
-    let numOfTasks = 0;
-    let percentOfTasks = 0;
+        let tasksCollection = await db.collection("Tasks");
 
-    // If the date range is daily
-    if (dateRange == 'daily') {
-        // Get today's date and convert it for db
-        let today = new Date();
-        let dateToSend = convertDateForDb(today);
+        let numOfTasksCompleted = 0;
+        let numOfTasks = 0;
+        let percentOfTasks = 0;
 
-        // Get the user's number of completed tasks
-        numOfTasksCompleted = await tasksCollection.countDocuments({ "user": username, "taskStatus": "Complete", "taskDate": dateToSend });
-        // Get the user's number of total tasks
-        numOfTasks = await tasksCollection.countDocuments({ "user": username, "taskDate": dateToSend });
+        // If the date range is daily
+        if (dateRange == 'daily') {
+            // Get today's date and convert it for db
+            let today = new Date();
+            let dateToSend = convertDateForDb(today);
+
+            // Get the user's number of completed tasks
+            numOfTasksCompleted = await tasksCollection.countDocuments({ "user": username, "taskStatus": "Complete", "taskDate": dateToSend });
+            // Get the user's number of total tasks
+            numOfTasks = await tasksCollection.countDocuments({ "user": username, "taskDate": dateToSend });
+            // Calculate the completed task percentage
+            percentOfTasks = Math.round((numOfTasksCompleted / numOfTasks) * 100);
+        }
+
+        // If the date range is weekly
+        if (dateRange == 'weekly') {
+            // Get today's date
+            let dateToday = new Date();
+            // Convert today's date into db date format
+            let dateTodayToSend = convertDateForDb(dateToday);
+
+            // Week ago date
+            let weekAgoDate = dateToday;
+            weekAgoDate.setDate(weekAgoDate.getDate() - 7);
+            // Conver week ago date into db date format
+            let weekAgoDateToSend = convertDateForDb(weekAgoDate);
+
+            // Get the user's number of completed tasks
+            numOfTasksCompleted = await tasksCollection.countDocuments({
+                "user": username, "taskStatus": "Complete", "taskDate": {
+                    $gte: weekAgoDateToSend,
+                    $lte: dateTodayToSend
+                }
+            });
+            // Get the user's number of total tasks
+            numOfTasks = await tasksCollection.countDocuments({
+                "user": username, "taskDate": {
+                    $gte: weekAgoDateToSend,
+                    $lte: dateTodayToSend
+                }
+            });
+            // Calculate the completed task percentage
+            percentOfTasks = Math.round((numOfTasksCompleted / numOfTasks) * 100);
+        }
+
+        // If the date range is monthly
+        if (dateRange == 'monthly') {
+            // Get today's date
+            let dateToday = new Date();
+            // Convert today's date into db date format
+            let dateTodayToSend = convertDateForDb(dateToday);
+
+            // Month ago date
+            let monthAgoDate = dateToday;
+            monthAgoDate.setDate(monthAgoDate.getDate() - 31);
+            // Conver week ago date into db date format
+            let monthAgoDateToSend = convertDateForDb(monthAgoDate);
+
+            // Get the user's number of completed tasks
+            numOfTasksCompleted = await tasksCollection.countDocuments({
+                "user": username, "taskStatus": "Complete", "taskDate": {
+                    $gte: monthAgoDateToSend,
+                    $lte: dateTodayToSend
+                }
+            });
+            // Get the user's number of total tasks
+            numOfTasks = await tasksCollection.countDocuments({
+                "user": username, "taskDate": {
+                    $gte: monthAgoDateToSend,
+                    $lte: dateTodayToSend
+                }
+            });
+        }
+
+        // If the date range is total of all tasks
+        if (dateRange == 'total') {
+            // Get the user's number of completed tasks
+            numOfTasksCompleted = await tasksCollection.countDocuments({ "user": username, "taskStatus": "Complete" });
+            // Get the user's number of total tasks
+            numOfTasks = await tasksCollection.countDocuments({ "user": username });
+        }
+
         // Calculate the completed task percentage
         percentOfTasks = Math.round((numOfTasksCompleted / numOfTasks) * 100);
-    }
 
-    // If the date range is weekly
-    if (dateRange == 'weekly') {
-        // Get today's date
-        let dateToday = new Date();
-        // Convert today's date into db date format
-        let dateTodayToSend = convertDateForDb(dateToday);
-
-        // Week ago date
-        let weekAgoDate = dateToday;
-        weekAgoDate.setDate(weekAgoDate.getDate() - 7);
-        // Conver week ago date into db date format
-        let weekAgoDateToSend = convertDateForDb(weekAgoDate);
-
-        // Get the user's number of completed tasks
-        numOfTasksCompleted = await tasksCollection.countDocuments({
-            "user": username, "taskStatus": "Complete", "taskDate": {
-                $gte: weekAgoDateToSend,
-                $lte: dateTodayToSend
-            }
-        });
-        // Get the user's number of total tasks
-        numOfTasks = await tasksCollection.countDocuments({
-            "user": username, "taskDate": {
-                $gte: weekAgoDateToSend,
-                $lte: dateTodayToSend
-            }
-        });
-        // Calculate the completed task percentage
-        percentOfTasks = Math.round((numOfTasksCompleted / numOfTasks) * 100);
-    }
-
-    // If the date range is monthly
-    if (dateRange == 'monthly') {
-        // Get today's date
-        let dateToday = new Date();
-        // Convert today's date into db date format
-        let dateTodayToSend = convertDateForDb(dateToday);
-
-        // Month ago date
-        let monthAgoDate = dateToday;
-        monthAgoDate.setDate(monthAgoDate.getDate() - 31);
-        // Conver week ago date into db date format
-        let monthAgoDateToSend = convertDateForDb(monthAgoDate);
-
-        // Get the user's number of completed tasks
-        numOfTasksCompleted = await tasksCollection.countDocuments({
-            "user": username, "taskStatus": "Complete", "taskDate": {
-                $gte: monthAgoDateToSend,
-                $lte: dateTodayToSend
-            }
-        });
-        // Get the user's number of total tasks
-        numOfTasks = await tasksCollection.countDocuments({
-            "user": username, "taskDate": {
-                $gte: monthAgoDateToSend,
-                $lte: dateTodayToSend
-            }
-        });
-    }
-
-    // If the date range is total of all tasks
-    if (dateRange == 'total') {
-        // Get the user's number of completed tasks
-        numOfTasksCompleted = await tasksCollection.countDocuments({ "user": username, "taskStatus": "Complete" });
-        // Get the user's number of total tasks
-        numOfTasks = await tasksCollection.countDocuments({ "user": username });
-    }
-
-    // Calculate the completed task percentage
-    percentOfTasks = Math.round((numOfTasksCompleted / numOfTasks) * 100);
-
-    if (isNaN(percentOfTasks)) {
-        percentOfTasks = 0;
-    }
+        if (isNaN(percentOfTasks)) {
+            percentOfTasks = 0;
+        }
 
     let userAndTasksCompleted = {
         firstName: result['userFirst'],
@@ -340,8 +343,13 @@ app.put("/get-friend-info", async (req, res) => {
         percentOfTasks: percentOfTasks
     }
 
-    // Send result
-    res.send(userAndTasksCompleted).status(201);
+        // Send result
+        res.send(userAndTasksCompleted).status(201);
+
+    }
+    else {
+        res.status(400);
+    };
 });
 
 app.put("/update-profile-picture", async (req, res) => {
