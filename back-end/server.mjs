@@ -330,14 +330,18 @@ app.put("/get-friend-info", async (req, res) => {
         percentOfTasks = 0;
     }
 
-    let userAndTasksCompleted = {
-        firstName: result['userFirst'],
-        lastName: result['userLast'], 
-        username: result['user'],
-        profilePic: result['profile_picture'],
-        numOfTasksCompleted: numOfTasksCompleted,
-        numOfTasks: numOfTasks,
-        percentOfTasks: percentOfTasks
+    let userAndTasksCompleted = "";
+
+    if(result['user'] != null) {
+        userAndTasksCompleted = {
+            firstName: result['userFirst'],
+            lastName: result['userLast'], 
+            username: result['user'],
+            profilePic: result['profile_picture'],
+            numOfTasksCompleted: numOfTasksCompleted,
+            numOfTasks: numOfTasks,
+            percentOfTasks: percentOfTasks
+        }
     }
 
     // Send result
