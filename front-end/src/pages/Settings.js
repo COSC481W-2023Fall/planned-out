@@ -11,7 +11,7 @@ import "../pages/Settings.css"
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from '../themes/GlobalStyles.js';
 import { useTheme } from '../themes/useTheme';
-import { useState, useLayoutEffect, useEffect  } from "react";
+import { useState, useLayoutEffect } from "react";
 
 
 let link = localStorage.getItem("backendURL");
@@ -20,44 +20,15 @@ const Settings = () => {
 
     const { theme, themeLoaded } = useTheme();
     const [selectedTheme, setSelectedTheme] = useState(theme);
-    const [name, setName] = useState("");
-    const [username, setUsername] = useState("");
-
-    useEffect(() => {
-        getUser();
-      }, []);
 
     useLayoutEffect(() => {
         setSelectedTheme(theme);
     }, [theme, themeLoaded]);
 
-    function getUser(){
-        fetch(link + "get-friend-info", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username: localStorage.getItem("user") // Gets info on user
-            }),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setName((data['firstName'] + " " + data['lastName']))
-                setUsername(data.username);
-            });
-    }
-
     return (
         themeLoaded && <ThemeProvider theme={selectedTheme}>
             <GlobalStyles />
             <Container className="main-settings-container">
-                <Row>
-                    <Col>
-                        <h2>{username}</h2>
-                        <h4>{name}</h4>
-                    </Col> 
-                </Row>
                 <Tab.Container transition={false} defaultActiveKey="security">
                     <Row>
                         <Col>
